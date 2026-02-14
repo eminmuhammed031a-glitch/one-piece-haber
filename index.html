@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 
     <style>
-        /* --- CSS AYARLARI --- */
+        /* --- CSS AYARLARI (AYNI) --- */
         :root { --bg-paper: #f4e4bc; --bg-dark: #2c241b; --ocean-blue: #006994; --luffy-red: #d62828; --gold: #ffb703; --text-main: #3e2723; --font-heading: 'Pirata One', cursive; --font-body: 'Roboto', sans-serif; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: var(--bg-paper); color: var(--text-main); font-family: var(--font-body); line-height: 1.6; background-image: radial-gradient(#e6d5a8 15%, transparent 16%), radial-gradient(#e6d5a8 15%, transparent 16%); background-size: 60px 60px; background-position: 0 0, 30px 30px; padding-bottom: 50px; }
@@ -60,7 +60,6 @@
         .spin-btn { padding: 10px 30px; background: var(--ocean-blue); color: white; border: none; font-size: 1.2rem; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 0 #003049; }
         .spin-btn:active { transform: translateY(4px); box-shadow: none; }
         .spin-limit { margin-top: 10px; font-size: 0.9rem; color: #555; }
-        
         #leaderboard, #guilds { background: #fff; border: 2px solid var(--bg-dark); border-radius: 10px; padding: 2rem; max-width: 800px; margin: 3rem auto; }
         .rank-table { width: 100%; border-collapse: collapse; }
         .rank-table th { background: var(--bg-dark); color: var(--gold); padding: 10px; text-align: left; }
@@ -368,7 +367,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, doc, setDoc, getDoc, updateDoc, arrayUnion, arrayRemove, addDoc, onSnapshot, query, orderBy, limit, serverTimestamp, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // CONFIG (GÖMÜLDÜ)
+        // FIREBASE ANAHTARLARI (GÖMÜLDÜ)
         const firebaseConfig = {
             apiKey: "AIzaSyAYQ1FVg9YwQTb8kuWIfg9KHiUIHBbkpqY",
             authDomain: "one-piece-haber.firebaseapp.com",
@@ -386,7 +385,7 @@
         let uploadedImg = "https://static.wikia.nocookie.net/onepiece/images/c/c5/Revolutionary_Army_Jolly_Roger.png"; 
         let editImgTemp = "";
 
-        // UI
+        // UI & HELPERS
         window.switchAuthMode = function(mode) {
             if(mode === 'login') { document.getElementById('login-form').style.display='block'; document.getElementById('register-form').style.display='none'; document.getElementById('btn-show-login').classList.add('active'); document.getElementById('btn-show-register').classList.remove('active'); } 
             else { document.getElementById('login-form').style.display='none'; document.getElementById('register-form').style.display='block'; document.getElementById('btn-show-login').classList.remove('active'); document.getElementById('btn-show-register').classList.add('active'); }
@@ -400,14 +399,26 @@
         window.previewImage = function() { const f = document.getElementById('reg-file').files[0]; if(f){ const r=new FileReader(); r.onload=()=>{ uploadedImg=r.result; document.getElementById('img-preview').src=uploadedImg; document.getElementById('img-preview').style.display="block"; }; r.readAsDataURL(f); } }
         window.previewEditImage = function() { const f = document.getElementById('edit-file').files[0]; if(f){ const r=new FileReader(); r.onload=()=>{ editImgTemp=r.result; document.getElementById('edit-preview').src=editImgTemp; }; r.readAsDataURL(f); } }
 
-        // AUTH
+        // AUTH & SELF-REPAIR
         window.checkLogin = async function() {
-            const saved = localStorage.getItem('op_user_v24');
+            const saved = localStorage.getItem('op_user_v25');
             if(saved) {
                 const temp = JSON.parse(saved);
                 if(db) {
                     const snap = await getDoc(doc(db, "users", temp.name));
-                    if(snap.exists()) { currentUser = snap.data(); localStorage.setItem('op_user_v24', JSON.stringify(currentUser)); }
+                    if(snap.exists()) { 
+                        currentUser = snap.data(); 
+                        
+                        // SELF-REPAIR: Eksik alanları tamamla
+                        let needsUpdate = false;
+                        if(currentUser.guild === undefined) { currentUser.guild = ""; needsUpdate = true; }
+                        if(currentUser.friends === undefined) { currentUser.friends = []; needsUpdate = true; }
+                        if(currentUser.friendRequests === undefined) { currentUser.friendRequests = []; needsUpdate = true; }
+                        
+                        if(needsUpdate) await updateUserData();
+                        
+                        localStorage.setItem('op_user_v25', JSON.stringify(currentUser)); 
+                    }
                 }
                 const today = new Date().toDateString();
                 if (currentUser.lastSpinDate !== today) { currentUser.spinsLeft = 3; currentUser.lastSpinDate = today; updateUserData(); }
@@ -424,7 +435,7 @@
             if(snap.exists()) return alert("İsim alınmış!");
             currentUser = { name, pass, bio: bio||"Yeni Korsan", avatar: uploadedImg, bounty: 1000, fruit: "Meyvesiz", fruitVal: 0, spinsLeft: 3, lastSpinDate: new Date().toDateString(), friends: [], friendRequests: [], isActive: true, guild: "" };
             await setDoc(doc(db, "users", name), currentUser);
-            localStorage.setItem('op_user_v24', JSON.stringify(currentUser)); location.reload();
+            localStorage.setItem('op_user_v25', JSON.stringify(currentUser)); location.reload();
         }
         window.performLogin = async function() {
             if(!db) return alert("Hata!");
@@ -432,12 +443,15 @@
             const snap = await getDoc(doc(db, "users", name));
             if(snap.exists() && snap.data().pass === pass) {
                 currentUser = snap.data(); currentUser.isActive = true;
-                if(!currentUser.friends) currentUser.friends=[]; if(!currentUser.friendRequests) currentUser.friendRequests=[]; if(!currentUser.guild) currentUser.guild="";
-                await updateUserData(); localStorage.setItem('op_user_v24', JSON.stringify(currentUser)); location.reload();
+                // SELF-REPAIR LOGIN
+                if(!currentUser.friends) currentUser.friends=[]; 
+                if(!currentUser.friendRequests) currentUser.friendRequests=[]; 
+                if(!currentUser.guild) currentUser.guild="";
+                await updateUserData(); localStorage.setItem('op_user_v25', JSON.stringify(currentUser)); location.reload();
             } else { alert("Hatalı!"); }
         }
-        window.performLogout = function() { if(currentUser){ currentUser.isActive=false; updateUserData(); } localStorage.removeItem('op_user_v24'); location.reload(); }
-        async function updateUserData() { if(!currentUser || !db) return; await setDoc(doc(db, "users", currentUser.name), currentUser); localStorage.setItem('op_user_v24', JSON.stringify(currentUser)); if(document.getElementById('current-score')) document.getElementById('current-score').textContent = currentUser.bounty.toLocaleString(); }
+        window.performLogout = function() { if(currentUser){ currentUser.isActive=false; updateUserData(); } localStorage.removeItem('op_user_v25'); location.reload(); }
+        async function updateUserData() { if(!currentUser || !db) return; await setDoc(doc(db, "users", currentUser.name), currentUser); localStorage.setItem('op_user_v25', JSON.stringify(currentUser)); if(document.getElementById('current-score')) document.getElementById('current-score').textContent = currentUser.bounty.toLocaleString(); }
         
         async function updateGuildTotalBounty(gName) {
             if(!gName) return; const gRef = doc(db, "guilds", gName);
@@ -486,7 +500,7 @@
             if(snap.exists()) { const u = snap.data(); document.getElementById('view-name').textContent = u.name; document.getElementById('view-img').src = u.avatar; document.getElementById('view-bounty').textContent = u.bounty.toLocaleString(); document.getElementById('view-bio').textContent = u.bio; const vf = document.getElementById('view-fruit'); if(u.fruit && u.fruit!=="Meyvesiz") { vf.textContent=u.fruit; vf.style.display="inline-block"; } else { vf.style.display="none"; } document.getElementById('view-status').textContent = u.isActive ? "🟢 Aktif" : "🔴 Pasif"; closeModal('profileModal'); document.getElementById('viewFriendModal').style.display='flex'; }
         }
 
-        // GUILDS (TAMİR EDİLDİ)
+        // --- GUILD SİSTEMİ ---
         window.createGuild = async function() {
             const gName = document.getElementById('guild-create-input').value.trim();
             const gDesc = document.getElementById('guild-desc-input').value.trim();
@@ -506,12 +520,14 @@
             const gRef = doc(db, "guilds", gName);
             const snap = await getDoc(gRef);
             if(!snap.exists()) return alert("Bulunamadı!");
-            const gData = snap.data(); gData.roles[currentUser.name] = "Tayfa";
+            const gData = snap.data(); 
+            // Roles objesi yoksa oluştur (Eski veri koruması)
+            if(!gData.roles) gData.roles = {};
+            gData.roles[currentUser.name] = "Tayfa";
+            
             await updateDoc(gRef, { members: arrayUnion(currentUser.name), roles: gData.roles });
             currentUser.guild = gName; await updateUserData(); await updateGuildTotalBounty(gName); alert("Katıldın!"); openProfile();
         }
-        
-        // AYRILMA DÜZELTİLDİ
         window.leaveGuild = async function() {
             if(!currentUser.guild) return;
             const gName = currentUser.guild; const gRef = doc(db, "guilds", gName);
@@ -519,9 +535,12 @@
             if(snap.exists()) {
                 const gData = snap.data();
                 if(gData.captain === currentUser.name && gData.members.length > 1) return alert("Kaptan ayrılamaz! Önce devret veya tek kal.");
-                // Eğer tek üyeyse ve kaptansa loncayı sil veya boşalt, biz şimdilik sadece çıkarıyoruz
-                delete gData.roles[currentUser.name];
-                await updateDoc(gRef, { members: arrayRemove(currentUser.name), roles: gData.roles });
+                
+                // ROLÜ SİLMEK İÇİN GÜVENLİ YÖNTEM
+                const newRoles = {...gData.roles};
+                delete newRoles[currentUser.name];
+                
+                await updateDoc(gRef, { members: arrayRemove(currentUser.name), roles: newRoles });
             }
             currentUser.guild = ""; await updateUserData(); await updateGuildTotalBounty(gName); alert("Ayrıldın!"); openProfile();
         }
@@ -541,7 +560,11 @@
         window.kickMember = async function(mName) {
             if(!confirm(mName + " atılsın mı?")) return;
             const gRef = doc(db, "guilds", currentUser.guild); const snap = await getDoc(gRef); const gData = snap.data();
-            delete gData.roles[mName]; await updateDoc(gRef, { members: arrayRemove(mName), roles: gData.roles });
+            
+            const newRoles = {...gData.roles};
+            delete newRoles[mName];
+            
+            await updateDoc(gRef, { members: arrayRemove(mName), roles: newRoles });
             const uRef = doc(db, "users", mName); await updateDoc(uRef, { guild: "" });
             await updateGuildTotalBounty(currentUser.guild); openProfile();
         }
@@ -560,13 +583,16 @@
                 const ul = document.getElementById('g-members'); ul.innerHTML = "";
                 const roleClass = { "Kaptan": "role-captain", "Sağ Kol": "role-righthand", "Sol Kol": "role-lefthand", "Kıdemli": "role-senior", "Tayfa": "role-member" };
                 const order = {"Kaptan":1, "Sağ Kol":2, "Sol Kol":3, "Kıdemli":4, "Tayfa":5};
-                const sortedMembers = g.members.sort((a,b) => (order[g.roles[a]] || 5) - (order[g.roles[b]] || 5));
+                
+                // Güvenli sıralama (roles objesi eksikse hata vermesin)
+                const safeRoles = g.roles || {};
+                const sortedMembers = g.members.sort((a,b) => (order[safeRoles[a]] || 5) - (order[safeRoles[b]] || 5));
 
                 for(const m of sortedMembers) {
                      const uSnap = await getDoc(doc(db, "users", m));
                      if(uSnap.exists()) {
                          const uData = uSnap.data();
-                         const role = g.roles[m] || "Tayfa";
+                         const role = safeRoles[m] || "Tayfa";
                          let actions = "";
                          if(currentUser.name === g.captain && m !== currentUser.name) {
                              actions = `<div style="display:inline-block; float:right;"><button class="btn-tiny" style="background:green" onclick="promoteMember('${m}')">▲</button><button class="btn-tiny" style="background:orange" onclick="demoteMember('${m}')">▼</button><button class="btn-tiny" style="background:red" onclick="kickMember('${m}')">X</button></div>`;
