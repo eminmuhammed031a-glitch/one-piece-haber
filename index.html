@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>One Piece Haber | Yeni Dünya</title>
     <link rel="icon" href="https://static.wikia.nocookie.net/onepiece/images/c/c5/Revolutionary_Army_Jolly_Roger.png" type="image/png">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
@@ -25,16 +26,24 @@
         .user-avatar-small { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--gold); background: white; object-fit: cover; }
         section { padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; }
         .section-title { font-family: var(--font-heading); font-size: 3rem; text-align: center; margin-bottom: 3rem; color: var(--bg-dark); text-shadow: 2px 2px 0px rgba(255,255,255,0.4); border-bottom: 2px solid var(--luffy-red); display: inline-block; left: 50%; position: relative; transform: translateX(-50%); }
+        
+        /* News Cards - Resimli */
         .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
         .news-card { background: #fff; border: 2px solid var(--bg-dark); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.3s; box-shadow: 5px 5px 0 rgba(0,0,0,0.2); height: 100%; }
         .news-card:hover { transform: translateY(-5px); box-shadow: 8px 8px 0 rgba(0,0,0,0.3); }
-        .news-img-placeholder { height: 180px; display: flex; align-items: center; justify-content: center; color: white; font-family: var(--font-heading); font-size: 2.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); background-size: cover; background-position: center; }
+        /* Resimlerin Yerleşimi */
+        .news-img-placeholder { height: 200px; display: flex; align-items: flex-end; justify-content: flex-start; color: white; font-family: var(--font-heading); font-size: 2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.9); background-size: cover; background-position: center; padding: 10px; position: relative; }
+        .news-img-placeholder::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; background: linear-gradient(transparent, rgba(0,0,0,0.8)); }
+        .news-title-overlay { position: relative; z-index: 2; }
+        
         .news-content { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
         .tag { display: inline-block; background: var(--bg-dark); color: var(--gold); padding: 4px 8px; font-size: 0.75rem; border-radius: 4px; margin-bottom: 10px; width: fit-content; font-weight: bold;}
         .news-content h3 { font-family: var(--font-heading); font-size: 1.6rem; color: var(--luffy-red); margin-bottom: 0.8rem; line-height: 1.1; }
         .news-content p { font-size: 0.95rem; color: #444; margin-bottom: 1.5rem; flex-grow: 1; }
         .read-more { text-align: center; background: var(--ocean-blue); color: white; padding: 8px; border-radius: 4px; font-weight: bold; cursor: pointer; transition: 0.2s; margin-top: auto; }
         .read-more:hover { background: var(--bg-dark); }
+        
+        /* Games */
         .games-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         .game-item { background: #fff; padding: 15px; border-radius: 8px; border: 1px solid var(--text-main); display: flex; flex-direction: column; gap: 10px; transition: 0.3s; }
         .game-item:hover { transform: translateY(-3px); box-shadow: 0 5px 10px rgba(0,0,0,0.1); }
@@ -43,6 +52,8 @@
         .game-platform { font-size: 0.75rem; font-weight: bold; padding: 2px 6px; border-radius: 4px; color: white; }
         .plat-mobile { background: #e67e22; }
         .plat-roblox { background: #e74c3c; }
+        
+        /* Quiz */
         #quiz-game { background: rgba(255, 255, 255, 0.6); border-radius: 20px; border: 3px dashed var(--bg-dark); padding: 2rem; margin-top: 2rem; }
         .quiz-container { max-width: 800px; margin: 0 auto; text-align: center; }
         .quiz-question { font-size: 1.5rem; font-weight: bold; margin-bottom: 20px; color: var(--bg-dark); }
@@ -51,12 +62,13 @@
         .quiz-btn:hover { background: var(--luffy-red); color: white; transform: scale(1.02); }
         .quiz-score { font-family: var(--font-heading); font-size: 2rem; margin-top: 20px; color: var(--ocean-blue); }
         .feedback { margin-top: 15px; font-weight: bold; min-height: 30px; }
+        
+        /* Fruit */
         #fruit-game { text-align: center; margin-top: 3rem; border-top: 2px solid var(--luffy-red); padding-top: 2rem; }
         .fruit-box { background: #fff; border: 4px double var(--bg-dark); width: 300px; height: 300px; margin: 20px auto; display: flex; flex-direction: column; justify-content: center; align-items: center; border-radius: 50%; box-shadow: 0 0 20px rgba(0,0,0,0.2); transition: 0.5s; position: relative;}
         .fruit-name { font-family: var(--font-heading); font-size: 2rem; color: var(--luffy-red); margin-bottom: 10px; }
         .fruit-type { background: var(--gold); color: var(--bg-dark); padding: 2px 10px; border-radius: 20px; font-weight: bold; font-size: 0.9rem;}
         .fruit-desc { font-size: 0.9rem; padding: 10px; color: #555; }
-        .fruit-chance { position: absolute; bottom: 30px; font-size: 0.8rem; color: #999; }
         .spin-btn { padding: 10px 30px; background: var(--ocean-blue); color: white; border: none; font-size: 1.2rem; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 0 #003049; }
         .spin-btn:active { transform: translateY(4px); box-shadow: none; }
         .spin-limit { margin-top: 10px; font-size: 0.9rem; color: #555; }
@@ -70,16 +82,19 @@
         .role-badge { font-size: 0.7rem; padding: 2px 4px; border-radius: 4px; color: white; margin-left: 5px; }
         .role-captain { background: #d62828; } .role-righthand { background: #e67e22; } .role-lefthand { background: #f1c40f; color: black; } .role-senior { background: #2980b9; } .role-member { background: #95a5a6; }
 
-        /* CHAT */
-        #chat-section { background: rgba(255,255,255,0.7); padding: 2rem; border: 3px solid var(--bg-dark); border-radius: 10px; max-width: 800px; margin: 3rem auto; }
-        #chat-box { height: 300px; overflow-y: auto; border: 1px solid #ccc; background: #fff; padding: 10px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 10px; }
+        /* CHAT - Arkaplan Resimli */
+        #chat-section { 
+            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('xebec.jpg');
+            background-size: cover; background-position: center;
+            padding: 2rem; border: 3px solid var(--bg-dark); border-radius: 10px; max-width: 800px; margin: 3rem auto; 
+        }
+        #chat-box { height: 300px; overflow-y: auto; border: 1px solid #ccc; background: rgba(255,255,255,0.8); padding: 10px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 10px; }
         .chat-msg { max-width: 70%; padding: 8px 12px; border-radius: 10px; font-size: 0.9rem; position: relative; }
         .msg-other { background: #eee; align-self: flex-start; border-bottom-left-radius: 0; }
         .msg-me { background: var(--ocean-blue); color: white; align-self: flex-end; border-bottom-right-radius: 0; }
         .msg-sender { font-size: 0.7rem; font-weight: bold; margin-bottom: 2px; display: block; }
         .chat-input-area { display: flex; gap: 10px; }
         
-        /* POSTS (TEORİ DUVARI) */
         #post-wall { background: #fff; padding: 2rem; border-radius: 10px; border: 2px solid var(--bg-dark); max-width: 800px; margin: 3rem auto; }
         .post-input-box { background: #eee; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
         .post-card { border-bottom: 1px solid #ddd; padding: 15px 0; }
@@ -92,7 +107,6 @@
         .btn-respect { background: var(--gold); border: none; padding: 5px 10px; border-radius: 20px; font-weight: bold; cursor: pointer; color: var(--bg-dark); }
         .btn-respect:hover { background: #e6a800; }
 
-        /* POLL (ANKET) */
         #weekly-poll { background: var(--bg-dark); color: white; padding: 2rem; border-radius: 10px; max-width: 800px; margin: 3rem auto; text-align: center; }
         .poll-options { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
         .poll-option { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 5px; cursor: pointer; text-align: left; position: relative; overflow: hidden; }
@@ -100,7 +114,12 @@
         .poll-bar { position: absolute; top: 0; left: 0; height: 100%; background: rgba(214, 40, 40, 0.5); z-index: 0; transition: width 0.5s; width: 0%; }
         .poll-text { position: relative; z-index: 1; display: flex; justify-content: space-between; }
 
-        #countdown-section { background-color: var(--bg-dark); color: #fff; margin-top: 4rem; border-radius: 10px; text-align: center; border-top: 5px solid var(--gold); padding-bottom: 3rem; }
+        /* Countdown - Resimli Arkaplan */
+        #countdown-section { 
+            background: linear-gradient(rgba(44, 36, 27, 0.9), rgba(44, 36, 27, 0.8)), url('aokiji.jpg');
+            background-size: cover; background-position: center;
+            color: #fff; margin-top: 4rem; border-radius: 10px; text-align: center; border-top: 5px solid var(--gold); padding-bottom: 3rem; 
+        }
         #countdown-section .section-title { color: var(--gold); border-bottom: none; text-shadow: none; }
         .timers-wrapper { display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem; }
         .timer-box { background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 10px; min-width: 250px; border: 1px solid rgba(255,255,255,0.1); }
@@ -169,11 +188,22 @@
         </nav>
     </header>
 
+    <section id="chat-section">
+        <h2 class="section-title">Denizci Salyangozu (Chat)</h2>
+        <div id="chat-box"><div style="text-align:center; color:gray;">Bağlanıyor...</div></div>
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Mesajını yaz korsan..." style="flex-grow:1; padding:10px;">
+            <button class="auth-btn" style="width:auto; margin:0;" onclick="sendMessage()">Gönder</button>
+        </div>
+    </section>
+
     <section id="news">
         <h2 class="section-title">Grand Line'dan Son Dakika</h2>
         <div class="news-grid">
             <article class="news-card">
-                <div class="news-img-placeholder" style="background: linear-gradient(135deg, #d62828, #333);">ELBAF</div>
+                <div class="news-img-placeholder" style="background-image: url('luffy3.jpg');">
+                    <span class="news-title-overlay">ELBAF</span>
+                </div>
                 <div class="news-content">
                     <span class="tag">Manga Spoiler</span>
                     <h3>Bölüm 1174 ve "Büyük Mola"</h3>
@@ -182,7 +212,9 @@
                 </div>
             </article>
             <article class="news-card">
-                <div class="news-img-placeholder" style="background: linear-gradient(135deg, #006994, #222);">SBS</div>
+                <div class="news-img-placeholder" style="background-image: url('robin.jpg');">
+                    <span class="news-title-overlay">SBS</span>
+                </div>
                 <div class="news-content">
                     <span class="tag">SBS Özel</span>
                     <h3>Karakter Sırları</h3>
@@ -191,7 +223,9 @@
                 </div>
             </article>
             <article class="news-card">
-                <div class="news-img-placeholder" style="background: linear-gradient(135deg, #ffb703, #222);">ANIME</div>
+                <div class="news-img-placeholder" style="background-image: url('zoro.jpg');">
+                    <span class="news-title-overlay">ANIME</span>
+                </div>
                 <div class="news-content">
                     <span class="tag">Anime</span>
                     <h3>Anime Dönüşü</h3>
@@ -217,17 +251,7 @@
     <section id="weekly-poll">
         <h2 class="section-title" style="color:var(--gold); border:none;">📊 Haftanın Anketi</h2>
         <h3>Korsanlar Kralı Kim Olacak?</h3>
-        <div class="poll-options" id="poll-options-container">
-            </div>
-    </section>
-
-    <section id="chat-section">
-        <h2 class="section-title">Denizci Salyangozu (Chat)</h2>
-        <div id="chat-box"><div style="text-align:center; color:gray;">Bağlanıyor...</div></div>
-        <div class="chat-input-area">
-            <input type="text" id="chat-input" placeholder="Mesajını yaz korsan..." style="flex-grow:1; padding:10px;">
-            <button class="auth-btn" style="width:auto; margin:0;" onclick="sendMessage()">Gönder</button>
-        </div>
+        <div class="poll-options" id="poll-options-container"></div>
     </section>
 
     <section id="guilds">
@@ -443,7 +467,7 @@
 
         // AUTH & SELF-REPAIR
         window.checkLogin = async function() {
-            const saved = localStorage.getItem('op_user_v26');
+            const saved = localStorage.getItem('op_user_v27');
             if(saved) {
                 const temp = JSON.parse(saved);
                 if(db) {
@@ -455,7 +479,7 @@
                         if(currentUser.friends === undefined) { currentUser.friends = []; needsUpdate = true; }
                         if(currentUser.friendRequests === undefined) { currentUser.friendRequests = []; needsUpdate = true; }
                         if(needsUpdate) await updateUserData();
-                        localStorage.setItem('op_user_v26', JSON.stringify(currentUser)); 
+                        localStorage.setItem('op_user_v27', JSON.stringify(currentUser)); 
                     }
                 }
                 const today = new Date().toDateString();
@@ -473,7 +497,7 @@
             if(snap.exists()) return alert("İsim alınmış!");
             currentUser = { name, pass, bio: bio||"Yeni Korsan", avatar: uploadedImg, bounty: 1000, fruit: "Meyvesiz", fruitVal: 0, spinsLeft: 3, lastSpinDate: new Date().toDateString(), friends: [], friendRequests: [], isActive: true, guild: "" };
             await setDoc(doc(db, "users", name), currentUser);
-            localStorage.setItem('op_user_v26', JSON.stringify(currentUser)); location.reload();
+            localStorage.setItem('op_user_v27', JSON.stringify(currentUser)); location.reload();
         }
         window.performLogin = async function() {
             if(!db) return alert("Hata!");
@@ -482,11 +506,11 @@
             if(snap.exists() && snap.data().pass === pass) {
                 currentUser = snap.data(); currentUser.isActive = true;
                 if(!currentUser.friends) currentUser.friends=[]; if(!currentUser.friendRequests) currentUser.friendRequests=[]; if(!currentUser.guild) currentUser.guild="";
-                await updateUserData(); localStorage.setItem('op_user_v26', JSON.stringify(currentUser)); location.reload();
+                await updateUserData(); localStorage.setItem('op_user_v27', JSON.stringify(currentUser)); location.reload();
             } else { alert("Hatalı!"); }
         }
-        window.performLogout = function() { if(currentUser){ currentUser.isActive=false; updateUserData(); } localStorage.removeItem('op_user_v26'); location.reload(); }
-        async function updateUserData() { if(!currentUser || !db) return; await setDoc(doc(db, "users", currentUser.name), currentUser); localStorage.setItem('op_user_v26', JSON.stringify(currentUser)); if(document.getElementById('current-score')) document.getElementById('current-score').textContent = currentUser.bounty.toLocaleString(); }
+        window.performLogout = function() { if(currentUser){ currentUser.isActive=false; updateUserData(); } localStorage.removeItem('op_user_v27'); location.reload(); }
+        async function updateUserData() { if(!currentUser || !db) return; await setDoc(doc(db, "users", currentUser.name), currentUser); localStorage.setItem('op_user_v27', JSON.stringify(currentUser)); if(document.getElementById('current-score')) document.getElementById('current-score').textContent = currentUser.bounty.toLocaleString(); }
         
         async function updateGuildTotalBounty(gName) {
             if(!gName) return; const gRef = doc(db, "guilds", gName);
@@ -641,15 +665,10 @@
             });
         }
 
-        // ANKET (BASİT VERSİYON)
         const pollOptions = ["Luffy", "Blackbeard", "Shanks", "Buggy"];
-        const pollId = "poll_v1"; // Sabit ID
+        const pollId = "poll_v1";
         
-        async function initPoll() {
-            // Poll dökümanı yoksa oluştur (Sadece ilk sefer için admin işi ama kodda kalsın)
-            // Biz var varsayıp dinleyeceğiz, yoksa UI boş kalır
-            listenPoll();
-        }
+        async function initPoll() { listenPoll(); }
         function listenPoll() {
             const pollRef = doc(db, "polls", pollId);
             onSnapshot(pollRef, (doc) => {
