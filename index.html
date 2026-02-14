@@ -62,22 +62,11 @@
         .spin-btn { padding: 10px 30px; background: var(--ocean-blue); color: white; border: none; font-size: 1.2rem; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 0 #003049; }
         .spin-btn:active { transform: translateY(4px); box-shadow: none; }
         .spin-limit { margin-top: 10px; font-size: 0.9rem; color: #555; }
-        
         #leaderboard, #guilds { background: #fff; border: 2px solid var(--bg-dark); border-radius: 10px; padding: 2rem; max-width: 800px; margin: 3rem auto; }
         .rank-table { width: 100%; border-collapse: collapse; }
         .rank-table th { background: var(--bg-dark); color: var(--gold); padding: 10px; text-align: left; }
-        .rank-table td { padding: 10px; border-bottom: 1px solid #ddd; }
+        .rank-table td { padding: 10px; border-bottom: 1px solid #ddd; vertical-align: middle; }
         .current-user-row { background: #e3f2fd; font-weight: bold; border: 2px solid var(--ocean-blue); }
-        
-        /* CHAT */
-        #chat-section { background: rgba(255,255,255,0.7); padding: 2rem; border: 3px solid var(--bg-dark); border-radius: 10px; max-width: 800px; margin: 3rem auto; }
-        #chat-box { height: 300px; overflow-y: auto; border: 1px solid #ccc; background: #fff; padding: 10px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 10px; }
-        .chat-msg { max-width: 70%; padding: 8px 12px; border-radius: 10px; font-size: 0.9rem; position: relative; }
-        .msg-other { background: #eee; align-self: flex-start; border-bottom-left-radius: 0; }
-        .msg-me { background: var(--ocean-blue); color: white; align-self: flex-end; border-bottom-right-radius: 0; }
-        .msg-sender { font-size: 0.7rem; font-weight: bold; margin-bottom: 2px; display: block; }
-        .chat-input-area { display: flex; gap: 10px; }
-        
         #countdown-section { background-color: var(--bg-dark); color: #fff; margin-top: 4rem; border-radius: 10px; text-align: center; border-top: 5px solid var(--gold); padding-bottom: 3rem; }
         #countdown-section .section-title { color: var(--gold); border-bottom: none; text-shadow: none; }
         .timers-wrapper { display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem; }
@@ -120,12 +109,22 @@
         .btn-accept { background: green; } .btn-decline { background: red; } .btn-remove { background: #555; }
         .fruit-badge { background: var(--gold); color: black; font-size: 0.8rem; padding: 3px 8px; border-radius: 10px; font-weight: bold; display: inline-block; margin-top: 5px;}
         
-        /* GİZLİ SEKME (GUILD) STİLİ */
+        #chat-section { background: rgba(255,255,255,0.7); padding: 2rem; border: 3px solid var(--bg-dark); border-radius: 10px; max-width: 800px; margin: 3rem auto; }
+        #chat-box { height: 300px; overflow-y: auto; border: 1px solid #ccc; background: #fff; padding: 10px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 10px; }
+        .chat-msg { max-width: 70%; padding: 8px 12px; border-radius: 10px; font-size: 0.9rem; position: relative; }
+        .msg-other { background: #eee; align-self: flex-start; border-bottom-left-radius: 0; }
+        .msg-me { background: var(--ocean-blue); color: white; align-self: flex-end; border-bottom-right-radius: 0; }
+        .msg-sender { font-size: 0.7rem; font-weight: bold; margin-bottom: 2px; display: block; }
+        .chat-input-area { display: flex; gap: 10px; }
+        
         .guild-tab-content { display:none; margin-top:15px; border-top: 2px solid #333; padding-top:15px; }
         .guild-tab-content.active { display:block; }
         .tab-btn-group { display:flex; gap:5px; margin-bottom:10px; }
-        .tab-btn { flex:1; padding:5px; border:1px solid #ccc; background:#eee; cursor:pointer; }
+        .tab-btn { flex:1; padding:5px; border:1px solid #ccc; background:#eee; cursor:pointer; font-weight: bold;}
         .tab-btn.active { background:var(--luffy-red); color:white; border-color:var(--luffy-red); }
+        .guild-flag { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); margin-right: 10px; vertical-align: middle; }
+        .role-badge { font-size: 0.7rem; padding: 2px 4px; border-radius: 4px; color: white; margin-left: 5px; }
+        .role-captain { background: #d62828; } .role-righthand { background: #e67e22; } .role-lefthand { background: #f1c40f; color: black; } .role-senior { background: #2980b9; } .role-member { background: #95a5a6; }
 
         footer { text-align: center; margin-top: 50px; color: #666; font-size: 0.9rem; }
         @media (max-width: 768px) { header { flex-direction: column; gap: 10px; } .quiz-options { grid-template-columns: 1fr; } }
@@ -138,9 +137,9 @@
         <nav>
             <ul>
                 <li><a href="#chat-section">Sohbet</a></li>
+                <li><a href="#guilds">İttifak</a></li>
+                <li><a href="#games">Oyunlar</a></li>
                 <li><a href="#leaderboard">Sıralama</a></li>
-                <li><a href="#quiz-game">Test</a></li>
-                <li><a href="#fruit-game">Çark</a></li>
                 <li id="auth-section">
                     <button class="login-btn" onclick="openLoginModal()">Giriş / Kayıt</button>
                 </li>
@@ -149,10 +148,8 @@
     </header>
 
     <section id="chat-section">
-        <h2 class="section-title">Denizci Salyangozu (Global Chat)</h2>
-        <div id="chat-box">
-            <div style="text-align:center; color:gray;">Sohbete bağlanılıyor...</div>
-        </div>
+        <h2 class="section-title">Denizci Salyangozu (Chat)</h2>
+        <div id="chat-box"><div style="text-align:center; color:gray;">Bağlanıyor...</div></div>
         <div class="chat-input-area">
             <input type="text" id="chat-input" placeholder="Mesajını yaz korsan..." style="flex-grow:1; padding:10px;">
             <button class="auth-btn" style="width:auto; margin:0;" onclick="sendMessage()">Gönder</button>
@@ -194,14 +191,10 @@
 
     <section id="guilds">
         <h2 class="section-title">En Güçlü İttifaklar</h2>
-        <div id="leaderboard">
-            <table class="rank-table">
-                <thead><tr><th>#</th><th>İttifak Adı</th><th>Toplam Ödül</th></tr></thead>
-                <tbody id="guild-leaderboard">
-                    <tr><td colspan="3" style="text-align:center;">Yükleniyor...</td></tr>
-                </tbody>
-            </table>
-        </div>
+        <table class="rank-table">
+            <thead><tr><th>#</th><th>Bayrak</th><th>İttifak Adı</th><th>Toplam Ödül</th></tr></thead>
+            <tbody id="guild-leaderboard"><tr><td colspan="4" style="text-align:center;">Yükleniyor...</td></tr></tbody>
+        </table>
     </section>
 
     <section id="leaderboard">
@@ -266,7 +259,9 @@
     <div class="modal-overlay" id="infoModal"><div class="modal-content"><span class="close-modal" onclick="closeModal('infoModal')">×</span><div class="modal-body" id="modalBody"></div></div></div>
     
     <div class="modal-overlay" id="loginModal">
-        <div class="modal-content" style="max-width: 450px;"><span class="close-modal" onclick="closeModal('loginModal')">×</span><h2 style="text-align: center; font-family: var(--font-heading);">Korsan Pasaportu</h2>
+        <div class="modal-content" style="max-width: 450px;">
+            <span class="close-modal" onclick="closeModal('loginModal')">×</span>
+            <h2 style="text-align: center; font-family: var(--font-heading);">Korsan Pasaportu</h2>
             <div class="auth-toggle">
                 <button id="btn-show-login" class="active" onclick="switchAuthMode('login')">Giriş Yap</button>
                 <button id="btn-show-register" onclick="switchAuthMode('register')">Kayıt Ol</button>
@@ -288,7 +283,7 @@
     </div>
 
     <div class="modal-overlay" id="profileModal">
-        <div class="modal-content" style="max-width: 400px; background: transparent; box-shadow: none; border: none;">
+        <div class="modal-content" style="max-width: 500px; background: transparent; box-shadow: none; border: none;">
             <span class="close-modal" onclick="closeModal('profileModal')" style="color: white; z-index: 2001;">×</span>
             <div class="wanted-poster">
                 <div class="wanted-header">WANTED</div><div style="font-size:0.8rem;">DEAD OR ALIVE</div>
@@ -298,13 +293,13 @@
                 <p id="profile-bio" class="bio-text"></p>
 
                 <div class="tab-btn-group" style="margin-top:15px;">
-                    <button class="tab-btn active" onclick="showTab('friends')">Arkadaşlar</button>
+                    <button class="tab-btn active" onclick="showTab('friends')">Tayfa</button>
                     <button class="tab-btn" onclick="showTab('guild')">İttifak</button>
                 </div>
 
                 <div id="tab-friends" class="guild-tab-content active">
                     <strong>Gelen İstekler:</strong><ul id="request-ul" style="border-bottom:1px dashed #5a4a3a; margin-bottom:10px; padding-bottom:5px;"></ul>
-                    <strong>Tayfam (Arkadaş Ekle):</strong>
+                    <strong>Dostlar (Ekle):</strong>
                     <div style="display:flex; gap:5px; margin-bottom:5px;"><input type="text" id="friend-input" placeholder="İsim Gir..." style="width:70%;padding:5px;"><button onclick="sendFriendRequest()" style="padding:5px;cursor:pointer;">EKLE</button></div>
                     <ul id="friend-ul"></ul>
                 </div>
@@ -312,15 +307,27 @@
                 <div id="tab-guild" class="guild-tab-content">
                     <div id="guild-status-area">
                         <p style="font-size:0.9rem;">Bir ittifaka katıl veya kendininkini kur!</p>
-                        <div style="display:flex; gap:5px; margin-bottom:10px;"><input type="text" id="guild-create-input" placeholder="Yeni İttifak Adı" style="padding:5px; width:60%;"><button onclick="createGuild()" style="padding:5px; cursor:pointer;">KUR</button></div>
-                        <div style="display:flex; gap:5px;"><input type="text" id="guild-join-input" placeholder="İttifak Adı" style="padding:5px; width:60%;"><button onclick="joinGuild()" style="padding:5px; cursor:pointer;">KATIL</button></div>
+                        
+                        <div style="background:#eee; padding:10px; border-radius:5px; margin-bottom:10px;">
+                            <strong>Yeni İttifak Kur:</strong>
+                            <input type="text" id="guild-create-input" placeholder="İsim" style="padding:5px; width:100%; margin:5px 0;">
+                            <textarea id="guild-desc-input" placeholder="Açıklama" style="width:100%; height:40px; margin-bottom:5px;"></textarea>
+                            <label style="font-size:0.8rem;">Bayrak Seç:</label>
+                            <input type="file" id="guild-flag-input" accept="image/*" style="font-size:0.8rem;">
+                            <button onclick="createGuild()" style="width:100%; padding:5px; cursor:pointer; background:var(--luffy-red); color:white; border:none; margin-top:5px;">KUR</button>
+                        </div>
+                        
+                        <div style="display:flex; gap:5px;"><input type="text" id="guild-join-input" placeholder="Mevcut İttifak Adı" style="padding:5px; width:70%;"><button onclick="joinGuild()" style="padding:5px; cursor:pointer; width:30%;">KATIL</button></div>
                     </div>
+
                     <div id="my-guild-info" style="display:none;">
-                        <h3 id="g-name" style="color:var(--luffy-red); margin:0;"></h3>
+                        <img id="g-flag-display" class="guild-flag" src="" style="width:60px; height:60px; display:block; margin:0 auto;">
+                        <h3 id="g-name" style="color:var(--luffy-red); margin:5px 0;"></h3>
+                        <p id="g-desc" style="font-size:0.8rem; font-style:italic; color:#555;"></p>
                         <p style="font-size:0.8rem;">Kaptan: <span id="g-captain"></span></p>
                         <p style="font-size:0.8rem;">Toplam Ödül: <span id="g-bounty"></span> ฿</p>
                         <hr>
-                        <ul id="g-members" style="list-style:none; padding:0; font-size:0.8rem; max-height:80px; overflow-y:auto; text-align:left;"></ul>
+                        <ul id="g-members" style="list-style:none; padding:0; font-size:0.8rem; max-height:100px; overflow-y:auto; text-align:left;"></ul>
                         <button onclick="leaveGuild()" style="width:100%; margin-top:5px; background:#555; color:white; border:none; padding:5px; cursor:pointer;">Ayrıl</button>
                     </div>
                 </div>
@@ -362,6 +369,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, doc, setDoc, getDoc, updateDoc, arrayUnion, arrayRemove, addDoc, onSnapshot, query, orderBy, limit, serverTimestamp, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+        // FIREBASE ANAHTARLARI
         const firebaseConfig = {
             apiKey: "AIzaSyAYQ1FVg9YwQTb8kuWIfg9KHiUIHBbkpqY",
             authDomain: "one-piece-haber.firebaseapp.com",
@@ -379,7 +387,7 @@
         let uploadedImg = "https://static.wikia.nocookie.net/onepiece/images/c/c5/Revolutionary_Army_Jolly_Roger.png"; 
         let editImgTemp = "";
 
-        // UI & TAB
+        // UI & HELPERS
         window.switchAuthMode = function(mode) {
             if(mode === 'login') { document.getElementById('login-form').style.display='block'; document.getElementById('register-form').style.display='none'; document.getElementById('btn-show-login').classList.add('active'); document.getElementById('btn-show-register').classList.remove('active'); } 
             else { document.getElementById('login-form').style.display='none'; document.getElementById('register-form').style.display='block'; document.getElementById('btn-show-login').classList.remove('active'); document.getElementById('btn-show-register').classList.add('active'); }
@@ -390,17 +398,17 @@
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
         }
-
         window.previewImage = function() { const f = document.getElementById('reg-file').files[0]; if(f){ const r=new FileReader(); r.onload=()=>{ uploadedImg=r.result; document.getElementById('img-preview').src=uploadedImg; document.getElementById('img-preview').style.display="block"; }; r.readAsDataURL(f); } }
         window.previewEditImage = function() { const f = document.getElementById('edit-file').files[0]; if(f){ const r=new FileReader(); r.onload=()=>{ editImgTemp=r.result; document.getElementById('edit-preview').src=editImgTemp; }; r.readAsDataURL(f); } }
 
+        // AUTH
         window.checkLogin = async function() {
-            const saved = localStorage.getItem('op_user_v21');
+            const saved = localStorage.getItem('op_user_v22');
             if(saved) {
                 const temp = JSON.parse(saved);
                 if(db) {
                     const snap = await getDoc(doc(db, "users", temp.name));
-                    if(snap.exists()) { currentUser = snap.data(); localStorage.setItem('op_user_v21', JSON.stringify(currentUser)); }
+                    if(snap.exists()) { currentUser = snap.data(); localStorage.setItem('op_user_v22', JSON.stringify(currentUser)); }
                 }
                 const today = new Date().toDateString();
                 if (currentUser.lastSpinDate !== today) { currentUser.spinsLeft = 3; currentUser.lastSpinDate = today; updateUserData(); }
@@ -409,94 +417,59 @@
                 listenLeaderboard(); listenChat(); listenGuilds();
             }
         }
-
         window.performRegister = async function() {
             if(!db) return alert("Hata!");
-            const name = document.getElementById('reg-name').value.trim();
-            const pass = document.getElementById('reg-pass').value;
-            const bio = document.getElementById('reg-bio').value;
+            const name = document.getElementById('reg-name').value.trim(); const pass = document.getElementById('reg-pass').value; const bio = document.getElementById('reg-bio').value;
             if(!name || !pass) return alert("Eksik bilgi!");
             const snap = await getDoc(doc(db, "users", name));
             if(snap.exists()) return alert("İsim alınmış!");
             currentUser = { name, pass, bio: bio||"Yeni Korsan", avatar: uploadedImg, bounty: 1000, fruit: "Meyvesiz", fruitVal: 0, spinsLeft: 3, lastSpinDate: new Date().toDateString(), friends: [], friendRequests: [], isActive: true, guild: "" };
             await setDoc(doc(db, "users", name), currentUser);
-            localStorage.setItem('op_user_v21', JSON.stringify(currentUser));
-            location.reload();
+            localStorage.setItem('op_user_v22', JSON.stringify(currentUser)); location.reload();
         }
-
         window.performLogin = async function() {
             if(!db) return alert("Hata!");
-            const name = document.getElementById('login-name').value.trim();
-            const pass = document.getElementById('login-pass').value;
+            const name = document.getElementById('login-name').value.trim(); const pass = document.getElementById('login-pass').value;
             const snap = await getDoc(doc(db, "users", name));
             if(snap.exists() && snap.data().pass === pass) {
                 currentUser = snap.data(); currentUser.isActive = true;
-                if(!currentUser.friends) currentUser.friends=[]; if(!currentUser.friendRequests) currentUser.friendRequests=[];
-                if(!currentUser.guild) currentUser.guild="";
-                await updateUserData();
-                localStorage.setItem('op_user_v21', JSON.stringify(currentUser));
-                location.reload();
+                if(!currentUser.friends) currentUser.friends=[]; if(!currentUser.friendRequests) currentUser.friendRequests=[]; if(!currentUser.guild) currentUser.guild="";
+                await updateUserData(); localStorage.setItem('op_user_v22', JSON.stringify(currentUser)); location.reload();
             } else { alert("Hatalı!"); }
         }
-
-        window.performLogout = function() { if(currentUser){ currentUser.isActive=false; updateUserData(); } localStorage.removeItem('op_user_v21'); location.reload(); }
-        async function updateUserData() { if(!currentUser || !db) return; await setDoc(doc(db, "users", currentUser.name), currentUser); localStorage.setItem('op_user_v21', JSON.stringify(currentUser)); if(document.getElementById('current-score')) document.getElementById('current-score').textContent = currentUser.bounty.toLocaleString(); }
+        window.performLogout = function() { if(currentUser){ currentUser.isActive=false; updateUserData(); } localStorage.removeItem('op_user_v22'); location.reload(); }
+        async function updateUserData() { if(!currentUser || !db) return; await setDoc(doc(db, "users", currentUser.name), currentUser); localStorage.setItem('op_user_v22', JSON.stringify(currentUser)); if(document.getElementById('current-score')) document.getElementById('current-score').textContent = currentUser.bounty.toLocaleString(); }
         
-        // --- GUILD & PUAN GÜNCELLEME (BUG FIX) ---
         async function updateGuildTotalBounty(gName) {
-            if(!gName) return;
-            const gRef = doc(db, "guilds", gName);
-            try {
-                await runTransaction(db, async (transaction) => {
-                    const gDoc = await transaction.get(gRef);
-                    if (!gDoc.exists()) return;
-                    const guildData = gDoc.data();
-                    let total = 0;
-                    for (const member of guildData.members) {
-                        const mDoc = await transaction.get(doc(db, "users", member));
-                        if(mDoc.exists()) total += mDoc.data().bounty;
-                    }
-                    transaction.update(gRef, { totalBounty: total });
-                });
-            } catch (e) { console.error("Guild update hatası", e); }
+            if(!gName) return; const gRef = doc(db, "guilds", gName);
+            try { await runTransaction(db, async (t) => { const gDoc = await t.get(gRef); if(!gDoc.exists()) return; const gData = gDoc.data(); let total = 0;
+            for(const mName in gData.roles) { const mDoc = await t.get(doc(db, "users", mName)); if(mDoc.exists()) total += mDoc.data().bounty; }
+            t.update(gRef, { totalBounty: total }); }); } catch(e){console.error(e);}
         }
 
-        // PROFİL
+        // PROFİL & ARKADAŞLIK
         window.openProfile = function() {
             if(!currentUser) return;
-            document.getElementById('profile-name').textContent = currentUser.name;
-            document.getElementById('profile-img').src = currentUser.avatar;
-            document.getElementById('profile-bounty').textContent = currentUser.bounty.toLocaleString();
-            document.getElementById('profile-bio').textContent = currentUser.bio;
+            document.getElementById('profile-name').textContent = currentUser.name; document.getElementById('profile-img').src = currentUser.avatar;
+            document.getElementById('profile-bounty').textContent = currentUser.bounty.toLocaleString(); document.getElementById('profile-bio').textContent = currentUser.bio;
             const fb = document.getElementById('profile-fruit');
             if(currentUser.fruit && currentUser.fruit !== "Meyvesiz") { fb.textContent = "Meyve: " + currentUser.fruit; fb.style.display="inline-block"; } else { fb.style.display="none"; }
             
-            // GUILD BİLGİSİ YÜKLE
-            if(currentUser.guild) {
-                document.getElementById('guild-status-area').style.display="none";
-                document.getElementById('my-guild-info').style.display="block";
-                loadGuildInfo(currentUser.guild);
-            } else {
-                document.getElementById('guild-status-area').style.display="block";
-                document.getElementById('my-guild-info').style.display="none";
-            }
-
+            if(currentUser.guild) { document.getElementById('guild-status-area').style.display="none"; document.getElementById('my-guild-info').style.display="block"; loadGuildInfo(currentUser.guild); }
+            else { document.getElementById('guild-status-area').style.display="block"; document.getElementById('my-guild-info').style.display="none"; }
             renderFriendsAndRequests();
             document.getElementById('profileModal').style.display='flex';
         }
         window.enableEdit = function() { document.getElementById('edit-bio').value = currentUser.bio; document.getElementById('edit-preview').src = currentUser.avatar; editImgTemp = currentUser.avatar; closeModal('profileModal'); document.getElementById('editProfileModal').style.display = 'flex'; }
         window.saveProfileEdit = async function() { currentUser.bio = document.getElementById('edit-bio').value; currentUser.avatar = editImgTemp; await updateUserData(); alert("Kaydedildi!"); closeModal('editProfileModal'); openProfile(); }
 
-        // ARKADAŞLIK
         window.sendFriendRequest = async function() {
             const t = document.getElementById('friend-input').value.trim();
-            if(!t || t===currentUser.name || (currentUser.friends && currentUser.friends.includes(t))) return alert("Geçersiz işlem!");
+            if(!t || t===currentUser.name || (currentUser.friends && currentUser.friends.includes(t))) return alert("Geçersiz!");
             const snap = await getDoc(doc(db, "users", t));
             if(!snap.exists()) return alert("Böyle bir korsan yok!");
-            const tData = snap.data();
-            if(tData.friendRequests && tData.friendRequests.includes(currentUser.name)) return alert("Zaten istek atılmış!");
-            await updateDoc(doc(db, "users", t), { friendRequests: arrayUnion(currentUser.name) });
-            alert("İstek yollandı!"); document.getElementById('friend-input').value="";
+            const tData = snap.data(); if(tData.friendRequests && tData.friendRequests.includes(currentUser.name)) return alert("İstek zaten var!");
+            await updateDoc(doc(db, "users", t), { friendRequests: arrayUnion(currentUser.name) }); alert("Yollandı!"); document.getElementById('friend-input').value="";
         }
         async function renderFriendsAndRequests() {
             const snap = await getDoc(doc(db, "users", currentUser.name)); currentUser = snap.data();
@@ -507,18 +480,185 @@
             if(!currentUser.friends || !currentUser.friends.length) fl.innerHTML="<li>Kimse yok...</li>";
             else fl.innerHTML = currentUser.friends.map(f=>`<li><span onclick="viewFriendProfile('${f}')" style="flex-grow:1;cursor:pointer;">☠️ ${f}</span><button class="btn-tiny btn-remove" onclick="removeFriend('${f}')">🗑️</button></li>`).join('');
         }
-        window.acceptRequest = async function(r) { await updateDoc(doc(db, "users", currentUser.name), { friendRequests: arrayRemove(r), friends: arrayUnion(r) }); await updateDoc(doc(db, "users", r), { friends: arrayUnion(currentUser.name) }); alert("Artık tayfasınız!"); renderFriendsAndRequests(); }
+        window.acceptRequest = async function(r) { await updateDoc(doc(db, "users", currentUser.name), { friendRequests: arrayRemove(r), friends: arrayUnion(r) }); await updateDoc(doc(db, "users", r), { friends: arrayUnion(currentUser.name) }); alert("Dost oldunuz!"); renderFriendsAndRequests(); }
         window.declineRequest = async function(r) { await updateDoc(doc(db, "users", currentUser.name), { friendRequests: arrayRemove(r) }); renderFriendsAndRequests(); }
-        window.removeFriend = async function(f) { if(confirm("Silsin mi?")){ await updateDoc(doc(db, "users", currentUser.name), { friends: arrayRemove(f) }); await updateDoc(doc(db, "users", f), { friends: arrayRemove(currentUser.name) }); renderFriendsAndRequests(); } }
+        window.removeFriend = async function(f) { if(confirm("Silinsin mi?")){ await updateDoc(doc(db, "users", currentUser.name), { friends: arrayRemove(f) }); await updateDoc(doc(db, "users", f), { friends: arrayRemove(currentUser.name) }); renderFriendsAndRequests(); } }
         window.viewFriendProfile = async function(n) {
             const snap = await getDoc(doc(db, "users", n));
-            if(snap.exists()) {
-                const u = snap.data();
-                document.getElementById('view-name').textContent = u.name; document.getElementById('view-img').src = u.avatar;
-                document.getElementById('view-bounty').textContent = u.bounty.toLocaleString(); document.getElementById('view-bio').textContent = u.bio;
-                document.getElementById('view-status').textContent = u.isActive ? "🟢 Aktif" : "🔴 Pasif";
-                closeModal('profileModal'); document.getElementById('viewFriendModal').style.display='flex';
+            if(snap.exists()) { const u = snap.data(); document.getElementById('view-name').textContent = u.name; document.getElementById('view-img').src = u.avatar; document.getElementById('view-bounty').textContent = u.bounty.toLocaleString(); document.getElementById('view-bio').textContent = u.bio; const vf = document.getElementById('view-fruit'); if(u.fruit && u.fruit!=="Meyvesiz") { vf.textContent=u.fruit; vf.style.display="inline-block"; } else { vf.style.display="none"; } document.getElementById('view-status').textContent = u.isActive ? "🟢 Aktif" : "🔴 Pasif"; closeModal('profileModal'); document.getElementById('viewFriendModal').style.display='flex'; }
+        }
+
+        // --- GELİŞMİŞ GUILD SİSTEMİ (CLASH STYLE) ---
+        window.createGuild = async function() {
+            const gName = document.getElementById('guild-create-input').value.trim();
+            const gDesc = document.getElementById('guild-desc-input').value.trim();
+            const gFile = document.getElementById('guild-flag-input').files[0];
+            if(!gName) return alert("İsim lazım!");
+            
+            // Bayrak İşleme
+            let flagBase64 = "https://static.wikia.nocookie.net/onepiece/images/a/a2/Straw_Hat_Pirates_Jolly_Roger.png"; // Varsayılan
+            if(gFile) {
+                const reader = new FileReader();
+                reader.readAsDataURL(gFile);
+                await new Promise(resolve => reader.onload = () => { flagBase64 = reader.result; resolve(); });
             }
+
+            const snap = await getDoc(doc(db, "guilds", gName));
+            if(snap.exists()) return alert("Bu isimde ittifak var!");
+            
+            // Yeni Yapı: roles objesi ile
+            const roles = {}; roles[currentUser.name] = "Kaptan";
+            
+            await setDoc(doc(db, "guilds", gName), { 
+                name: gName, desc: gDesc, flag: flagBase64, captain: currentUser.name, 
+                roles: roles, // members array yerine roles objesi (isim: rütbe)
+                members: [currentUser.name], // Sorgu kolaylığı için array de tutuyoruz
+                totalBounty: currentUser.bounty 
+            });
+            currentUser.guild = gName; await updateUserData(); alert("İttifak kuruldu!"); openProfile();
+        }
+
+        window.joinGuild = async function() {
+            const gName = document.getElementById('guild-join-input').value.trim();
+            if(!gName) return;
+            const gRef = doc(db, "guilds", gName);
+            const snap = await getDoc(gRef);
+            if(!snap.exists()) return alert("Bulunamadı!");
+            
+            // Role ekle (Tayfa)
+            const gData = snap.data();
+            gData.roles[currentUser.name] = "Tayfa";
+            
+            await updateDoc(gRef, { 
+                members: arrayUnion(currentUser.name),
+                roles: gData.roles
+            });
+            currentUser.guild = gName; await updateUserData(); await updateGuildTotalBounty(gName); alert("Katıldın!"); openProfile();
+        }
+
+        window.leaveGuild = async function() {
+            if(!currentUser.guild) return;
+            const gName = currentUser.guild; const gRef = doc(db, "guilds", gName);
+            const snap = await getDoc(gRef);
+            if(snap.exists()) {
+                const gData = snap.data();
+                delete gData.roles[currentUser.name]; // Rolü sil
+                await updateDoc(gRef, { members: arrayRemove(currentUser.name), roles: gData.roles });
+            }
+            currentUser.guild = ""; await updateUserData(); await updateGuildTotalBounty(gName); alert("Ayrıldın!"); openProfile();
+        }
+
+        // RÜTBE YÖNETİMİ
+        window.promoteMember = async function(mName) {
+            const gRef = doc(db, "guilds", currentUser.guild);
+            const snap = await getDoc(gRef);
+            const gData = snap.data();
+            const currentRole = gData.roles[mName];
+            let newRole = "";
+            
+            if(currentRole === "Tayfa") newRole = "Kıdemli";
+            else if(currentRole === "Kıdemli") newRole = "Sol Kol";
+            else if(currentRole === "Sol Kol") newRole = "Sağ Kol";
+            else return alert("Daha fazla yükseltilemez!");
+            
+            gData.roles[mName] = newRole;
+            await updateDoc(gRef, { roles: gData.roles });
+            openProfile(); // Yenile
+        }
+
+        window.demoteMember = async function(mName) {
+            const gRef = doc(db, "guilds", currentUser.guild);
+            const snap = await getDoc(gRef);
+            const gData = snap.data();
+            const currentRole = gData.roles[mName];
+            let newRole = "";
+            
+            if(currentRole === "Sağ Kol") newRole = "Sol Kol";
+            else if(currentRole === "Sol Kol") newRole = "Kıdemli";
+            else if(currentRole === "Kıdemli") newRole = "Tayfa";
+            else return;
+
+            gData.roles[mName] = newRole;
+            await updateDoc(gRef, { roles: gData.roles });
+            openProfile();
+        }
+
+        window.kickMember = async function(mName) {
+            if(!confirm(mName + " atılsın mı?")) return;
+            const gRef = doc(db, "guilds", currentUser.guild);
+            const snap = await getDoc(gRef);
+            const gData = snap.data();
+            delete gData.roles[mName];
+            
+            await updateDoc(gRef, { members: arrayRemove(mName), roles: gData.roles });
+            
+            // Atılan kişinin guild bilgisini sil
+            const uRef = doc(db, "users", mName);
+            await updateDoc(uRef, { guild: "" });
+            
+            await updateGuildTotalBounty(currentUser.guild);
+            openProfile();
+        }
+
+        async function loadGuildInfo(gName) {
+            const snap = await getDoc(doc(db, "guilds", gName));
+            if(snap.exists()) {
+                const g = snap.data();
+                document.getElementById('g-name').textContent = g.name;
+                document.getElementById('g-desc').textContent = g.desc || "";
+                document.getElementById('g-flag-display').src = g.flag;
+                document.getElementById('g-captain').textContent = g.captain;
+                document.getElementById('g-bounty').textContent = g.totalBounty.toLocaleString();
+                
+                const ul = document.getElementById('g-members'); ul.innerHTML = "";
+                
+                // Rütbe renkleri
+                const roleClass = { "Kaptan": "role-captain", "Sağ Kol": "role-righthand", "Sol Kol": "role-lefthand", "Kıdemli": "role-senior", "Tayfa": "role-member" };
+
+                // Üyeleri sırala (Kaptan en üstte)
+                const sortedMembers = g.members.sort((a,b) => {
+                    const order = {"Kaptan":1, "Sağ Kol":2, "Sol Kol":3, "Kıdemli":4, "Tayfa":5};
+                    return order[g.roles[a]] - order[g.roles[b]];
+                });
+
+                for(const m of sortedMembers) {
+                     const uSnap = await getDoc(doc(db, "users", m));
+                     if(uSnap.exists()) {
+                         const uData = uSnap.data();
+                         const role = g.roles[m];
+                         let actions = "";
+                         
+                         // Kaptan isen ve listedeki kişi sen değilsen buton koy
+                         if(currentUser.name === g.captain && m !== currentUser.name) {
+                             actions = `
+                                <div style="display:inline-block; float:right;">
+                                    <button class="btn-tiny" style="background:green" onclick="promoteMember('${m}')">▲</button>
+                                    <button class="btn-tiny" style="background:orange" onclick="demoteMember('${m}')">▼</button>
+                                    <button class="btn-tiny" style="background:red" onclick="kickMember('${m}')">X</button>
+                                </div>`;
+                         }
+
+                         ul.innerHTML += `
+                            <li style="border-bottom:1px solid #ccc; padding:5px;">
+                                <span class="role-badge ${roleClass[role] || 'role-member'}">${role}</span>
+                                <b>${m}</b> (${uData.bounty.toLocaleString()})
+                                ${actions}
+                            </li>`;
+                     }
+                }
+            }
+        }
+
+        function listenGuilds() {
+            const q = query(collection(db, "guilds"), orderBy("totalBounty", "desc"), limit(10)); 
+            onSnapshot(q, (snap) => {
+                const tb = document.getElementById('guild-leaderboard'); tb.innerHTML = "";
+                let i = 1;
+                snap.forEach(d => {
+                    const g = d.data();
+                    tb.innerHTML += `<tr><td>${i++}</td><td><img src="${g.flag}" class="guild-flag"></td><td>${g.name}</td><td>${(g.totalBounty || 0).toLocaleString()} ฿</td></tr>`;
+                });
+            });
         }
 
         // CHAT
@@ -541,70 +681,6 @@
             document.getElementById('chat-input').value = "";
         }
 
-        // GUILDS (İTTİFAK)
-        window.createGuild = async function() {
-            const gName = document.getElementById('guild-create-input').value.trim();
-            if(!gName) return;
-            const snap = await getDoc(doc(db, "guilds", gName));
-            if(snap.exists()) return alert("Bu isimde ittifak var!");
-            await setDoc(doc(db, "guilds", gName), { name: gName, captain: currentUser.name, members: [currentUser.name], totalBounty: currentUser.bounty });
-            currentUser.guild = gName; await updateUserData(); alert("İttifak kuruldu!"); openProfile();
-        }
-        window.joinGuild = async function() {
-            const gName = document.getElementById('guild-join-input').value.trim();
-            if(!gName) return;
-            const ref = doc(db, "guilds", gName);
-            const snap = await getDoc(ref);
-            if(!snap.exists()) return alert("İttifak bulunamadı!");
-            await updateDoc(ref, { members: arrayUnion(currentUser.name) });
-            currentUser.guild = gName; 
-            await updateUserData(); 
-            await updateGuildTotalBounty(gName); // Katılınca puanı güncelle
-            alert("Katıldın!"); openProfile();
-        }
-        window.leaveGuild = async function() {
-            if(!currentUser.guild) return;
-            const gName = currentUser.guild;
-            const ref = doc(db, "guilds", gName);
-            await updateDoc(ref, { members: arrayRemove(currentUser.name) });
-            currentUser.guild = ""; 
-            await updateUserData(); 
-            await updateGuildTotalBounty(gName); // Ayrılınca puanı güncelle
-            alert("Ayrıldın!"); openProfile();
-        }
-        async function loadGuildInfo(gName) {
-            const snap = await getDoc(doc(db, "guilds", gName));
-            if(snap.exists()) {
-                const g = snap.data();
-                document.getElementById('g-name').textContent = g.name;
-                document.getElementById('g-captain').textContent = g.captain;
-                
-                const ul = document.getElementById('g-members'); ul.innerHTML = "";
-                let total = 0;
-                for(const m of g.members) {
-                     const uSnap = await getDoc(doc(db, "users", m));
-                     if(uSnap.exists()) {
-                         const uData = uSnap.data();
-                         total += uData.bounty;
-                         ul.innerHTML += `<li>${m} (${uData.bounty.toLocaleString()})</li>`;
-                     }
-                }
-                // Anlık toplamı göster ve kaydet
-                document.getElementById('g-bounty').textContent = total.toLocaleString();
-            }
-        }
-        function listenGuilds() {
-            const q = query(collection(db, "guilds"), orderBy("totalBounty", "desc"), limit(10)); 
-            onSnapshot(q, (snap) => {
-                const tb = document.getElementById('guild-leaderboard'); tb.innerHTML = "";
-                let i = 1;
-                snap.forEach(d => {
-                    const g = d.data();
-                    tb.innerHTML += `<tr><td>${i++}</td><td>${g.name}</td><td>${(g.totalBounty || 0).toLocaleString()} ฿</td></tr>`;
-                });
-            });
-        }
-
         // Leaderboard & Oyunlar
         function listenLeaderboard() {
             if(!db) return;
@@ -619,7 +695,7 @@
             });
         }
         
-        // Çark (Güncellendi ve Guild Puanı Tetikleyici Eklendi)
+        // Çark
         window.spinFruit = function() {
             if(!currentUser) return alert("Giriş yap!");
             if(currentUser.spinsLeft <= 0) return alert("Hakkın bitti!");
@@ -631,16 +707,14 @@
                 for(let f of fruitList) { cumulative += f.c; if(rand <= cumulative) { selected = f; break; } }
                 if(currentUser.fruitVal > 0) currentUser.bounty -= currentUser.fruitVal;
                 currentUser.fruit = selected.n; currentUser.fruitVal = selected.v; currentUser.bounty += selected.v; if(currentUser.bounty < 0) currentUser.bounty = 0;
-                
                 await updateUserData();
-                if(currentUser.guild) await updateGuildTotalBounty(currentUser.guild); // Guild puanını güncelle!
-                
+                if(currentUser.guild) await updateGuildTotalBounty(currentUser.guild);
                 document.getElementById('fruit-display').innerHTML = `<div class="fruit-name">${selected.n}</div><div class="fruit-desc">+${selected.v.toLocaleString()}</div>`;
                 document.getElementById('fruit-display').style.transform = "rotate(0deg)";
             }, 1000);
         }
 
-        // Quiz (40 Soru)
+        // Quiz
         const allQ = [
             {q:"Luffy’nin şeytan meyvesinin gerçek adı nedir?", a:["Gomu Gomu no Mi","Hito Hito no Mi","Hito Hito no Mi, Model: Nika","Nika Nika no Mi"], c:2},
             {q:"Zoro’nun ustasının adı nedir?", a:["Mihawk","Koshiro","Rayleigh","Oden"], c:1},
@@ -687,7 +761,7 @@
         let quizQ=[], qIdx=0;
         function initQuiz(){ quizQ = [...allQ].sort(()=>0.5-Math.random()).slice(0,10); qIdx=0; loadQ(); }
         function loadQ(){
-            if(qIdx>=quizQ.length){ document.getElementById('quiz-box').innerHTML=`<p>Bitti!</p><button class='quiz-btn' onclick='location.reload()'>Tekrar</button>`; return; }
+            if(qIdx>=quizQ.length){ document.getElementById('quiz-box').innerHTML=`<p>Bitti! (+Ödül eklendi)</p><button class='quiz-btn' onclick='location.reload()'>Tekrar</button>`; return; }
             const q = quizQ[qIdx];
             document.getElementById('question-text').textContent = (qIdx+1)+". "+q.q;
             document.querySelectorAll('.quiz-btn').forEach((b,i)=>{ b.textContent=q.a[i]; b.disabled=false; b.style.background="var(--bg-dark)"; });
@@ -697,7 +771,7 @@
                 if(currentUser){ 
                     currentUser.bounty+=5000; 
                     await updateUserData(); 
-                    if(currentUser.guild) await updateGuildTotalBounty(currentUser.guild); // Guild puan güncelle
+                    if(currentUser.guild) await updateGuildTotalBounty(currentUser.guild);
                 }
                 document.getElementById('feedback-text').textContent="Doğru! (+5000)";
             } else { document.getElementById('feedback-text').textContent="Yanlış!"; }
@@ -722,7 +796,6 @@
             const animeDate = new Date("2026-04-01T00:00:00");
             const diff = Math.ceil((animeDate - now) / (1000*60*60*24));
             document.getElementById('anime-timer').textContent = diff > 0 ? diff + " gün" : "Yayında!";
-            
             const mangaDate = new Date(); mangaDate.setDate(now.getDate() + (4 + 7 - now.getDay()) % 7);
             const d = Math.floor((mangaDate-now)/(1000*60*60*24));
             document.getElementById('manga-timer').textContent = d + " gün";
@@ -733,4 +806,3 @@
     </script>
 </body>
 </html>
-
