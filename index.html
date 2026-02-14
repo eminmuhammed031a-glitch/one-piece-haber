@@ -1,693 +1,111 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <link rel="icon" type="image/x-icon" href="hatayy.html">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>One Piece Haber | Elbaf Arc</title>
+    <title>One Piece Haber | Yeni Dünya</title>
     <link rel="icon" href="https://static.wikia.nocookie.net/onepiece/images/c/c5/Revolutionary_Army_Jolly_Roger.png" type="image/png">
-
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 
     <style>
         /* --- CSS AYARLARI --- */
-        :root {
-            --bg-paper: #f4e4bc;
-            --bg-dark: #2c241b;
-            --ocean-blue: #006994;
-            --luffy-red: #d62828;
-            --gold: #ffb703;
-            --text-main: #3e2723;
-            --font-heading: 'Pirata One', cursive;
-            --font-body: 'Roboto', sans-serif;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: var(--bg-paper);
-            color: var(--text-main);
-            font-family: var(--font-body);
-            line-height: 1.6;
-            background-image: radial-gradient(#e6d5a8 15%, transparent 16%), radial-gradient(#e6d5a8 15%, transparent 16%);
-            background-size: 60px 60px;
-            background-position: 0 0, 30px 30px;
-            padding-bottom: 50px;
-        }
-
-        header {
-            background-color: var(--bg-dark);
-            color: var(--gold);
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 4px solid var(--luffy-red);
-        }
-
-        .logo {
-            font-family: var(--font-heading);
-            font-size: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            letter-spacing: 2px;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 20px;
-            align-items: center;
-        }
-
-        nav a {
-            color: #fdf5e6;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: 0.3s;
-            text-transform: uppercase;
-        }
-
-            nav a:hover {
-                color: var(--gold);
-                text-shadow: 0 0 5px var(--gold);
-            }
-
-        .login-btn {
-            background: var(--luffy-red);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            border: 2px solid white;
-            font-family: var(--font-heading);
-            font-size: 1.2rem;
-        }
-
-        .user-profile-mini {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            background: rgba(255,255,255,0.1);
-            padding: 5px 10px;
-            border-radius: 20px;
-            transition: 0.3s;
-        }
-
-            .user-profile-mini:hover {
-                background: rgba(255,255,255,0.2);
-            }
-
-        .user-avatar-small {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid var(--gold);
-            background: white;
-            object-fit: cover;
-        }
-
-        section {
-            padding: 4rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-family: var(--font-heading);
-            font-size: 3rem;
-            text-align: center;
-            margin-bottom: 3rem;
-            color: var(--bg-dark);
-            text-shadow: 2px 2px 0px rgba(255,255,255,0.4);
-            border-bottom: 2px solid var(--luffy-red);
-            display: inline-block;
-            left: 50%;
-            position: relative;
-            transform: translateX(-50%);
-        }
-
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .news-card {
-            background: #fff;
-            border: 2px solid var(--bg-dark);
-            border-radius: 8px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s;
-            box-shadow: 5px 5px 0 rgba(0,0,0,0.2);
-            height: 100%;
-        }
-
-            .news-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 8px 8px 0 rgba(0,0,0,0.3);
-            }
-
-        .news-img-placeholder {
-            height: 180px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-family: var(--font-heading);
-            font-size: 2.5rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-            background-size: cover;
-            background-position: center;
-        }
-
-        .news-content {
-            padding: 1.5rem;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .tag {
-            display: inline-block;
-            background: var(--bg-dark);
-            color: var(--gold);
-            padding: 4px 8px;
-            font-size: 0.75rem;
-            border-radius: 4px;
-            margin-bottom: 10px;
-            width: fit-content;
-            font-weight: bold;
-        }
-
-        .news-content h3 {
-            font-family: var(--font-heading);
-            font-size: 1.6rem;
-            color: var(--luffy-red);
-            margin-bottom: 0.8rem;
-            line-height: 1.1;
-        }
-
-        .news-content p {
-            font-size: 0.95rem;
-            color: #444;
-            margin-bottom: 1.5rem;
-            flex-grow: 1;
-        }
-
-        .read-more {
-            text-align: center;
-            background: var(--ocean-blue);
-            color: white;
-            padding: 8px;
-            border-radius: 4px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-top: auto;
-        }
-
-            .read-more:hover {
-                background: var(--bg-dark);
-            }
-
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .game-item {
-            background: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid var(--text-main);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            transition: 0.3s;
-        }
-
-            .game-item:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-            }
-
-        .game-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .game-title {
-            font-family: var(--font-heading);
-            font-size: 1.4rem;
-            color: var(--ocean-blue);
-        }
-
-        .game-platform {
-            font-size: 0.75rem;
-            font-weight: bold;
-            padding: 2px 6px;
-            border-radius: 4px;
-            color: white;
-        }
-
-        .plat-mobile {
-            background: #e67e22;
-        }
-
-        .plat-roblox {
-            background: #e74c3c;
-        }
-
-        #quiz-game {
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 20px;
-            border: 3px dashed var(--bg-dark);
-            padding: 2rem;
-            margin-top: 2rem;
-        }
-
-        .quiz-container {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .quiz-question {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: var(--bg-dark);
-        }
-
-        .quiz-options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .quiz-btn {
-            padding: 15px;
-            background: var(--bg-dark);
-            color: var(--gold);
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            transition: 0.2s;
-            font-family: var(--font-body);
-        }
-
-            .quiz-btn:hover {
-                background: var(--luffy-red);
-                color: white;
-                transform: scale(1.02);
-            }
-
-        .quiz-score {
-            font-family: var(--font-heading);
-            font-size: 2rem;
-            margin-top: 20px;
-            color: var(--ocean-blue);
-        }
-
-        .feedback {
-            margin-top: 15px;
-            font-weight: bold;
-            min-height: 30px;
-        }
-
-        #fruit-game {
-            text-align: center;
-            margin-top: 3rem;
-            border-top: 2px solid var(--luffy-red);
-            padding-top: 2rem;
-        }
-
-        .fruit-box {
-            background: #fff;
-            border: 4px double var(--bg-dark);
-            width: 300px;
-            height: 300px;
-            margin: 20px auto;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            box-shadow: 0 0 20px rgba(0,0,0,0.2);
-            transition: 0.5s;
-            position: relative;
-        }
-
-        .fruit-name {
-            font-family: var(--font-heading);
-            font-size: 2rem;
-            color: var(--luffy-red);
-            margin-bottom: 10px;
-        }
-
-        .fruit-type {
-            background: var(--gold);
-            color: var(--bg-dark);
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-
-        .fruit-desc {
-            font-size: 0.9rem;
-            padding: 10px;
-            color: #555;
-        }
-
-        .spin-btn {
-            padding: 10px 30px;
-            background: var(--ocean-blue);
-            color: white;
-            border: none;
-            font-size: 1.2rem;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            box-shadow: 0 4px 0 #003049;
-        }
-
-            .spin-btn:active {
-                transform: translateY(4px);
-                box-shadow: none;
-            }
-
-        .spin-limit {
-            margin-top: 10px;
-            font-size: 0.9rem;
-            color: #555;
-        }
-
-        #leaderboard {
-            background: #fff;
-            border: 2px solid var(--bg-dark);
-            border-radius: 10px;
-            padding: 2rem;
-            max-width: 800px;
-            margin: 3rem auto;
-        }
-
-        .rank-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-            .rank-table th {
-                background: var(--bg-dark);
-                color: var(--gold);
-                padding: 10px;
-                text-align: left;
-            }
-
-            .rank-table td {
-                padding: 10px;
-                border-bottom: 1px solid #ddd;
-            }
-
-        .current-user-row {
-            background: #e3f2fd;
-            font-weight: bold;
-            border: 2px solid var(--ocean-blue);
-        }
-
-        #countdown-section {
-            background-color: var(--bg-dark);
-            color: #fff;
-            margin-top: 4rem;
-            border-radius: 10px;
-            text-align: center;
-            border-top: 5px solid var(--gold);
-            padding-bottom: 3rem;
-        }
-
-            #countdown-section .section-title {
-                color: var(--gold);
-                border-bottom: none;
-                text-shadow: none;
-            }
-
-        .timers-wrapper {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 2rem;
-        }
-
-        .timer-box {
-            background: rgba(255,255,255,0.05);
-            padding: 2rem;
-            border-radius: 10px;
-            min-width: 250px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .timer-title {
-            color: var(--ocean-blue);
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-
-        .timer-display {
-            font-family: monospace;
-            font-size: 1.5rem;
-            color: var(--gold);
-            font-weight: bold;
-        }
-
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            backdrop-filter: blur(5px);
-        }
-
-        .modal-content {
-            background: var(--bg-paper);
-            padding: 2rem;
-            border-radius: 10px;
-            max-width: 800px;
-            width: 90%;
-            position: relative;
-            border: 4px solid var(--bg-dark);
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 2.5rem;
-            cursor: pointer;
-            color: var(--luffy-red);
-            font-weight: bold;
-        }
-
-        .modal-body h2 {
-            font-family: var(--font-heading);
-            margin-bottom: 1rem;
-            color: var(--bg-dark);
-            border-bottom: 2px solid var(--luffy-red);
-        }
-
-        .modal-body h3 {
-            font-family: var(--font-heading);
-            margin-top: 1.5rem;
-            color: var(--ocean-blue);
-        }
-
-        .modal-body ul {
-            padding-left: 20px;
-        }
-
-        .modal-body li {
-            margin-bottom: 5px;
-            color: #333;
-        }
-
-        .modal-body p {
-            margin-bottom: 1rem;
-            color: #333;
-            font-size: 1rem;
-        }
-
-        .sbs-item {
-            margin-bottom: 20px;
-            border-bottom: 1px dashed #ccc;
-            padding-bottom: 10px;
-        }
-
-        .sbs-q {
-            font-weight: bold;
-            color: var(--ocean-blue);
-            display: block;
-            margin-bottom: 5px;
-        }
-
-            .sbs-q::before {
-                content: 'S: ';
-                color: var(--text-main);
-            }
-
-        .sbs-a {
-            font-style: italic;
-            margin-left: 15px;
-            display: block;
-        }
-
-            .sbs-a::before {
-                content: 'O: ';
-                font-weight: bold;
-                font-style: normal;
-            }
-
-        .auth-form input, .auth-form textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 2px solid var(--bg-dark);
-            border-radius: 5px;
-            font-family: var(--font-body);
-        }
-
-        .auth-form label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-            color: var(--bg-dark);
-        }
-
-        .auth-btn {
-            width: 100%;
-            padding: 12px;
-            background: var(--luffy-red);
-            color: white;
-            border: none;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 1.1rem;
-        }
-
-        .wanted-poster {
-            background: #fff;
-            border: 5px solid #5a4a3a;
-            padding: 20px;
-            text-align: center;
-            max-width: 350px;
-            margin: 0 auto;
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
-            position: relative;
-        }
-
-        .wanted-header {
-            font-family: serif;
-            font-size: 2.5rem;
-            letter-spacing: 5px;
-            color: #5a4a3a;
-            margin-bottom: 10px;
-        }
-
-        .wanted-img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            background: #ccc;
-            border: 2px solid #5a4a3a;
-        }
-
-        .wanted-name {
-            font-family: var(--font-heading);
-            font-size: 2rem;
-            text-transform: uppercase;
-            margin: 10px 0;
-            line-height: 1;
-        }
-
-        .wanted-bounty {
-            font-family: serif;
-            font-size: 1.2rem;
-            color: #5a4a3a;
-            border-top: 2px solid #5a4a3a;
-            padding-top: 5px;
-        }
-
-        .bounty-amount {
-            font-family: var(--font-heading);
-            font-size: 2rem;
-            color: #5a4a3a;
-        }
-
-        .bio-text {
-            font-size: 0.9rem;
-            color: #555;
-            margin-top: 10px;
-            font-style: italic;
-            white-space: pre-wrap;
-        }
-
-        .fruit-badge {
-            background: var(--gold);
-            color: black;
-            font-size: 0.8rem;
-            padding: 3px 8px;
-            border-radius: 10px;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 5px;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .quiz-options {
-                grid-template-columns: 1fr;
-            }
-        }
+        :root { --bg-paper: #f4e4bc; --bg-dark: #2c241b; --ocean-blue: #006994; --luffy-red: #d62828; --gold: #ffb703; --text-main: #3e2723; --font-heading: 'Pirata One', cursive; --font-body: 'Roboto', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-paper); color: var(--text-main); font-family: var(--font-body); line-height: 1.6; background-image: radial-gradient(#e6d5a8 15%, transparent 16%), radial-gradient(#e6d5a8 15%, transparent 16%); background-size: 60px 60px; background-position: 0 0, 30px 30px; padding-bottom: 50px; }
+        header { background-color: var(--bg-dark); color: var(--gold); padding: 1rem 2rem; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.5); display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--luffy-red); }
+        .logo { font-family: var(--font-heading); font-size: 2rem; display: flex; align-items: center; gap: 10px; cursor: pointer; letter-spacing: 2px; }
+        nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
+        nav a { color: #fdf5e6; text-decoration: none; font-weight: bold; font-size: 1.1rem; transition: 0.3s; text-transform: uppercase; }
+        nav a:hover { color: var(--gold); text-shadow: 0 0 5px var(--gold); }
+        .login-btn { background: var(--luffy-red); color: white; padding: 5px 15px; border-radius: 5px; cursor: pointer; border: 2px solid white; font-family: var(--font-heading); font-size: 1.2rem; }
+        .user-profile-mini { display: flex; align-items: center; gap: 10px; cursor: pointer; background: rgba(255,255,255,0.1); padding: 5px 10px; border-radius: 20px; transition: 0.3s; }
+        .user-profile-mini:hover { background: rgba(255,255,255,0.2); }
+        .user-avatar-small { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--gold); background: white; object-fit: cover; }
+        section { padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; }
+        .section-title { font-family: var(--font-heading); font-size: 3rem; text-align: center; margin-bottom: 3rem; color: var(--bg-dark); text-shadow: 2px 2px 0px rgba(255,255,255,0.4); border-bottom: 2px solid var(--luffy-red); display: inline-block; left: 50%; position: relative; transform: translateX(-50%); }
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .news-card { background: #fff; border: 2px solid var(--bg-dark); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.3s; box-shadow: 5px 5px 0 rgba(0,0,0,0.2); height: 100%; }
+        .news-card:hover { transform: translateY(-5px); box-shadow: 8px 8px 0 rgba(0,0,0,0.3); }
+        .news-img-placeholder { height: 180px; display: flex; align-items: center; justify-content: center; color: white; font-family: var(--font-heading); font-size: 2.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); background-size: cover; background-position: center; }
+        .news-content { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .tag { display: inline-block; background: var(--bg-dark); color: var(--gold); padding: 4px 8px; font-size: 0.75rem; border-radius: 4px; margin-bottom: 10px; width: fit-content; font-weight: bold;}
+        .news-content h3 { font-family: var(--font-heading); font-size: 1.6rem; color: var(--luffy-red); margin-bottom: 0.8rem; line-height: 1.1; }
+        .news-content p { font-size: 0.95rem; color: #444; margin-bottom: 1.5rem; flex-grow: 1; }
+        .read-more { text-align: center; background: var(--ocean-blue); color: white; padding: 8px; border-radius: 4px; font-weight: bold; cursor: pointer; transition: 0.2s; margin-top: auto; }
+        .read-more:hover { background: var(--bg-dark); }
+        .games-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .game-item { background: #fff; padding: 15px; border-radius: 8px; border: 1px solid var(--text-main); display: flex; flex-direction: column; gap: 10px; transition: 0.3s; }
+        .game-item:hover { transform: translateY(-3px); box-shadow: 0 5px 10px rgba(0,0,0,0.1); }
+        .game-header { display: flex; justify-content: space-between; align-items: center; }
+        .game-title { font-family: var(--font-heading); font-size: 1.4rem; color: var(--ocean-blue); }
+        .game-platform { font-size: 0.75rem; font-weight: bold; padding: 2px 6px; border-radius: 4px; color: white; }
+        .plat-mobile { background: #e67e22; }
+        .plat-roblox { background: #e74c3c; }
+        #quiz-game { background: rgba(255, 255, 255, 0.6); border-radius: 20px; border: 3px dashed var(--bg-dark); padding: 2rem; margin-top: 2rem; }
+        .quiz-container { max-width: 800px; margin: 0 auto; text-align: center; }
+        .quiz-question { font-size: 1.5rem; font-weight: bold; margin-bottom: 20px; color: var(--bg-dark); }
+        .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .quiz-btn { padding: 15px; background: var(--bg-dark); color: var(--gold); border: none; border-radius: 8px; cursor: pointer; font-size: 1.1rem; transition: 0.2s; font-family: var(--font-body); }
+        .quiz-btn:hover { background: var(--luffy-red); color: white; transform: scale(1.02); }
+        .quiz-score { font-family: var(--font-heading); font-size: 2rem; margin-top: 20px; color: var(--ocean-blue); }
+        .feedback { margin-top: 15px; font-weight: bold; min-height: 30px; }
+        #fruit-game { text-align: center; margin-top: 3rem; border-top: 2px solid var(--luffy-red); padding-top: 2rem; }
+        .fruit-box { background: #fff; border: 4px double var(--bg-dark); width: 300px; height: 300px; margin: 20px auto; display: flex; flex-direction: column; justify-content: center; align-items: center; border-radius: 50%; box-shadow: 0 0 20px rgba(0,0,0,0.2); transition: 0.5s; position: relative;}
+        .fruit-name { font-family: var(--font-heading); font-size: 2rem; color: var(--luffy-red); margin-bottom: 10px; }
+        .fruit-type { background: var(--gold); color: var(--bg-dark); padding: 2px 10px; border-radius: 20px; font-weight: bold; font-size: 0.9rem;}
+        .fruit-desc { font-size: 0.9rem; padding: 10px; color: #555; }
+        .fruit-chance { position: absolute; bottom: 30px; font-size: 0.8rem; color: #999; }
+        .spin-btn { padding: 10px 30px; background: var(--ocean-blue); color: white; border: none; font-size: 1.2rem; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 0 #003049; }
+        .spin-btn:active { transform: translateY(4px); box-shadow: none; }
+        .spin-limit { margin-top: 10px; font-size: 0.9rem; color: #555; }
+        #leaderboard { background: #fff; border: 2px solid var(--bg-dark); border-radius: 10px; padding: 2rem; max-width: 800px; margin: 3rem auto; }
+        .rank-table { width: 100%; border-collapse: collapse; }
+        .rank-table th { background: var(--bg-dark); color: var(--gold); padding: 10px; text-align: left; }
+        .rank-table td { padding: 10px; border-bottom: 1px solid #ddd; }
+        .current-user-row { background: #e3f2fd; font-weight: bold; border: 2px solid var(--ocean-blue); }
+        #countdown-section { background-color: var(--bg-dark); color: #fff; margin-top: 4rem; border-radius: 10px; text-align: center; border-top: 5px solid var(--gold); padding-bottom: 3rem; }
+        #countdown-section .section-title { color: var(--gold); border-bottom: none; text-shadow: none; }
+        .timers-wrapper { display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem; }
+        .timer-box { background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 10px; min-width: 250px; border: 1px solid rgba(255,255,255,0.1); }
+        .timer-title { color: var(--ocean-blue); font-weight: bold; font-size: 1.2rem; margin-bottom: 10px; text-transform: uppercase; }
+        .timer-display { font-family: monospace; font-size: 1.5rem; color: var(--gold); font-weight: bold; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(5px); }
+        .modal-content { background: var(--bg-paper); padding: 2rem; border-radius: 10px; max-width: 800px; width: 90%; position: relative; border: 4px solid var(--bg-dark); max-height: 80vh; overflow-y: auto; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
+        .close-modal { position: absolute; top: 10px; right: 20px; font-size: 2.5rem; cursor: pointer; color: var(--luffy-red); font-weight: bold; }
+        .modal-body h2 { font-family: var(--font-heading); margin-bottom: 1rem; color: var(--bg-dark); border-bottom: 2px solid var(--luffy-red); }
+        .modal-body h3 { font-family: var(--font-heading); margin-top: 1.5rem; color: var(--ocean-blue); }
+        .modal-body ul { padding-left: 20px; }
+        .modal-body li { margin-bottom: 5px; color: #333; }
+        .modal-body p { margin-bottom: 1rem; color: #333; font-size: 1rem; }
+        .sbs-item { margin-bottom: 20px; border-bottom: 1px dashed #ccc; padding-bottom: 10px; }
+        .sbs-q { font-weight: bold; color: var(--ocean-blue); display: block; margin-bottom: 5px; }
+        .sbs-q::before { content: 'S: '; color: var(--text-main); }
+        .sbs-a { font-style: italic; margin-left: 15px; display: block; }
+        .sbs-a::before { content: 'O: '; font-weight: bold; font-style: normal; }
+        .auth-form input, .auth-form textarea { width: 100%; padding: 10px; margin-bottom: 15px; border: 2px solid var(--bg-dark); border-radius: 5px; font-family: var(--font-body); }
+        .auth-form label { font-weight: bold; display: block; margin-bottom: 5px; color: var(--bg-dark); }
+        .auth-btn { width: 100%; padding: 12px; background: var(--luffy-red); color: white; border: none; font-weight: bold; cursor: pointer; font-size: 1.1rem; margin-top: 10px; transition: 0.3s;}
+        .auth-btn:hover { background: #b71c1c; }
+        .auth-toggle { display: flex; gap: 10px; margin-bottom: 20px; }
+        .auth-toggle button { flex: 1; padding: 10px; background: #ddd; border: none; cursor: pointer; font-weight: bold; }
+        .auth-toggle button.active { background: var(--ocean-blue); color: white; }
+        .wanted-poster { background: #fff; border: 5px solid #5a4a3a; padding: 20px; text-align: center; max-width: 350px; margin: 0 auto; box-shadow: 5px 5px 15px rgba(0,0,0,0.3); position: relative; }
+        .wanted-header { font-family: serif; font-size: 2.5rem; letter-spacing: 5px; color: #5a4a3a; margin-bottom: 10px; }
+        .wanted-img { width: 100%; height: 250px; object-fit: cover; background: #ccc; border: 2px solid #5a4a3a; }
+        .wanted-name { font-family: var(--font-heading); font-size: 2rem; text-transform: uppercase; margin: 10px 0; line-height: 1; }
+        .wanted-bounty { font-family: serif; font-size: 1.2rem; color: #5a4a3a; border-top: 2px solid #5a4a3a; padding-top: 5px; }
+        .bounty-amount { font-family: var(--font-heading); font-size: 2rem; color: #5a4a3a; }
+        .bio-text { font-size: 0.9rem; color: #555; margin-top: 10px; font-style: italic; white-space: pre-wrap; }
+        .friend-list { margin-top: 15px; text-align: left; border-top: 1px solid #ccc; padding-top: 10px; }
+        .friend-list ul { list-style: none; padding: 0; max-height: 150px; overflow-y: auto; }
+        .friend-list li { background: #f0f0f0; margin-bottom: 5px; padding: 5px; border-radius: 5px; font-size: 0.9rem; cursor: pointer; transition: 0.2s;}
+        .friend-list li:hover { background: #e0e0e0; }
+        .fruit-badge { background: var(--gold); color: black; font-size: 0.8rem; padding: 3px 8px; border-radius: 10px; font-weight: bold; display: inline-block; margin-top: 5px;}
+        footer { text-align: center; margin-top: 50px; color: #666; font-size: 0.9rem; }
+        @media (max-width: 768px) { header { flex-direction: column; gap: 10px; } .quiz-options { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -701,7 +119,7 @@
                 <li><a href="#quiz-game">Test</a></li>
                 <li><a href="#fruit-game">Çark</a></li>
                 <li id="auth-section">
-                    <button class="login-btn" onclick="openLoginModal()">Giriş Yap</button>
+                    <button class="login-btn" onclick="openLoginModal()">Giriş / Kayıt</button>
                 </li>
             </ul>
         </nav>
@@ -741,13 +159,13 @@
     </section>
 
     <section id="leaderboard">
-        <h2 class="section-title">Dünya Sıralaması (Gerçek Oyuncular)</h2>
-        <p style="text-align:center; margin-bottom:10px;">Sıralamada yükselmek için giriş yap ve ödül kazan!</p>
+        <h2 class="section-title">Dünya Sıralaması (Top 50)</h2>
+        <p style="text-align:center; margin-bottom:10px;">Sadece gerçek korsanlar (giriş yapanlar) burada listelenir.</p>
         <div style="overflow-x:auto;">
             <table class="rank-table">
                 <thead><tr><th>#</th><th>Korsan Adı</th><th>Ödül (Bounty)</th><th>Meyve</th></tr></thead>
                 <tbody id="leaderboard-body">
-                    <tr><td colspan="4" style="text-align:center;">Veriler Yükleniyor... (Veritabanı Bağlanıyor)</td></tr>
+                    <tr><td colspan="4" style="text-align:center;">Veritabanına bağlanıyor...</td></tr>
                 </tbody>
             </table>
         </div>
@@ -768,7 +186,7 @@
         <h2 class="section-title">Grand Line Bilgi Yarışması</h2>
         <div class="quiz-container">
             <div class="quiz-score">Kazanılan Bounty: <span id="current-score" style="color:var(--luffy-red)">0</span> ฿</div>
-            <p style="margin-bottom:20px; color:#666;">20 sorudan rastgele 10 tanesi sorulur!</p>
+            <p style="margin-bottom:20px; color:#666;">40 sorudan rastgele 10 tanesi sorulur!</p>
             <div id="quiz-box">
                 <div class="quiz-question" id="question-text">Soru Yükleniyor...</div>
                 <div class="quiz-options">
@@ -782,7 +200,7 @@
 
     <section id="fruit-game">
         <h2 class="section-title">Şeytan Meyveni Keşfet</h2>
-        <p>Dikkat! Yeni meyve çıkarsa eskisinin gücü ve ödülü silinir!</p>
+        <p>Dikkat! Yeni meyve çıkarsa eskisinin puanı silinir, yenisi eklenir!</p>
         <div class="fruit-box" id="fruit-display">
             <div class="fruit-name">?</div>
             <div class="fruit-desc">Çevirmek için butona bas!</div>
@@ -803,281 +221,409 @@
     <footer><p>&copy; 2026 One Piece Haber. Fan Yapımıdır.</p></footer>
 
     <div class="modal-overlay" id="infoModal"><div class="modal-content"><span class="close-modal" onclick="closeModal('infoModal')">×</span><div class="modal-body" id="modalBody"></div></div></div>
-
+    
     <div class="modal-overlay" id="loginModal">
         <div class="modal-content" style="max-width: 450px;">
-            <span class="close-modal" onclick="closeModal('loginModal')">×</span><h2 style="text-align: center; font-family: var(--font-heading);">Korsan Pasaportu</h2>
-            <div class="auth-form">
-                <label>Kullanıcı Adı:</label><input type="text" id="reg-name"><label>Şifre:</label><input type="password" id="reg-pass">
-                <label>Hakkında:</label><textarea id="reg-bio" rows="2"></textarea><label>Profil Resmi:</label><input type="file" id="reg-file" accept="image/*" onchange="previewImage()">
-                <div style="text-align:center;"><img id="img-preview" src="https://static.wikia.nocookie.net/onepiece/images/c/c5/Revolutionary_Army_Jolly_Roger.png" style="width:80px;height:80px;border-radius:50%;display:none;margin:10px auto;"></div>
-                <button class="auth-btn" onclick="performLogin()">Denize Açıl!</button>
+            <span class="close-modal" onclick="closeModal('loginModal')">×</span>
+            <h2 style="text-align: center; font-family: var(--font-heading);">Korsan Pasaportu</h2>
+            <div class="auth-toggle">
+                <button id="btn-show-login" class="active" onclick="switchAuthMode('login')">Giriş Yap</button>
+                <button id="btn-show-register" onclick="switchAuthMode('register')">Kayıt Ol</button>
+            </div>
+            
+            <div id="login-form" class="auth-form">
+                <label>Kullanıcı Adı:</label><input type="text" id="login-name" placeholder="Adın...">
+                <label>Şifre:</label><input type="password" id="login-pass" placeholder="Şifren...">
+                <button class="auth-btn" onclick="performLogin()">Giriş Yap</button>
+            </div>
+
+            <div id="register-form" class="auth-form" style="display:none;">
+                <label>Kullanıcı Adı Belirle:</label><input type="text" id="reg-name" placeholder="Yeni korsan adı...">
+                <label>Şifre Belirle:</label><input type="password" id="reg-pass" placeholder="Güçlü bir şifre...">
+                <label>Hakkında:</label><textarea id="reg-bio" rows="2" placeholder="Örn: Geleceğin Korsanlar Kralı"></textarea>
+                <label>Profil Resmi (Cihazından):</label><input type="file" id="reg-file" accept="image/*" onchange="previewImage()">
+                <div style="text-align:center;"><img id="img-preview" src="https://static.wikia.nocookie.net/onepiece/images/c/c5/Revolutionary_Army_Jolly_Roger.png" style="width:80px;height:80px;border-radius:50%;display:none;margin:10px auto;border:2px solid #333;object-fit:cover;"></div>
+                <button class="auth-btn" onclick="performRegister()">Kayıt Ol</button>
             </div>
         </div>
     </div>
 
     <div class="modal-overlay" id="profileModal">
-        <div class="modal-content" style="background:transparent;border:none;">
-            <span class="close-modal" onclick="closeModal('profileModal')" style="color:white;">×</span>
+        <div class="modal-content" style="max-width: 400px; background: transparent; box-shadow: none; border: none;">
+            <span class="close-modal" onclick="closeModal('profileModal')" style="color: white; z-index: 2001;">×</span>
             <div class="wanted-poster">
-                <div class="wanted-header">WANTED</div><div style="font-size:0.8rem;">DEAD OR ALIVE</div><img id="profile-img" class="wanted-img" src=""><div id="profile-name" class="wanted-name"></div>
+                <div class="wanted-header">WANTED</div><div style="font-size:0.8rem;">DEAD OR ALIVE</div>
+                <img id="profile-img" class="wanted-img" src=""><div id="profile-name" class="wanted-name"></div>
                 <div class="wanted-bounty">฿ <span id="profile-bounty" class="bounty-amount"></span> -</div>
                 <div id="profile-fruit" class="fruit-badge" style="display:none;"></div>
                 <p id="profile-bio" class="bio-text"></p>
-                <div style="margin-top:15px; border-top:1px solid #5a4a3a; padding-top:10px;">
-                    <div style="display:flex;gap:5px;"><input type="text" id="friend-input" placeholder="Arkadaş Adı" style="width:70%;padding:5px;"><button onclick="addFriend()" style="cursor:pointer;">+</button></div>
-                    <ul id="friend-list" style="list-style:none;padding:0;margin-top:5px;max-height:100px;overflow-y:auto;text-align:left;"></ul>
+                
+                <div class="friend-list"><strong>Tayfam (Arkadaş Ekle):</strong>
+                    <div style="display:flex; gap:5px; margin-bottom:5px;"><input type="text" id="friend-input" placeholder="İsim..." style="width:70%;padding:5px;"><button onclick="addFriend()" style="padding:5px;cursor:pointer;">+</button></div>
+                    <ul id="friend-ul"></ul>
                 </div>
             </div>
-            <button onclick="performLogout()" style="width:100%;margin-top:15px;padding:10px;background:#333;color:white;border:none;cursor:pointer;">Çıkış Yap</button>
+            <button onclick="enableEdit()" style="width:100%;margin-top:10px;padding:10px;background:#006994;color:white;border:none;cursor:pointer;">Profili Düzenle</button>
+            <button onclick="performLogout()" style="width:100%;margin-top:5px;padding:10px;background:#333;color:white;border:none;cursor:pointer;">Çıkış Yap</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="viewFriendModal">
+        <div class="modal-content" style="max-width: 400px; background: transparent; box-shadow: none; border: none;">
+            <span class="close-modal" onclick="closeModal('viewFriendModal')" style="color: white; z-index: 2001;">×</span>
+            <div class="wanted-poster">
+                <div class="wanted-header">FRIEND</div>
+                <img id="view-img" class="wanted-img" src="">
+                <div id="view-name" class="wanted-name"></div>
+                <div class="wanted-bounty">฿ <span id="view-bounty" class="bounty-amount"></span></div>
+                <div id="view-fruit" class="fruit-badge" style="display:none;"></div>
+                <p id="view-bio" class="bio-text"></p>
+                <div style="margin-top:10px; font-weight:bold; color:green;" id="view-status"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="editProfileModal">
+        <div class="modal-content" style="max-width: 400px;">
+            <span class="close-modal" onclick="closeModal('editProfileModal')">×</span>
+            <h3>Profili Düzenle</h3>
+            <div class="auth-form">
+                <label>Yeni Hakkında Yazısı:</label><textarea id="edit-bio" rows="3"></textarea>
+                <label>Yeni Resim Seç:</label><input type="file" id="edit-file" accept="image/*" onchange="previewEditImage()">
+                <div style="text-align:center;"><img id="edit-preview" src="" style="width:80px;height:80px;border-radius:50%;margin:10px auto;border:2px solid #333;object-fit:cover;"></div>
+                <button class="auth-btn" onclick="saveProfileEdit()">Kaydet</button>
+            </div>
         </div>
     </div>
 
     <script type="module">
-        // --- SENİN ANAHTARLARINLA GÜNCELLENMİŞ FIREBASE AYARLARI ---
+        // --- SENİN VERDİĞİN FIREBASE AYARLARI ---
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, doc, setDoc, getDoc, onSnapshot, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
-        apiKey: "AIzaSyAYQ1FVg9YwQTb8kuWIfg9KHiUIHBbkpqY",
-        authDomain: "one-piece-haber.firebaseapp.com",
-        projectId: "one-piece-haber",
-        storageBucket: "one-piece-haber.firebasestorage.app",
-        messagingSenderId: "292653018558",
-        appId: "1:292653018558:web:e275236747771db3329def",
-        measurementId: "G-G4NTRHD0YH"
+            apiKey: "AIzaSyAYQ1FVg9YwQTb8kuWIfg9KHiUIHBbkpqY",
+            authDomain: "one-piece-haber.firebaseapp.com",
+            projectId: "one-piece-haber",
+            storageBucket: "one-piece-haber.firebasestorage.app",
+            messagingSenderId: "292653018558",
+            appId: "1:292653018558:web:e275236747771db3329def",
+            measurementId: "G-G4NTRHD0YH"
         };
 
+        // Firebase Başlatma
         let db;
         try {
-        const app = initializeApp(firebaseConfig);
-        db = getFirestore(app);
-        console.log("Firebase Veritabanı Bağlandı! 🟢");
+            const app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            console.log("Firebase Bağlandı!");
         } catch(e) {
-        console.error("Firebase Hatası:", e);
+            console.error("Firebase Hatası (Config eksik olabilir):", e);
         }
 
         let currentUser = null;
-        let uploadedImg = "https://static.wikia.nocookie.net/onepiece/images/e/ec/Straw_Hat_Pirates_Jolly_Roger.png";
+        let uploadedImg = "https://static.wikia.nocookie.net/onepiece/images/c/c5/Revolutionary_Army_Jolly_Roger.png"; // Varsayılan Devrimci Bayrağı
+        let editImgTemp = "";
 
-        // GLOBAL FONKSİYONLAR
-        window.previewImage = function() {
-        const file = document.getElementById('reg-file').files[0];
-        if (file) {
-        const reader = new FileReader();
-        reader.onloadend = () => { uploadedImg = reader.result; document.getElementById('img-preview').src = uploadedImg; document.getElementById('img-preview').style.display="block"; };
-        reader.readAsDataURL(file);
+        // UI FONKSİYONLARI
+        window.switchAuthMode = function(mode) {
+            if(mode === 'login') {
+                document.getElementById('login-form').style.display='block'; document.getElementById('register-form').style.display='none';
+                document.getElementById('btn-show-login').classList.add('active'); document.getElementById('btn-show-register').classList.remove('active');
+            } else {
+                document.getElementById('login-form').style.display='none'; document.getElementById('register-form').style.display='block';
+                document.getElementById('btn-show-login').classList.remove('active'); document.getElementById('btn-show-register').classList.add('active');
+            }
         }
+
+        window.previewImage = function() {
+            const file = document.getElementById('reg-file').files[0];
+            if(file){ const r=new FileReader(); r.onload=()=>{ uploadedImg=r.result; document.getElementById('img-preview').src=uploadedImg; document.getElementById('img-preview').style.display="block"; }; r.readAsDataURL(file); }
+        }
+        
+        window.previewEditImage = function() {
+            const file = document.getElementById('edit-file').files[0];
+            if(file){ const r=new FileReader(); r.onload=()=>{ editImgTemp=r.result; document.getElementById('edit-preview').src=editImgTemp; }; r.readAsDataURL(file); }
+        }
+
+        // AUTH İŞLEMLERİ
+        window.checkLogin = function() {
+            const saved = localStorage.getItem('op_user_v15');
+            if(saved) {
+                currentUser = JSON.parse(saved);
+                // Günlük Spin Kontrol
+                const today = new Date().toDateString();
+                if(currentUser.lastSpinDate !== today) { currentUser.spinsLeft = 3; currentUser.lastSpinDate = today; updateUserData(); }
+                
+                document.getElementById('auth-section').innerHTML = `<div class="user-profile-mini" onclick="openProfile()"><img src="${currentUser.avatar}" class="user-avatar-small"><span>${currentUser.name}</span></div>`;
+                document.getElementById('spin-count').textContent = currentUser.spinsLeft;
+                listenLeaderboard();
+            }
+        }
+
+        window.performRegister = async function() {
+            if(!db) return alert("Veritabanı bağlı değil!");
+            const name = document.getElementById('reg-name').value.trim();
+            const pass = document.getElementById('reg-pass').value;
+            const bio = document.getElementById('reg-bio').value;
+            if(!name || !pass) return alert("İsim ve şifre şart!");
+
+            const userRef = doc(db, "users", name);
+            const snap = await getDoc(userRef);
+            if(snap.exists()) return alert("Bu isimde bir korsan zaten var!");
+
+            currentUser = { 
+                name, pass, bio: bio || "Yeni Korsan", avatar: uploadedImg, 
+                bounty: 1000, fruit: "Meyvesiz", fruitVal: 0, 
+                spinsLeft: 3, lastSpinDate: new Date().toDateString(), 
+                friends: [], isActive: true 
+            };
+            
+            await setDoc(userRef, currentUser);
+            localStorage.setItem('op_user_v15', JSON.stringify(currentUser));
+            location.reload();
         }
 
         window.performLogin = async function() {
-        if(!db) return alert("Hata: Veritabanı bağlantısı yok.");
-        const name = document.getElementById('reg-name').value;
-        const pass = document.getElementById('reg-pass').value;
-        const bio = document.getElementById('reg-bio').value;
-        if(!name || !pass) return alert("İsim ve şifre zorunlu!");
-
-        // Kullanıcı Kontrolü / Oluşturma
-        const userRef = doc(db, "users", name);
-        const userSnap = await getDoc(userRef);
-
-        if (userSnap.exists()) {
-        const data = userSnap.data();
-        if(data.pass === pass) {
-        currentUser = data;
-        alert("Giriş Başarılı: " + name);
-        } else {
-        return alert("Hatalı Şifre!");
-        }
-        } else {
-        currentUser = {
-        name, pass, bio: bio || "Yeni Korsan",
-        avatar: uploadedImg,
-        bounty: 1000,
-        fruit: "Meyvesiz", fruitVal: 0,
-        lastSpin: "",
-        friends: []
-        };
-        await setDoc(userRef, currentUser);
-        alert("Hoşgeldin Yeni Korsan " + name);
-        }
-
-        localStorage.setItem('op_live_user', JSON.stringify(currentUser));
-        updateUI();
-        closeModal('loginModal');
+            if(!db) return alert("Veritabanı bağlı değil!");
+            const name = document.getElementById('login-name').value.trim();
+            const pass = document.getElementById('login-pass').value;
+            
+            const userRef = doc(db, "users", name);
+            const snap = await getDoc(userRef);
+            if(snap.exists() && snap.data().pass === pass) {
+                currentUser = snap.data();
+                currentUser.isActive = true; // Aktif yap
+                updateUserData();
+                localStorage.setItem('op_user_v15', JSON.stringify(currentUser));
+                location.reload();
+            } else { alert("Hatalı isim veya şifre!"); }
         }
 
         window.performLogout = function() {
-        localStorage.removeItem('op_live_user');
-        currentUser = null;
-        location.reload();
+            if(currentUser) { currentUser.isActive = false; updateUserData(); }
+            localStorage.removeItem('op_user_v15');
+            location.reload();
         }
 
-        window.openLoginModal = function() { document.getElementById('loginModal').style.display = 'flex'; }
-        window.openProfile = function() {
-        if(!currentUser) return;
-        document.getElementById('profile-name').textContent = currentUser.name;
-        document.getElementById('profile-img').src = currentUser.avatar;
-        document.getElementById('profile-bounty').textContent = currentUser.bounty.toLocaleString();
-        document.getElementById('profile-bio').textContent = currentUser.bio;
-        const fb = document.getElementById('profile-fruit');
-        if(currentUser.fruit && currentUser.fruit !== "Meyvesiz") { fb.textContent = "Meyve: " + currentUser.fruit; fb.style.display="inline-block"; } else { fb.style.display="none"; }
-
-        renderFriendList();
-        document.getElementById('profileModal').style.display='flex';
+        // PROFİL DÜZENLEME
+        window.enableEdit = function() {
+            document.getElementById('edit-bio').value = currentUser.bio;
+            document.getElementById('edit-preview').src = currentUser.avatar;
+            editImgTemp = currentUser.avatar;
+            closeModal('profileModal');
+            document.getElementById('editProfileModal').style.display = 'flex';
         }
 
-        window.addFriend = async function() {
-        const input = document.getElementById('friend-input');
-        const fName = input.value.trim();
-        if(fName && !currentUser.friends.includes(fName)) {
-        // Arkadaşın veritabanında olup olmadığına bakılabilir ama şimdilik direkt ekliyoruz
-        currentUser.friends.push(fName);
-        await updateUserData();
-        renderFriendList();
-        input.value = "";
-        }
-        }
-
-        function renderFriendList() {
-        const ul = document.getElementById('friend-list');
-        ul.innerHTML = (currentUser.friends || []).map(f => `<li>☠️ ${f}</li>`).join('');
-        }
-
-        // --- SIRALAMA (GERÇEK ZAMANLI) ---
-        function listenLeaderboard() {
-        if(!db) return;
-        const q = query(collection(db, "users"), orderBy("bounty", "desc"), limit(50));
-        onSnapshot(q, (snapshot) => {
-        const tbody = document.getElementById('leaderboard-body');
-        tbody.innerHTML = "";
-        let rank = 1;
-        snapshot.forEach((doc) => {
-        const u = doc.data();
-        const isMe = currentUser && currentUser.name === u.name ? 'current-user-row' : '';
-        tbody.innerHTML += `<tr class="${isMe}"><td>${rank++}</td><td>${u.name}</td><td>${u.bounty.toLocaleString()} ฿</td><td>${u.fruit || '-'}</td></tr>`;
-        });
-        });
+        window.saveProfileEdit = async function() {
+            currentUser.bio = document.getElementById('edit-bio').value;
+            currentUser.avatar = editImgTemp;
+            await updateUserData();
+            alert("Profil güncellendi!");
+            closeModal('editProfileModal');
+            openProfile(); // Geri dön
         }
 
         async function updateUserData() {
-        if(!currentUser || !db) return;
-        await setDoc(doc(db, "users", currentUser.name), currentUser);
-        localStorage.setItem('op_live_user', JSON.stringify(currentUser));
-        if(document.getElementById('current-score')) document.getElementById('current-score').textContent = currentUser.bounty.toLocaleString();
+            if(!currentUser || !db) return;
+            await setDoc(doc(db, "users", currentUser.name), currentUser);
+            localStorage.setItem('op_user_v15', JSON.stringify(currentUser));
+            if(document.getElementById('current-score')) document.getElementById('current-score').textContent = currentUser.bounty.toLocaleString();
         }
 
-        // --- OYUN MANTIĞI ---
+        // ARKADAŞ SİSTEMİ
+        window.addFriend = async function() {
+            const input = document.getElementById('friend-input');
+            const targetName = input.value.trim();
+            if(!targetName) return;
+            if(targetName === currentUser.name) return alert("Kendini ekleyemezsin!");
+            if(currentUser.friends.includes(targetName)) return alert("Zaten arkadaşsınız!");
 
-        // MEYVE ÇARKI
+            const targetRef = doc(db, "users", targetName);
+            const snap = await getDoc(targetRef);
+            if(!snap.exists()) {
+                alert("Böyle bir korsan bulunamadı!");
+            } else {
+                currentUser.friends.push(targetName);
+                await updateUserData();
+                renderFriends();
+                input.value = "";
+            }
+        }
+
+        function renderFriends() {
+            const list = document.getElementById('friend-ul');
+            if(!currentUser.friends.length) { list.innerHTML = "<li>Henüz kimse yok...</li>"; return; }
+            list.innerHTML = currentUser.friends.map(f => `<li onclick="viewFriendProfile('${f}')">☠️ ${f}</li>`).join('');
+        }
+
+        window.viewFriendProfile = async function(name) {
+            const ref = doc(db, "users", name);
+            const snap = await getDoc(ref);
+            if(snap.exists()) {
+                const u = snap.data();
+                document.getElementById('view-name').textContent = u.name;
+                document.getElementById('view-img').src = u.avatar;
+                document.getElementById('view-bounty').textContent = u.bounty.toLocaleString();
+                document.getElementById('view-bio').textContent = u.bio;
+                const vf = document.getElementById('view-fruit');
+                if(u.fruit && u.fruit!=="Meyvesiz") { vf.textContent=u.fruit; vf.style.display="inline-block"; } else { vf.style.display="none"; }
+                
+                const stat = document.getElementById('view-status');
+                stat.textContent = u.isActive ? "🟢 Şu an Aktif (Grand Line'da)" : "🔴 Pasif (Dinleniyor)";
+                stat.style.color = u.isActive ? "green" : "red";
+                
+                closeModal('profileModal');
+                document.getElementById('viewFriendModal').style.display='flex';
+            }
+        }
+
+        // LEADERBOARD
+        function listenLeaderboard() {
+            if(!db) return;
+            const q = query(collection(db, "users"), orderBy("bounty", "desc"), limit(50));
+            onSnapshot(q, (snapshot) => {
+                const tbody = document.getElementById('leaderboard-body');
+                tbody.innerHTML = "";
+                let rank = 1;
+                snapshot.forEach((doc) => {
+                    const u = doc.data();
+                    const isMe = currentUser && currentUser.name === u.name ? 'current-user-row' : '';
+                    tbody.innerHTML += `<tr class="${isMe}"><td>${rank++}</td><td>${u.name}</td><td>${u.bounty.toLocaleString()} ฿</td><td>${u.fruit || '-'}</td></tr>`;
+                });
+            });
+        }
+
+        // ÇARK SİSTEMİ
+        const fruitList = [
+            {n:"Hito Hito: Nika", v:3000000000, c:0.01}, // %1
+            {n:"Gura Gura no Mi", v:1500000000, c:0.03}, 
+            {n:"Ope Ope no Mi", v:1000000000, c:0.05},
+            {n:"Mera Mera no Mi", v:500000000, c:0.10},
+            {n:"Gomu Gomu (Normal)", v:100000000, c:0.20},
+            {n:"Bara Bara no Mi", v:15000000, c:0.30},
+            {n:"Sube Sube no Mi", v:5000000, c:0.31}
+        ];
+
         window.spinFruit = function() {
-        if(!currentUser) return alert("Önce giriş yapmalısın!");
-        // Günde 3 Hak Kontrolü (Basit Tarih + Sayaç Mantığı)
-        const today = new Date().toDateString();
-        if(currentUser.lastSpin !== today) { currentUser.lastSpin = today; currentUser.spinsLeft = 3; }
-
-        if(currentUser.spinsLeft <= 0) return alert("Bugünlük hakkın bitti! (Yarın gel)");
-
-        currentUser.spinsLeft--;
-        document.querySelector('.spin-limit').textContent = `Kalan Hakkın: ${currentUser.spinsLeft}`;
-
-        const display = document.getElementById('fruit-display');
-        display.style.transform = "rotate(1080deg)";
-
-        setTimeout(async () => {
-        const fruits = [
-        {n:"Hito Hito: Nika", v:500000000, c:0.02}, {n:"Gura Gura", v:400000000, c:0.05},
-        {n:"Ope Ope", v:300000000, c:0.1}, {n:"Mera Mera", v:200000000, c:0.15},
-        {n:"Gomu Gomu", v:50000000, c:0.25}, {n:"Bara Bara", v:15000000, c:0.43}
-        ];
-        let rand = Math.random(), selected = fruits[fruits.length-1], acc = 0;
-        for(let f of fruits) { acc += f.c; if(rand <= acc) { selected = f; break; } }
-
-        // Puan Takası: Eski meyveyi çıkar, yeniyi ekle
-        if(currentUser.fruitVal > 0) currentUser.bounty -= currentUser.fruitVal;
-        currentUser.fruit = selected.n;
-        currentUser.fruitVal = selected.v;
-        currentUser.bounty += selected.v;
-        if(currentUser.bounty < 0) currentUser.bounty = 0;
-
-        await updateUserData();
-
-        display.innerHTML = `<div class="fruit-name">${selected.n}</div><div class="fruit-desc">+${selected.v.toLocaleString()}</div>`;
-        display.style.transform = "rotate(0deg)";
-        }, 1000);
+            if(!currentUser) return alert("Önce giriş yap!");
+            if(currentUser.spinsLeft <= 0) return alert("Bugünlük hakkın bitti!");
+            
+            currentUser.spinsLeft--;
+            document.querySelector('.spin-limit').innerHTML = `Kalan: ${currentUser.spinsLeft}`;
+            document.getElementById('fruit-display').style.transform = "rotate(1080deg)";
+            
+            setTimeout(async () => {
+                const rand = Math.random();
+                let cumulative = 0;
+                let selected = fruitList[fruitList.length-1];
+                for(let f of fruitList) { cumulative += f.c; if(rand <= cumulative) { selected = f; break; } }
+                
+                // Eski Puanı Sil, Yeni Ekle
+                if(currentUser.fruitVal > 0) currentUser.bounty -= currentUser.fruitVal;
+                currentUser.fruit = selected.n;
+                currentUser.fruitVal = selected.v;
+                currentUser.bounty += selected.v;
+                if(currentUser.bounty < 0) currentUser.bounty = 0;
+                
+                await updateUserData();
+                document.getElementById('fruit-display').innerHTML = `<div class="fruit-name">${selected.n}</div><div class="fruit-desc">+${selected.v.toLocaleString()}</div>`;
+                document.getElementById('fruit-display').style.transform = "rotate(0deg)";
+            }, 1000);
         }
 
-        // QUIZ (20 Soru - Rastgele 10)
+        // QUIZ (40 SORU - RASTGELE 10)
         const allQ = [
-        {q:"Luffy'nin meyvesi?", a:["Gomu","Nika","Mera","Yami"], c:1},
-        {q:"Zoro'nun ilk kılıcı?", a:["Wado","Enma","Shusui","Kitetsu"], c:0},
-        {q:"Sanji nereli?", a:["East","West","North","South"], c:2},
-        {q:"Roger'ın hazinesi?", a:["One Piece","Gold","Pluton","Poseidon"], c:0},
-        {q:"Chopper ne?", a:["Geyik","Rakun","İnsan","Ayı"], c:0},
-        {q:"Nami'nin lakabı?", a:["Kedi Hırsız","Rotacı","Cadı","Prenses"], c:0},
-        {q:"Franky neyle çalışır?", a:["Cola","Su","Bira","Süt"], c:0},
-        {q:"Brook'un meyvesi?", a:["Yomi","Kage","Horo","Suke"], c:0},
-        {q:"Usopp'un babası?", a:["Yasopp","Yassop","Yasoop","Shanks"], c:0},
-        {q:"Jinbe hangi ırk?", a:["Balıkadam","İnsan","Mink","Dev"], c:0},
-        {q:"Ace'in babası?", a:["Roger","Whitebeard","Dragon","Garp"], c:0},
-        {q:"Sabo'nun ünvanı?", a:["Ateş İmparatoru","Devrimci","Korsan","Denizci"], c:0},
-        {q:"Doflamingo'nun lakabı?", a:["Joker","King","Queen","Jack"], c:0},
-        {q:"Law'ın meyvesi?", a:["Ope Ope","Mope Mope","Lope Lope","Kope Kope"], c:0},
-        {q:"Kaido'nun meyve türü?", a:["Zoan","Logia","Paramecia","Smile"], c:0},
-        {q:"Robin kaç yaşında arandı?", a:["8","10","12","6"], c:0},
-        {q:"Going Merry'i kim verdi?", a:["Kaya","Nojiko","Genzo","Zeff"], c:0},
-        {q:"Luffy'nin ilk ödülü?", a:["30 Milyon","100 Milyon","300 Milyon","1.5 Milyar"], c:0},
-        {q:"Shanks kolunu kime verdi?", a:["Deniz Canavarı","Mihawk","Kaido","Blackbeard"], c:0},
-        {q:"Zoro'nun hocası?", a:["Mihawk","Koushirou","Kuina","Rayleigh"], c:0}
+            {q:"Luffy'nin şeytan meyvesinin gerçek adı?", a:["Gomu Gomu","Hito Hito","Hito Hito: Nika","Nika Nika"], c:2},
+            {q:"Zoro'nun ustasının adı?", a:["Mihawk","Koshiro","Rayleigh","Oden"], c:1},
+            {q:"Sanji hangi denizde doğmuştur?", a:["West","North","South","East"], c:1},
+            {q:"Nami'nin ilk bağlı olduğu korsan?", a:["Arlong","Buggy","Crocodile","Don Krieg"], c:0},
+            {q:"Usopp'un babası?", a:["Yasopp","Beckman","Lucky Roo","Shanks"], c:0},
+            {q:"Chopper hangi meyveyi yedi?", a:["Gomu","Hito Hito","Mera","Ushi"], c:1},
+            {q:"Robin'in ilk örgütü?", a:["CP9","Baroque Works","Donquixote","Devrim"], c:1},
+            {q:"Franky'nin gerçek adı?", a:["Iceburg","Cutty Flam","Tom","Paulie"], c:1},
+            {q:"Brook kaç yıl yalnız kaldı?", a:["10","20","30","50"], c:3},
+            {q:"Jinbe hangi ırk?", a:["Dev","Mink","Balık Adam","Lunarian"], c:2},
+            {q:"Luffy hangi denizde çıktı?", a:["Grand Line","East Blue","West Blue","North Blue"], c:1},
+            {q:"Shanks hangi Yonko?", a:["Beyazsakal","Big Mom","Kızıl Saç","Kara Sakal"], c:2},
+            {q:"Ace'in meyvesi?", a:["Magu","Mera Mera","Gura","Suna"], c:1},
+            {q:"Whitebeard'ın adı?", a:["Edward Teach","Edward Newgate","Xebec","Marshall"], c:1},
+            {q:"Enies Lobby CP9 lideri?", a:["Kaku","Jabra","Lucci","Spandam"], c:2},
+            {q:"Doflamingo nere prensi?", a:["Alabasta","Dressrosa","Wano","Drum"], c:1},
+            {q:"Wano eski shogunu?", a:["Orochi","Oden","Kaido","Momo"], c:1},
+            {q:"Kaido'nun meyvesi?", a:["Ryu Ryu","Uo Uo: Seiryu","Hebi","Tori"], c:1},
+            {q:"Big Mom'un adı?", a:["Smoothie","Linlin","Streusen","Perospero"], c:1},
+            {q:"Law'ın meyvesi?", a:["Ope Ope","Ito","Yami","Bari"], c:0},
+            {q:"Blackbeard kaç meyveli?", a:["1","2","3","4"], c:1},
+            {q:"Roger'ın lakabı?", a:["Altın Aslan","Korsan Kral","Şeytan","Kılıç Ustası"], c:1},
+            {q:"Hazine adası?", a:["Raftel","Laugh Tale","Lodestar","Elbaf"], c:1},
+            {q:"Sabo hangi örgüt?", a:["CP0","Devrim Ordusu","Marine","Baroque"], c:1},
+            {q:"Dragon kimdir?", a:["Amiral","Yonko","Devrim Lideri","Shichibukai"], c:2},
+            {q:"En güçlü denizci?", a:["Koramiral","Filo Amiral","Amiral","Yüzbaşı"], c:1},
+            {q:"Gear 2 ilk nerede?", a:["Alabasta","Enies Lobby","Thriller","Marineford"], c:1},
+            {q:"Enma kimden?", a:["Mihawk","Wano","East Blue","Marine"], c:1},
+            {q:"Shichibukai sayısı?", a:["5","6","7","8"], c:2},
+            {q:"Akainu meyvesi?", a:["Mera","Magu Magu","Hie","Pika"], c:1},
+            {q:"Aokiji meyvesi?", a:["Hie Hie","Moku","Suna","Yami"], c:0},
+            {q:"Kizaru meyvesi?", a:["Pika Pika","Magu","Ope","Goro"], c:0},
+            {q:"Enel nerede?", a:["Skypiea","Dressrosa","Fishman","Zou"], c:0},
+            {q:"Crocodile meyvesi?", a:["Suna Suna","Ito","Gura","Doku"], c:0},
+            {q:"Kuma meyvesi?", a:["Paw Paw","Bari","Hobi","Hana"], c:0},
+            {q:"Mihawk lakabı?", a:["İmparator","En Güçlü Kılıç Ustası","Kara","Şahin"], c:1},
+            {q:"Wano neden kapalı?", a:["Hükümet","Silah","İzolasyon","Taşlar"], c:2},
+            {q:"Joy Boy nerede duyuldu?", a:["Marineford","Fishman Island","Dressrosa","Alabasta"], c:1},
+            {q:"Luffy babası?", a:["Garp","Dragon","Roger","Shanks"], c:1},
+            {q:"Tayfa gemisi?", a:["Merry","Sunny","Red Force","Moby"], c:1}
         ];
-        let quizQ = [], qIdx = 0;
-
-        function initQuiz() { quizQ = [...allQ].sort(()=>0.5-Math.random()).slice(0,10); qIdx=0; loadQ(); }
-        function loadQ() {
-        if(qIdx>=quizQ.length) { document.getElementById('quiz-box').innerHTML="<p>Bitti! (Puanlar Eklendi)</p><button class='quiz-btn' onclick='location.reload()'>Tekrar</button>"; return; }
-        const q = quizQ[qIdx];
-        document.getElementById('question-text').textContent=q.q;
-        document.querySelectorAll('.quiz-btn').forEach((b,i)=>{ b.textContent=q.a[i]; b.disabled=false; b.style.background="var(--bg-dark)"; });
+        
+        let quizQ=[], qIdx=0;
+        function initQuiz(){ quizQ = [...allQ].sort(()=>0.5-Math.random()).slice(0,10); qIdx=0; loadQ(); }
+        function loadQ(){
+            if(qIdx>=quizQ.length){ document.getElementById('quiz-box').innerHTML=`<p>Bitti!</p><button class='quiz-btn' onclick='location.reload()'>Tekrar</button>`; return; }
+            const q = quizQ[qIdx];
+            document.getElementById('question-text').textContent = (qIdx+1)+". "+q.q;
+            document.querySelectorAll('.quiz-btn').forEach((b,i)=>{ b.textContent=q.a[i]; b.disabled=false; b.style.background="var(--bg-dark)"; });
         }
-        window.checkAnswer = async function(i) {
-        if(i===quizQ[qIdx].c) {
-        if(currentUser) { currentUser.bounty += 5000; await updateUserData(); }
-        document.getElementById('feedback-text').textContent="Doğru! (+5000)";
-        } else { document.getElementById('feedback-text').textContent="Yanlış!"; }
-        qIdx++; setTimeout(loadQ, 1000);
+        window.checkAnswer = async function(i){
+            if(i===quizQ[qIdx].c){
+                if(currentUser){ currentUser.bounty+=5000; await updateUserData(); }
+                document.getElementById('feedback-text').textContent="Doğru! (+5000)";
+            } else { document.getElementById('feedback-text').textContent="Yanlış!"; }
+            qIdx++; setTimeout(loadQ, 800);
         }
 
         // --- HABERLER VE UI ---
         // (Buradaki metinler senin verdiğin orijinal metinlerdir)
         const contents = {
-        'manga': `<h2>🚨 Önemliler (En Sıcak Gelişmeler)</h2><h3>1. Manga: Bölüm 1174 ve "Büyük Mola"</h3><p><strong>Güncel Durum:</strong> Manga şu an Elbaf Arkı'nın zirvesinde. İnternetteki son raporlara göre 1174. Bölüm'ün yarın (15 Şubat 2026) yayınlanması bekleniyor.</p><p><strong>Kötü Haber (Ara):</strong> 1174. bölümden sonra Eiichiro Oda'nın klasik "3 bölüm çiz, 1 hafta ara ver" rutini devreye girecek. Yani 22 Şubat haftası manga yok.</p><p><strong>Dönüş:</strong> Seri, 1 Mart 2026'da 1175. Bölüm ile geri dönecek.</p><p><strong>Büyük Olay (Spoiler İçerebilir):</strong> İnternetteki sızıntılar ve tartışmalar, 1175. bölümün serinin en büyük savaşlarından birine, Luffy vs. Imu karşılaşmasına sahne olacağını (veya bu savaşın kızışacağını) işaret ediyor.</p><h3>2. Live Action (2. Sezon): Tarih Kesinleşti!</h3><p><strong>Yayın Tarihi:</strong> Netflix, One Piece Live Action 2. Sezon'un 10 Mart 2026'da yayınlanacağını doğruladı. Yani 1 aydan az bir süre kaldı.</p><p><strong>Kapsam:</strong> Bu sezon Loguetown ile başlayıp, Drum Adası'na kadar gidecek (Alabasta muhtemelen 3. sezona saklandı).</p><p><strong>3. Sezon Onayı:</strong> Şimdiden 3. sezon onayı alındığı ve çekimlerin (özellikle Alabasta kısımları için) başladığına dair güçlü haberler var.</p><p><strong>Kadro:</strong> Smoker (Callum Kerr) ve Tashigi (Julia Rehwald) gibi karakterler fragmanlarda göründü. Tony Tony Chopper'ın CGI/Makyaj karışımı görünümü büyük merak konusu.</p><h3>🔥 Öne Çıkanlar (Detaylar & Yan Projeler)</h3><p><strong>1. Anime (Wit Studio Remake): Sessizlik Sürüyor</strong><br>Netflix ve Wit Studio'nun (Attack on Titan'ın ilk stüdyosu) hazırladığı "THE ONE PIECE" yeniden yapımı (remake) için Jump Festa 2026'da beklenen fragman gelmedi. Proje "yapım aşamasında" denilerek geçiştirildi. İnternetteki genel kanı, projenin beklenenden yavaş ilerlediği yönünde.</p><p><strong>2. Mevcut Anime (Toei Animation)</strong><br>Orijinal anime serisi de manga ile paralel olarak Elbaf dönemine giriş yapmış durumda (veya Egghead'in finalini işliyor, takvime göre değişebilir). Ancak manga şu an çok kritik bir savaşta olduğu için tüm gözler okuyucularda.</p><h3>🔮 Hayranlara Göre Önümüzdeki Bölümler & Teoriler</h3><p><strong>Luffy vs. Imu (Bölüm 1175+):</strong><br>Hayranlar, 1 Mart'ta gelecek 1175. bölümün, Luffy'nin "Güneş Tanrısı Nika" formu ile Imu arasındaki doğrudan çatışmanın başlangıcı olacağına inanıyor. Bu, serinin finaline giden en net yol olarak görülüyor. Bir diğer teori, Elbaf'taki Devlerin bu savaşta Luffy'ye nasıl bir ordu desteği vereceği üzerine.</p><p><strong>Shanks'ın Hamlesi:</strong><br>Elbaf, Shanks'ın bölgesi olduğu için, hayranlar Shanks'ın Luffy ile Imu arasındaki savaşa müdahil olmasını veya "One Piece"i almak için son hamlesini yapmasını bekliyor. "Davy Back Fight" teorileri veya "Son Poneglyph"in konumu hakkında spekülasyonlar zirvede.</p><p><strong>Live Action Chopper:</strong><br>10 Mart'taki prömiyer öncesi en büyük korku ve merak Chopper. Dedektif Pikachu tarzı gerçekçi bir yaklaşım mı yoksa daha maskotvari bir yaklaşım mı olduğu hala en çok tartışılan konu.</p>`,
-        'sbs': `<h2>SBS (Soru-Cevap Köşesi)</h2><p>Bu SBS'ler genellikle karakterlerin kişisel özelliklerini tanımlar ve hayranlar arasında "canon" (resmi) bilgi kabul edilir.</p><h3>Eğer Hasır Şapkalar Gerçek Dünyada Yaşasaydı (Cilt 56)</h3><p><strong>Okuyucu (D):</strong> Oda-sensei! Luffy ve diğerleri gerçek hayatta olsalardı hangi ülkeden olurlardı?</p><p><strong>Oda (O):</strong> Karakterlerin görünüşlerine ve imajlarına dayanarak şöyle olurdu:<br>Luffy: Brezilya<br>Zoro: Japonya<br>Nami: İsveç<br>Usopp: Afrika (Kıta olarak belirtmiş)<br>Sanji: Fransa<br>Chopper: Kanada<br>Robin: Rusya<br>Franky: ABD<br>Brook: Avusturya<br>(Not: Jinbe daha sonra eklendiğinde onun için "Hindistan" demiştir.)</p><h3>Banyo Yapma Sıklıkları (Cilt 48)</h3><p><strong>D:</strong> Merak ediyorum, Hasır Şapka Korsanları ne sıklıkla banyo yapıyor?</p><p><strong>O:</strong> Bu soru çok geliyor. İşte cevaplar:<br>Luffy, Zoro, Brook: Haftada 1 kez.<br>Usopp, Franky, Chopper: 3 günde 1 kez.<br>Sanji, Nami, Robin: Her gün.<br><strong>Oda'nın notu:</strong> Sanji her gün yıkanır çünkü kadınların yanına temiz gitmek ister. Erkeklerin olduğu günler "erkekler günü" gibi toplu yıkanırlar ve tam bir kaos ortamı olur. Chopper genelde kadınlarla yıkanır çünkü erkekler çok vahşi davranır.</p><h3>⚔️ Karakter Detayları ve Sırlar</h3><p><strong>Zoro'nun Kılıçlarını Ağzıyla Tutması (Cilt 5)</strong><br>D: Zoro konuşurken kılıcı ağzında tutuyor. Dişleri ağrımıyor mu? Nasıl konuşabiliyor?<br>O: O, kalbiyle konuşuyor! (Şaka bir yana, bu bir manga, çok takılmayın ama evet, çenesi çok güçlü.)</p><p><strong>Sanji'nin Kaşları (Cilt 7)</strong><br>D: Sanji'nin kaşı neden kıvrık?<br>O: Hey! Dur orada! O kaş hakkında şaka yapma! O kaşın kıvrımı, evrenin enerjisini içinde barındırır. Eğer o kıvrım düzleşirse dünya yok olabilir... Şaka şaka. Sadece tasarımı hoşuma gidiyor.</p><p><strong>Nami'nin Kıyafetleri (Cilt 20 civarı)</strong><br>D: Nami neden hep bu kadar açık giyiniyor?<br>O: Çünkü modayı seviyor! Ayrıca... Çizmesi daha eğlenceli değil mi? (Oda'nın klasik sapık şakaları).</p><h3>🍎 Şeytan Meyveleri Hakkında</h3><p><strong>İnsan İnsan Meyvesi (Hito Hito no Mi) (Cilt 20)</strong><br>D: Chopper "Hito Hito no Mi" yedi ve insan-geyik oldu. Peki ya bir insan bu meyveyi yerse ne olur?<br>O: Sanırım "Aydınlanmış İnsan" olurdu. Nirvana'ya ulaşmış, kendini bulmuş bir insan... Ya da sadece yüzmesi imkansız hale gelen normal bir insan. (Oda burada Luffy'nin meyvesiyle ilgili gerçeği yıllar öncesinden saklıyordu).</p><p><strong>Luffy'nin Uzaması (Çeşitli Ciltler)</strong><br>D: Luffy'nin vücudu lastik olduğu için... Şeyi de uzuyor mu?<br>O: Evet. (Net ve kısa cevap).</p><h3>👴 Karakterlerin Gelecekteki Halleri</h3><p>Oda, son zamanlarda SBS'lerde karakterlerin "İşler yolunda giderse" ve "İşler kötü giderse" 40 ve 60 yaşındaki hallerini çiziyor.</p><p><strong>Luffy'nin Geleceği (Cilt 89)</strong><br>40 Yaş (İyi Yol): "Et!! Yine mi et yiyoruz? Şahane!" (Shanks'a benziyor).<br>60 Yaş (İyi Yol): "Korsanlar Kralı mı? Evet, o benim." (Garp'a benziyor).<br>40 Yaş (Kötü Yol): "Korsanlar Kralı mı? Rüya görmeyi bırak." (Şişman ve bakımsız).<br>60 Yaş (Kötü Yol): "Hey, bana biraz et versene, borç yaz." (Dişleri dökülmüş).</p><p><strong>Ace'in Geleceği (Eğer ölmeseydi - Cilt 89)</strong><br>O: Eğer hayatta kalsaydı böyle görünürdü... (Oda burada Ace'in yaşlanmış, olgun ve Beyazbıyık'a sadık, güçlü bir korsan halini çizdi. Hayranları ağlatan bir SBS'dir.)</p><h3>🤪 Komik ve Meta Sorular</h3><p><strong>Beyazbıyık'ın Bıyığı mı Yoksa... (Cilt 39)</strong><br>D: Beyazbıyık'ın (Whitebeard) yüzündeki o şey... O bir bıyık mı yoksa burnundan çıkan kıllar mı?<br>O: Ne kadar kaba! O şanlı bir bıyık! Aslında o bir bumerang! Savaşta yerinden çıkarıp fırlatıyor ve geri dönüp tekrar yapışıyor! (Tabii ki yalan söylüyor).</p><p><strong>Karakterlerin Beyin Yapısı (Cilt 50 civarı)</strong><br>D: Hasır Şapkaların beyninin içinde ne var?<br>O:<br>Luffy: Et, Et, Et, Et, Korsanlar Kralı.<br>Zoro: Kılıç, Kılıç, Güç, Uyku, Sake.<br>Nami: Para, Para, Para, Güzellik, Para.<br>Sanji: Kadınlar, Yemek, Kadınlar, Nami-san, Robin-chan.<br>Chopper: Doktorluk, İlaç, Tatlı, Pamuk Şeker.</p><h3>🗡️ Nesnelerin İnsanlaştırılması</h3><p><strong>Zoro'nun Kılıçları İnsan Olsaydı (Cilt 92)</strong><br>D: Zoro'nun kılıçları (Wado Ichimonji, Sandai Kitetsu, Shusui) insan olsaydı nasıl görünürdü?<br>O:<br>Wado Ichimonji: Ciddi, geleneksel kıyafetli, onurlu bir adam.<br>Sandai Kitetsu: Sapkın, korkunç görünümlü, lanetli bir serseri.<br>Shusui: Savaşçı ruhlu, güçlü ama biraz kaba bir samuray.</p><h3>❓ SBS Nasıl Başlar ve Biter?</h3><p>SBS'nin en büyük kuralı, okuyucunun köşeyi başlatmaya çalışması ve Oda'nın bunu engellemeye çalışmasıdır (veya tam tersi).<br>Örnek (Neredeyse her cilt):<br>D: "SBS Başlıy..."<br>O: "BAŞLAMIYOR!"<br>Örnek (Cilt 4):<br>D: "Lütfen SBS'yi başlatmama izin verin."<br>O: "Pekala, başlayın."<br>D: "SBS BAŞLADI!"<br>O: "Hah! Ben başlatacaktım!"</p>`,
-        'anime': `<h2>Anime & Remake Güncellemesi</h2><p><strong>Mevcut Anime (Toei Animation):</strong> Orijinal anime serisi de manga ile paralel olarak Elbaf dönemine giriş yapmış durumda. Ancak manga şu an çok kritik bir savaşta olduğu için tüm gözler okuyucularda.</p><p><strong>Wit Studio Remake:</strong> Sessizlik sürüyor. Jump Festa 2026'da beklenen fragman gelmedi. Proje "yapım aşamasında" denilerek geçiştirildi. İnternetteki genel kanı, projenin beklenenden yavaş ilerlediği yönünde.</p>`
+            'manga': `<h2>🚨 Önemliler (En Sıcak Gelişmeler)</h2><h3>1. Manga: Bölüm 1174 ve "Büyük Mola"</h3><p><strong>Güncel Durum:</strong> Manga şu an Elbaf Arkı'nın zirvesinde. İnternetteki son raporlara göre 1174. Bölüm'ün yarın (15 Şubat 2026) yayınlanması bekleniyor.</p><p><strong>Kötü Haber (Ara):</strong> 1174. bölümden sonra Eiichiro Oda'nın klasik "3 bölüm çiz, 1 hafta ara ver" rutini devreye girecek. Yani 22 Şubat haftası manga yok.</p><p><strong>Dönüş:</strong> Seri, 1 Mart 2026'da 1175. Bölüm ile geri dönecek.</p><p><strong>Büyük Olay (Spoiler İçerebilir):</strong> İnternetteki sızıntılar ve tartışmalar, 1175. bölümün serinin en büyük savaşlarından birine, Luffy vs. Imu karşılaşmasına sahne olacağını (veya bu savaşın kızışacağını) işaret ediyor.</p><h3>2. Live Action (2. Sezon): Tarih Kesinleşti!</h3><p><strong>Yayın Tarihi:</strong> Netflix, One Piece Live Action 2. Sezon'un 10 Mart 2026'da yayınlanacağını doğruladı. Yani 1 aydan az bir süre kaldı.</p><p><strong>Kapsam:</strong> Bu sezon Loguetown ile başlayıp, Drum Adası'na kadar gidecek (Alabasta muhtemelen 3. sezona saklandı).</p><p><strong>3. Sezon Onayı:</strong> Şimdiden 3. sezon onayı alındığı ve çekimlerin (özellikle Alabasta kısımları için) başladığına dair güçlü haberler var.</p><p><strong>Kadro:</strong> Smoker (Callum Kerr) ve Tashigi (Julia Rehwald) gibi karakterler fragmanlarda göründü. Tony Tony Chopper'ın CGI/Makyaj karışımı görünümü büyük merak konusu.</p><h3>🔥 Öne Çıkanlar (Detaylar & Yan Projeler)</h3><p><strong>1. Anime (Wit Studio Remake): Sessizlik Sürüyor</strong><br>Netflix ve Wit Studio'nun (Attack on Titan'ın ilk stüdyosu) hazırladığı "THE ONE PIECE" yeniden yapımı (remake) için Jump Festa 2026'da beklenen fragman gelmedi. Proje "yapım aşamasında" denilerek geçiştirildi. İnternetteki genel kanı, projenin beklenenden yavaş ilerlediği yönünde.</p><p><strong>2. Mevcut Anime (Toei Animation)</strong><br>Orijinal anime serisi de manga ile paralel olarak Elbaf dönemine giriş yapmış durumda (veya Egghead'in finalini işliyor, takvime göre değişebilir). Ancak manga şu an çok kritik bir savaşta olduğu için tüm gözler okuyucularda.</p><h3>🔮 Hayranlara Göre Önümüzdeki Bölümler & Teoriler</h3><p><strong>Luffy vs. Imu (Bölüm 1175+):</strong><br>Hayranlar, 1 Mart'ta gelecek 1175. bölümün, Luffy'nin "Güneş Tanrısı Nika" formu ile Imu arasındaki doğrudan çatışmanın başlangıcı olacağına inanıyor. Bu, serinin finaline giden en net yol olarak görülüyor. Bir diğer teori, Elbaf'taki Devlerin bu savaşta Luffy'ye nasıl bir ordu desteği vereceği üzerine.</p><p><strong>Shanks'ın Hamlesi:</strong><br>Elbaf, Shanks'ın bölgesi olduğu için, hayranlar Shanks'ın Luffy ile Imu arasındaki savaşa müdahil olmasını veya "One Piece"i almak için son hamlesini yapmasını bekliyor. "Davy Back Fight" teorileri veya "Son Poneglyph"in konumu hakkında spekülasyonlar zirvede.</p><p><strong>Live Action Chopper:</strong><br>10 Mart'taki prömiyer öncesi en büyük korku ve merak Chopper. Dedektif Pikachu tarzı gerçekçi bir yaklaşım mı yoksa daha maskotvari bir yaklaşım mı olduğu hala en çok tartışılan konu.</p>`,
+            'sbs': `<h2>SBS (Soru-Cevap Köşesi)</h2><p>Bu SBS'ler genellikle karakterlerin kişisel özelliklerini tanımlar ve hayranlar arasında "canon" (resmi) bilgi kabul edilir.</p><h3>Eğer Hasır Şapkalar Gerçek Dünyada Yaşasaydı (Cilt 56)</h3><p><strong>Okuyucu (D):</strong> Oda-sensei! Luffy ve diğerleri gerçek hayatta olsalardı hangi ülkeden olurlardı?</p><p><strong>Oda (O):</strong> Karakterlerin görünüşlerine ve imajlarına dayanarak şöyle olurdu:<br>Luffy: Brezilya<br>Zoro: Japonya<br>Nami: İsveç<br>Usopp: Afrika (Kıta olarak belirtmiş)<br>Sanji: Fransa<br>Chopper: Kanada<br>Robin: Rusya<br>Franky: ABD<br>Brook: Avusturya<br>(Not: Jinbe daha sonra eklendiğinde onun için "Hindistan" demiştir.)</p><h3>Banyo Yapma Sıklıkları (Cilt 48)</h3><p><strong>D:</strong> Merak ediyorum, Hasır Şapka Korsanları ne sıklıkla banyo yapıyor?</p><p><strong>O:</strong> Bu soru çok geliyor. İşte cevaplar:<br>Luffy, Zoro, Brook: Haftada 1 kez.<br>Usopp, Franky, Chopper: 3 günde 1 kez.<br>Sanji, Nami, Robin: Her gün.<br><strong>Oda'nın notu:</strong> Sanji her gün yıkanır çünkü kadınların yanına temiz gitmek ister. Erkeklerin olduğu günler "erkekler günü" gibi toplu yıkanırlar ve tam bir kaos ortamı olur. Chopper genelde kadınlarla yıkanır çünkü erkekler çok vahşi davranır.</p><h3>⚔️ Karakter Detayları ve Sırlar</h3><p><strong>Zoro'nun Kılıçlarını Ağzıyla Tutması (Cilt 5)</strong><br>D: Zoro konuşurken kılıcı ağzında tutuyor. Dişleri ağrımıyor mu? Nasıl konuşabiliyor?<br>O: O, kalbiyle konuşuyor! (Şaka bir yana, bu bir manga, çok takılmayın ama evet, çenesi çok güçlü.)</p><p><strong>Sanji'nin Kaşları (Cilt 7)</strong><br>D: Sanji'nin kaşı neden kıvrık?<br>O: Hey! Dur orada! O kaş hakkında şaka yapma! O kaşın kıvrımı, evrenin enerjisini içinde barındırır. Eğer o kıvrım düzleşirse dünya yok olabilir... Şaka şaka. Sadece tasarımı hoşuma gidiyor.</p><p><strong>Nami'nin Kıyafetleri (Cilt 20 civarı)</strong><br>D: Nami neden hep bu kadar açık giyiniyor?<br>O: Çünkü modayı seviyor! Ayrıca... Çizmesi daha eğlenceli değil mi? (Oda'nın klasik sapık şakaları).</p><h3>🍎 Şeytan Meyveleri Hakkında</h3><p><strong>İnsan İnsan Meyvesi (Hito Hito no Mi) (Cilt 20)</strong><br>D: Chopper "Hito Hito no Mi" yedi ve insan-geyik oldu. Peki ya bir insan bu meyveyi yerse ne olur?<br>O: Sanırım "Aydınlanmış İnsan" olurdu. Nirvana'ya ulaşmış, kendini bulmuş bir insan... Ya da sadece yüzmesi imkansız hale gelen normal bir insan. (Oda burada Luffy'nin meyvesiyle ilgili gerçeği yıllar öncesinden saklıyordu).</p><p><strong>Luffy'nin Uzaması (Çeşitli Ciltler)</strong><br>D: Luffy'nin vücudu lastik olduğu için... Şeyi de uzuyor mu?<br>O: Evet. (Net ve kısa cevap).</p><h3>👴 Karakterlerin Gelecekteki Halleri</h3><p>Oda, son zamanlarda SBS'lerde karakterlerin "İşler yolunda giderse" ve "İşler kötü giderse" 40 ve 60 yaşındaki hallerini çiziyor.</p><p><strong>Luffy'nin Geleceği (Cilt 89)</strong><br>40 Yaş (İyi Yol): "Et!! Yine mi et yiyoruz? Şahane!" (Shanks'a benziyor).<br>60 Yaş (İyi Yol): "Korsanlar Kralı mı? Evet, o benim." (Garp'a benziyor).<br>40 Yaş (Kötü Yol): "Korsanlar Kralı mı? Rüya görmeyi bırak." (Şişman ve bakımsız).<br>60 Yaş (Kötü Yol): "Hey, bana biraz et versene, borç yaz." (Dişleri dökülmüş).</p><p><strong>Ace'in Geleceği (Eğer ölmeseydi - Cilt 89)</strong><br>O: Eğer hayatta kalsaydı böyle görünürdü... (Oda burada Ace'in yaşlanmış, olgun ve Beyazbıyık'a sadık, güçlü bir korsan halini çizdi. Hayranları ağlatan bir SBS'dir.)</p><h3>🤪 Komik ve Meta Sorular</h3><p><strong>Beyazbıyık'ın Bıyığı mı Yoksa... (Cilt 39)</strong><br>D: Beyazbıyık'ın (Whitebeard) yüzündeki o şey... O bir bıyık mı yoksa burnundan çıkan kıllar mı?<br>O: Ne kadar kaba! O şanlı bir bıyık! Aslında o bir bumerang! Savaşta yerinden çıkarıp fırlatıyor ve geri dönüp tekrar yapışıyor! (Tabii ki yalan söylüyor).</p><p><strong>Karakterlerin Beyin Yapısı (Cilt 50 civarı)</strong><br>D: Hasır Şapkaların beyninin içinde ne var?<br>O:<br>Luffy: Et, Et, Et, Et, Korsanlar Kralı.<br>Zoro: Kılıç, Kılıç, Güç, Uyku, Sake.<br>Nami: Para, Para, Para, Güzellik, Para.<br>Sanji: Kadınlar, Yemek, Kadınlar, Nami-san, Robin-chan.<br>Chopper: Doktorluk, İlaç, Tatlı, Pamuk Şeker.</p><h3>🗡️ Nesnelerin İnsanlaştırılması</h3><p><strong>Zoro'nun Kılıçları İnsan Olsaydı (Cilt 92)</strong><br>D: Zoro'nun kılıçları (Wado Ichimonji, Sandai Kitetsu, Shusui) insan olsaydı nasıl görünürdü?<br>O:<br>Wado Ichimonji: Ciddi, geleneksel kıyafetli, onurlu bir adam.<br>Sandai Kitetsu: Sapkın, korkunç görünümlü, lanetli bir serseri.<br>Shusui: Savaşçı ruhlu, güçlü ama biraz kaba bir samuray.</p><h3>❓ SBS Nasıl Başlar ve Biter?</h3><p>SBS'nin en büyük kuralı, okuyucunun köşeyi başlatmaya çalışması ve Oda'nın bunu engellemeye çalışmasıdır (veya tam tersi).<br>Örnek (Neredeyse her cilt):<br>D: "SBS Başlıy..."<br>O: "BAŞLAMIYOR!"<br>Örnek (Cilt 4):<br>D: "Lütfen SBS'yi başlatmama izin verin."<br>O: "Pekala, başlayın."<br>D: "SBS BAŞLADI!"<br>O: "Hah! Ben başlatacaktım!"</p>`,
+            'anime': `<h2>Anime & Remake Güncellemesi</h2><p><strong>Mevcut Anime (Toei Animation):</strong> Orijinal anime serisi de manga ile paralel olarak Elbaf dönemine giriş yapmış durumda. Ancak manga şu an çok kritik bir savaşta olduğu için tüm gözler okuyucularda.</p><p><strong>Wit Studio Remake:</strong> Sessizlik sürüyor. Jump Festa 2026'da beklenen fragman gelmedi. Proje "yapım aşamasında" denilerek geçiştirildi. İnternetteki genel kanı, projenin beklenenden yavaş ilerlediği yönünde.</p>`
         };
 
         function updateUI() {
-        const saved = localStorage.getItem('op_live_user');
-        if(saved) {
-        currentUser = JSON.parse(saved);
-        document.getElementById('auth-section').innerHTML = `<div class="user-profile-mini" onclick="openProfile()"><img src="${currentUser.avatar || ''}" class="user-avatar-small"><span>${currentUser.name}</span></div>`;
+            const saved = localStorage.getItem('op_live_user');
+            if(saved) {
+                currentUser = JSON.parse(saved);
+                document.getElementById('auth-section').innerHTML = `<div class="user-profile-mini" onclick="openProfile()"><img src="${currentUser.avatar || ''}" class="user-avatar-small"><span>${currentUser.name}</span></div>`;
+            }
         }
-        }
-
+        
         window.openModal = function(key) { document.getElementById('modalBody').innerHTML = contents[key]; document.getElementById('infoModal').style.display='flex'; }
-        window.closeModal = function(id) { document.getElementById(id ? id : 'infoModal').style.display='none'; }
+        window.closeModal = function(id) { document.getElementById(id || 'infoModal').style.display='none'; }
+        window.openLoginModal = function() { document.getElementById('loginModal').style.display='flex'; }
         window.onclick = function(e) { if(e.target.classList.contains('modal-overlay')) e.target.style.display='none'; }
 
         // Anime Sayacı Düzeltildi
         setInterval(()=>{
-        const now = new Date();
-        const animeDate = new Date("2026-04-01");
-        const diff = Math.ceil((animeDate - now) / (1000*60*60*24));
-        document.getElementById('anime-timer').textContent = diff > 0 ? diff + " gün" : "Yayında!";
-
-        const mangaDate = new Date(); mangaDate.setDate(now.getDate() + (4 + 7 - now.getDay()) % 7);
-        const d = Math.floor((mangaDate-now)/(1000*60*60*24));
-        document.getElementById('manga-timer').textContent = d + " gün";
-        document.getElementById('la-timer').textContent = Math.ceil((new Date("2026-03-10") - now)/(1000*60*60*24)) + " gün";
+            const now = new Date();
+            const animeDate = new Date("2026-04-01");
+            const diff = Math.ceil((animeDate - now) / (1000*60*60*24));
+            document.getElementById('anime-timer').textContent = diff > 0 ? diff + " gün" : "Yayında!";
+            
+            const mangaDate = new Date(); mangaDate.setDate(now.getDate() + (4 + 7 - now.getDay()) % 7);
+            const d = Math.floor((mangaDate-now)/(1000*60*60*24));
+            document.getElementById('manga-timer').textContent = d + " gün";
+            document.getElementById('la-timer').textContent = Math.ceil((new Date("2026-03-10") - now)/(1000*60*60*24)) + " gün";
         }, 1000);
 
         updateUI();
