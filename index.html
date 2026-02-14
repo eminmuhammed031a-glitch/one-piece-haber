@@ -259,7 +259,7 @@
                 <p id="profile-bio" class="bio-text"></p>
                 
                 <div class="friend-list"><strong>Tayfam (Arkadaş Ekle):</strong>
-                    <div style="display:flex; gap:5px; margin-bottom:5px;"><input type="text" id="friend-input" placeholder="Korsan Adı Gir..." style="width:70%;padding:5px;"><button onclick="addFriend()" style="padding:5px;cursor:pointer;">EKLE</button></div>
+                    <div style="display:flex; gap:5px; margin-bottom:5px;"><input type="text" id="friend-input" placeholder="İsim..." style="width:70%;padding:5px;"><button onclick="addFriend()" style="padding:5px;cursor:pointer;">EKLE</button></div>
                     <ul id="friend-ul"></ul>
                 </div>
             </div>
@@ -297,7 +297,7 @@
     </div>
 
     <script type="module">
-        // --- SENİN VERDİĞİN FIREBASE AYARLARI (EKLENDİ) ---
+        // --- SENİN VERDİĞİN FIREBASE AYARLARI (PRE-INSERTED) ---
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, doc, setDoc, getDoc, onSnapshot, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
@@ -322,10 +322,10 @@
         }
 
         let currentUser = null;
-        let uploadedImg = "https://static.wikia.nocookie.net/onepiece/images/c/c5/Revolutionary_Army_Jolly_Roger.png"; // Varsayılan Devrimci Bayrağı
+        let uploadedImg = "https://static.wikia.nocookie.net/onepiece/images/e/ec/Straw_Hat_Pirates_Jolly_Roger.png"; // Varsayılan Devrimci Bayrağı
         let editImgTemp = "";
 
-        // UI FONKSİYONLARI
+        // GLOBAL FONKSİYONLAR
         window.switchAuthMode = function(mode) {
             if(mode === 'login') {
                 document.getElementById('login-form').style.display='block'; document.getElementById('register-form').style.display='none';
@@ -348,10 +348,12 @@
 
         // AUTH İŞLEMLERİ
         window.checkLogin = function() {
-            const saved = localStorage.getItem('op_user_v17');
+            const saved = localStorage.getItem('op_user_v18');
             if(saved) {
                 currentUser = JSON.parse(saved);
-                // Günlük Spin Kontrol
+                // Arkadaş listesi güvenliği (Eski hesaplarda friends array olmayabilir)
+                if(!currentUser.friends) currentUser.friends = [];
+                
                 const today = new Date().toDateString();
                 if (currentUser.lastSpinDate !== today) { currentUser.spinsLeft = 3; currentUser.lastSpinDate = today; updateUserData(); }
                 
@@ -362,7 +364,7 @@
         }
 
         window.performRegister = async function() {
-            if(!db) return alert("Veritabanı bağlı değil! Config ayarlarını yap.");
+            if(!db) return alert("Veritabanı bağlı değil!");
             const name = document.getElementById('reg-name').value.trim();
             const pass = document.getElementById('reg-pass').value;
             const bio = document.getElementById('reg-bio').value;
@@ -380,7 +382,7 @@
             };
             
             await setDoc(userRef, currentUser);
-            localStorage.setItem('op_user_v17', JSON.stringify(currentUser));
+            localStorage.setItem('op_user_v18', JSON.stringify(currentUser));
             location.reload();
         }
 
@@ -393,20 +395,37 @@
             const snap = await getDoc(userRef);
             if(snap.exists() && snap.data().pass === pass) {
                 currentUser = snap.data();
-                currentUser.isActive = true; // Aktif yap
+                currentUser.isActive = true; 
+                // Fix: Eğer eski kayıtsa ve friends yoksa ekle
+                if(!currentUser.friends) currentUser.friends = [];
+                
                 updateUserData();
-                localStorage.setItem('op_user_v17', JSON.stringify(currentUser));
+                localStorage.setItem('op_user_v18', JSON.stringify(currentUser));
                 location.reload();
             } else { alert("Hatalı isim veya şifre!"); }
         }
 
         window.performLogout = function() {
             if(currentUser) { currentUser.isActive = false; updateUserData(); }
-            localStorage.removeItem('op_user_v17');
+            localStorage.removeItem('op_user_v18');
             location.reload();
         }
 
-        // PROFİL DÜZENLEME
+        // PROFİL AÇMA (DÜZELTİLDİ)
+        window.openProfile = function() {
+            if(!currentUser) return;
+            document.getElementById('profile-name').textContent = currentUser.name;
+            document.getElementById('profile-img').src = currentUser.avatar;
+            document.getElementById('profile-bounty').textContent = currentUser.bounty.toLocaleString();
+            document.getElementById('profile-bio').textContent = currentUser.bio;
+            const fb = document.getElementById('profile-fruit');
+            if(currentUser.fruit && currentUser.fruit !== "Meyvesiz") { fb.textContent = "Meyve: " + currentUser.fruit; fb.style.display="inline-block"; } else { fb.style.display="none"; }
+            
+            renderFriends();
+            document.getElementById('profileModal').style.display='flex';
+        }
+
+        // DÜZENLEME
         window.enableEdit = function() {
             document.getElementById('edit-bio').value = currentUser.bio;
             document.getElementById('edit-preview').src = currentUser.avatar;
@@ -421,13 +440,13 @@
             await updateUserData();
             alert("Profil güncellendi!");
             closeModal('editProfileModal');
-            openProfile(); // Geri dön
+            openProfile();
         }
 
         async function updateUserData() {
             if(!currentUser || !db) return;
             await setDoc(doc(db, "users", currentUser.name), currentUser);
-            localStorage.setItem('op_user_v17', JSON.stringify(currentUser));
+            localStorage.setItem('op_user_v18', JSON.stringify(currentUser));
             if(document.getElementById('current-score')) document.getElementById('current-score').textContent = currentUser.bounty.toLocaleString();
         }
 
@@ -438,9 +457,7 @@
             if(!targetName) return;
             if(targetName === currentUser.name) return alert("Kendini ekleyemezsin!");
             
-            // Eğer friends dizisi yoksa oluştur (Eski kullanıcılar için)
             if(!currentUser.friends) currentUser.friends = [];
-            
             if(currentUser.friends.includes(targetName)) return alert("Zaten arkadaşsınız!");
 
             const targetRef = doc(db, "users", targetName);
@@ -475,7 +492,7 @@
                 if(u.fruit && u.fruit!=="Meyvesiz") { vf.textContent=u.fruit; vf.style.display="inline-block"; } else { vf.style.display="none"; }
                 
                 const stat = document.getElementById('view-status');
-                stat.textContent = u.isActive ? "🟢 Şu an Aktif (Grand Line'da)" : "🔴 Pasif (Dinleniyor)";
+                stat.textContent = u.isActive ? "🟢 Şu an Aktif" : "🔴 Pasif";
                 stat.style.color = u.isActive ? "green" : "red";
                 
                 closeModal('profileModal');
@@ -501,7 +518,7 @@
 
         // ÇARK SİSTEMİ
         const fruitList = [
-            {n:"Hito Hito: Nika", v:3000000000, c:0.01}, // %1
+            {n:"Hito Hito: Nika", v:3000000000, c:0.01}, 
             {n:"Gura Gura no Mi", v:1500000000, c:0.03}, 
             {n:"Ope Ope no Mi", v:1000000000, c:0.05},
             {n:"Mera Mera no Mi", v:500000000, c:0.10},
@@ -524,7 +541,6 @@
                 let selected = fruitList[fruitList.length-1];
                 for(let f of fruitList) { cumulative += f.c; if(rand <= cumulative) { selected = f; break; } }
                 
-                // Eski Puanı Sil, Yeni Ekle
                 if(currentUser.fruitVal > 0) currentUser.bounty -= currentUser.fruitVal;
                 currentUser.fruit = selected.n;
                 currentUser.fruitVal = selected.v;
@@ -597,7 +613,7 @@
             qIdx++; setTimeout(loadQ, 800);
         }
 
-        // --- DİĞER ---
+        // --- HABERLER (DOKUNULMADI) ---
         const contents = {
             'manga': `<h2>🚨 Önemliler (En Sıcak Gelişmeler)</h2><h3>1. Manga: Bölüm 1174 ve "Büyük Mola"</h3><p><strong>Güncel Durum:</strong> Manga şu an Elbaf Arkı'nın zirvesinde. İnternetteki son raporlara göre 1174. Bölüm'ün yarın (15 Şubat 2026) yayınlanması bekleniyor.</p><p><strong>Kötü Haber (Ara):</strong> 1174. bölümden sonra Eiichiro Oda'nın klasik "3 bölüm çiz, 1 hafta ara ver" rutini devreye girecek. Yani 22 Şubat haftası manga yok.</p><p><strong>Dönüş:</strong> Seri, 1 Mart 2026'da 1175. Bölüm ile geri dönecek.</p><p><strong>Büyük Olay (Spoiler İçerebilir):</strong> İnternetteki sızıntılar ve tartışmalar, 1175. bölümün serinin en büyük savaşlarından birine, Luffy vs. Imu karşılaşmasına sahne olacağını (veya bu savaşın kızışacağını) işaret ediyor.</p><h3>2. Live Action (2. Sezon): Tarih Kesinleşti!</h3><p><strong>Yayın Tarihi:</strong> Netflix, One Piece Live Action 2. Sezon'un 10 Mart 2026'da yayınlanacağını doğruladı. Yani 1 aydan az bir süre kaldı.</p><p><strong>Kapsam:</strong> Bu sezon Loguetown ile başlayıp, Drum Adası'na kadar gidecek (Alabasta muhtemelen 3. sezona saklandı).</p><p><strong>3. Sezon Onayı:</strong> Şimdiden 3. sezon onayı alındığı ve çekimlerin (özellikle Alabasta kısımları için) başladığına dair güçlü haberler var.</p><p><strong>Kadro:</strong> Smoker (Callum Kerr) ve Tashigi (Julia Rehwald) gibi karakterler fragmanlarda göründü. Tony Tony Chopper'ın CGI/Makyaj karışımı görünümü büyük merak konusu.</p><h3>🔥 Öne Çıkanlar (Detaylar & Yan Projeler)</h3><p><strong>1. Anime (Wit Studio Remake): Sessizlik Sürüyor</strong><br>Netflix ve Wit Studio'nun (Attack on Titan'ın ilk stüdyosu) hazırladığı "THE ONE PIECE" yeniden yapımı (remake) için Jump Festa 2026'da beklenen fragman gelmedi. Proje "yapım aşamasında" denilerek geçiştirildi. İnternetteki genel kanı, projenin beklenenden yavaş ilerlediği yönünde.</p><p><strong>2. Mevcut Anime (Toei Animation)</strong><br>Orijinal anime serisi de manga ile paralel olarak Elbaf dönemine giriş yapmış durumda (veya Egghead'in finalini işliyor, takvime göre değişebilir). Ancak manga şu an çok kritik bir savaşta olduğu için tüm gözler okuyucularda.</p><h3>🔮 Hayranlara Göre Önümüzdeki Bölümler & Teoriler</h3><p><strong>Luffy vs. Imu (Bölüm 1175+):</strong><br>Hayranlar, 1 Mart'ta gelecek 1175. bölümün, Luffy'nin "Güneş Tanrısı Nika" formu ile Imu arasındaki doğrudan çatışmanın başlangıcı olacağına inanıyor. Bu, serinin finaline giden en net yol olarak görülüyor. Bir diğer teori, Elbaf'taki Devlerin bu savaşta Luffy'ye nasıl bir ordu desteği vereceği üzerine.</p><p><strong>Shanks'ın Hamlesi:</strong><br>Elbaf, Shanks'ın bölgesi olduğu için, hayranlar Shanks'ın Luffy ile Imu arasındaki savaşa müdahil olmasını veya "One Piece"i almak için son hamlesini yapmasını bekliyor. "Davy Back Fight" teorileri veya "Son Poneglyph"in konumu hakkında spekülasyonlar zirvede.</p><p><strong>Live Action Chopper:</strong><br>10 Mart'taki prömiyer öncesi en büyük korku ve merak Chopper. Dedektif Pikachu tarzı gerçekçi bir yaklaşım mı yoksa daha maskotvari bir yaklaşım mı olduğu hala en çok tartışılan konu.</p>`,
             'sbs': `<h2>SBS (Soru-Cevap Köşesi)</h2><p>Bu SBS'ler genellikle karakterlerin kişisel özelliklerini tanımlar ve hayranlar arasında "canon" (resmi) bilgi kabul edilir.</p><h3>Eğer Hasır Şapkalar Gerçek Dünyada Yaşasaydı (Cilt 56)</h3><p><strong>Okuyucu (D):</strong> Oda-sensei! Luffy ve diğerleri gerçek hayatta olsalardı hangi ülkeden olurlardı?</p><p><strong>Oda (O):</strong> Karakterlerin görünüşlerine ve imajlarına dayanarak şöyle olurdu:<br>Luffy: Brezilya<br>Zoro: Japonya<br>Nami: İsveç<br>Usopp: Afrika (Kıta olarak belirtmiş)<br>Sanji: Fransa<br>Chopper: Kanada<br>Robin: Rusya<br>Franky: ABD<br>Brook: Avusturya<br>(Not: Jinbe daha sonra eklendiğinde onun için "Hindistan" demiştir.)</p><h3>Banyo Yapma Sıklıkları (Cilt 48)</h3><p><strong>D:</strong> Merak ediyorum, Hasır Şapka Korsanları ne sıklıkla banyo yapıyor?</p><p><strong>O:</strong> Bu soru çok geliyor. İşte cevaplar:<br>Luffy, Zoro, Brook: Haftada 1 kez.<br>Usopp, Franky, Chopper: 3 günde 1 kez.<br>Sanji, Nami, Robin: Her gün.<br><strong>Oda'nın notu:</strong> Sanji her gün yıkanır çünkü kadınların yanına temiz gitmek ister. Erkeklerin olduğu günler "erkekler günü" gibi toplu yıkanırlar ve tam bir kaos ortamı olur. Chopper genelde kadınlarla yıkanır çünkü erkekler çok vahşi davranır.</p><h3>⚔️ Karakter Detayları ve Sırlar</h3><p><strong>Zoro'nun Kılıçlarını Ağzıyla Tutması (Cilt 5)</strong><br>D: Zoro konuşurken kılıcı ağzında tutuyor. Dişleri ağrımıyor mu? Nasıl konuşabiliyor?<br>O: O, kalbiyle konuşuyor! (Şaka bir yana, bu bir manga, çok takılmayın ama evet, çenesi çok güçlü.)</p><p><strong>Sanji'nin Kaşları (Cilt 7)</strong><br>D: Sanji'nin kaşı neden kıvrık?<br>O: Hey! Dur orada! O kaş hakkında şaka yapma! O kaşın kıvrımı, evrenin enerjisini içinde barındırır. Eğer o kıvrım düzleşirse dünya yok olabilir... Şaka şaka. Sadece tasarımı hoşuma gidiyor.</p><p><strong>Nami'nin Kıyafetleri (Cilt 20 civarı)</strong><br>D: Nami neden hep bu kadar açık giyiniyor?<br>O: Çünkü modayı seviyor! Ayrıca... Çizmesi daha eğlenceli değil mi? (Oda'nın klasik sapık şakaları).</p><h3>🍎 Şeytan Meyveleri Hakkında</h3><p><strong>İnsan İnsan Meyvesi (Hito Hito no Mi) (Cilt 20)</strong><br>D: Chopper "Hito Hito no Mi" yedi ve insan-geyik oldu. Peki ya bir insan bu meyveyi yerse ne olur?<br>O: Sanırım "Aydınlanmış İnsan" olurdu. Nirvana'ya ulaşmış, kendini bulmuş bir insan... Ya da sadece yüzmesi imkansız hale gelen normal bir insan. (Oda burada Luffy'nin meyvesiyle ilgili gerçeği yıllar öncesinden saklıyordu).</p><p><strong>Luffy'nin Uzaması (Çeşitli Ciltler)</strong><br>D: Luffy'nin vücudu lastik olduğu için... Şeyi de uzuyor mu?<br>O: Evet. (Net ve kısa cevap).</p><h3>👴 Karakterlerin Gelecekteki Halleri</h3><p>Oda, son zamanlarda SBS'lerde karakterlerin "İşler yolunda giderse" ve "İşler kötü giderse" 40 ve 60 yaşındaki hallerini çiziyor.</p><p><strong>Luffy'nin Geleceği (Cilt 89)</strong><br>40 Yaş (İyi Yol): "Et!! Yine mi et yiyoruz? Şahane!" (Shanks'a benziyor).<br>60 Yaş (İyi Yol): "Korsanlar Kralı mı? Evet, o benim." (Garp'a benziyor).<br>40 Yaş (Kötü Yol): "Korsanlar Kralı mı? Rüya görmeyi bırak." (Şişman ve bakımsız).<br>60 Yaş (Kötü Yol): "Hey, bana biraz et versene, borç yaz." (Dişleri dökülmüş).</p><p><strong>Ace'in Geleceği (Eğer ölmeseydi - Cilt 89)</strong><br>O: Eğer hayatta kalsaydı böyle görünürdü... (Oda burada Ace'in yaşlanmış, olgun ve Beyazbıyık'a sadık, güçlü bir korsan halini çizdi. Hayranları ağlatan bir SBS'dir.)</p><h3>🤪 Komik ve Meta Sorular</h3><p><strong>Beyazbıyık'ın Bıyığı mı Yoksa... (Cilt 39)</strong><br>D: Beyazbıyık'ın (Whitebeard) yüzündeki o şey... O bir bıyık mı yoksa burnundan çıkan kıllar mı?<br>O: Ne kadar kaba! O şanlı bir bıyık! Aslında o bir bumerang! Savaşta yerinden çıkarıp fırlatıyor ve geri dönüp tekrar yapışıyor! (Tabii ki yalan söylüyor).</p><p><strong>Karakterlerin Beyin Yapısı (Cilt 50 civarı)</strong><br>D: Hasır Şapkaların beyninin içinde ne var?<br>O:<br>Luffy: Et, Et, Et, Et, Korsanlar Kralı.<br>Zoro: Kılıç, Kılıç, Güç, Uyku, Sake.<br>Nami: Para, Para, Para, Güzellik, Para.<br>Sanji: Kadınlar, Yemek, Kadınlar, Nami-san, Robin-chan.<br>Chopper: Doktorluk, İlaç, Tatlı, Pamuk Şeker.</p><h3>🗡️ Nesnelerin İnsanlaştırılması</h3><p><strong>Zoro'nun Kılıçları İnsan Olsaydı (Cilt 92)</strong><br>D: Zoro'nun kılıçları (Wado Ichimonji, Sandai Kitetsu, Shusui) insan olsaydı nasıl görünürdü?<br>O:<br>Wado Ichimonji: Ciddi, geleneksel kıyafetli, onurlu bir adam.<br>Sandai Kitetsu: Sapkın, korkunç görünümlü, lanetli bir serseri.<br>Shusui: Savaşçı ruhlu, güçlü ama biraz kaba bir samuray.</p><h3>❓ SBS Nasıl Başlar ve Biter?</h3><p>SBS'nin en büyük kuralı, okuyucunun köşeyi başlatmaya çalışması ve Oda'nın bunu engellemeye çalışmasıdır (veya tam tersi).<br>Örnek (Neredeyse her cilt):<br>D: "SBS Başlıy..."<br>O: "BAŞLAMIYOR!"<br>Örnek (Cilt 4):<br>D: "Lütfen SBS'yi başlatmama izin verin."<br>O: "Pekala, başlayın."<br>D: "SBS BAŞLADI!"<br>O: "Hah! Ben başlatacaktım!"</p>`,
@@ -609,7 +625,7 @@
         window.openLoginModal = function() { document.getElementById('loginModal').style.display='flex'; }
         window.onclick = function(e) { if(e.target.classList.contains('modal-overlay')) e.target.style.display='none'; }
 
-        // Anime Sayacı Düzeltildi
+        // Anime Sayacı
         setInterval(()=>{
             const now = new Date();
             const animeDate = new Date("2026-04-01T00:00:00");
