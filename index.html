@@ -1,540 +1,389 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <link rel="icon" type="image/jpeg" href="hatayy.jpg">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>One Piece Haber | Yeni Dünya</title>
+    <meta name="google-site-verification" content="BURAYA_KOD_GELECEK" />
+    <meta name="description" content="One Piece Haber - Yeni Dünya, Grand Line'ın en güncel haber portalı. Manga, anime, SBS ve teoriler.">
+    <meta name="keywords" content="One Piece, Manga, Anime, Luffy, Zoro, Nami, Grand Line, Yeni Dünya">
+    <title>One Piece Haber | Yeni Dünya - Grand Line'ın En Büyük Haber Portalı</title>
     
-    <meta name="description" content="Türkiye'nin en güncel One Piece haber kaynağı. Manga 1174 spoiler, anime yeni sezon tarihleri, teoriler, karakter analizleri, SBS çevirileri ve canlı sohbet.">
-    <meta name="keywords" content="One Piece, One Piece Haber, Manga Spoiler, Anime İzle, Luffy, Zoro, Shanks, Elbaf, One Piece Teorileri, 1174. Bölüm, One Piece Oku">
-    <meta name="author" content="One Piece Haber Ekibi">
-    <meta name="robots" content="index, follow">
-    
-    <meta property="og:title" content="One Piece Haber | Yeni Dünya">
-    <meta property="og:description" content="En güncel manga spoilerları, anime haberleri ve teoriler burada!">
-    <meta property="og:image" content="https://static.wikia.nocookie.net/onepiece/images/c/c5/Revolutionary_Army_Jolly_Roger.png">
-
-    <link rel="icon" href="https://static.wikia.nocookie.net/onepiece/images/c/c5/Revolutionary_Army_Jolly_Roger.png" type="image/png">
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-
-    <style>
-        /* --- CSS AYARLARI --- */
-        :root { --bg-paper: #f4e4bc; --bg-dark: #2c241b; --ocean-blue: #006994; --luffy-red: #d62828; --gold: #ffb703; --text-main: #3e2723; --font-heading: 'Pirata One', cursive; --font-body: 'Roboto', sans-serif; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--bg-paper); color: var(--text-main); font-family: var(--font-body); line-height: 1.6; background-image: radial-gradient(#e6d5a8 15%, transparent 16%), radial-gradient(#e6d5a8 15%, transparent 16%); background-size: 60px 60px; background-position: 0 0, 30px 30px; padding-bottom: 50px; }
-        header { background-color: var(--bg-dark); color: var(--gold); padding: 1rem 2rem; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.5); display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--luffy-red); }
-        .logo { font-family: var(--font-heading); font-size: 2rem; display: flex; align-items: center; gap: 10px; cursor: pointer; letter-spacing: 2px; }
-        nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
-        nav a { color: #fdf5e6; text-decoration: none; font-weight: bold; font-size: 1.1rem; transition: 0.3s; text-transform: uppercase; }
-        nav a:hover { color: var(--gold); text-shadow: 0 0 5px var(--gold); }
-        .login-btn { background: var(--luffy-red); color: white; padding: 5px 15px; border-radius: 5px; cursor: pointer; border: 2px solid white; font-family: var(--font-heading); font-size: 1.2rem; }
-        .user-profile-mini { display: flex; align-items: center; gap: 10px; cursor: pointer; background: rgba(255,255,255,0.1); padding: 5px 10px; border-radius: 20px; transition: 0.3s; border: 1px solid var(--gold); }
-        .user-profile-mini:hover { background: rgba(255,255,255,0.2); transform: scale(1.05); }
-        .user-avatar-small { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--gold); background: white; object-fit: cover; }
-        section { padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; }
-        .section-title { font-family: var(--font-heading); font-size: 3rem; text-align: center; margin-bottom: 3rem; color: var(--bg-dark); text-shadow: 2px 2px 0px rgba(255,255,255,0.4); border-bottom: 2px solid var(--luffy-red); display: inline-block; left: 50%; position: relative; transform: translateX(-50%); }
-        
-        /* NEWS CARDS */
-        .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-        .news-card { background: #fff; border: 2px solid var(--bg-dark); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.3s; box-shadow: 5px 5px 0 rgba(0,0,0,0.2); height: 100%; cursor: pointer; }
-        .news-card:hover { transform: translateY(-5px); box-shadow: 8px 8px 0 rgba(0,0,0,0.3); }
-        
-        .news-img-placeholder { 
-            height: 200px; 
-            display: flex; align-items: flex-end; justify-content: flex-start; 
-            color: white; font-family: var(--font-heading); font-size: 2rem; 
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.9); 
-            background-size: cover; 
-            background-position: top center; 
-            padding: 10px; position: relative;
-            background-color: #333; 
-        }
-        .news-img-placeholder::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 60%; background: linear-gradient(transparent, rgba(0,0,0,0.9)); }
-        .news-title-overlay { position: relative; z-index: 2; }
-        
-        .news-content { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
-        .tag { display: inline-block; background: var(--bg-dark); color: var(--gold); padding: 4px 8px; font-size: 0.75rem; border-radius: 4px; margin-bottom: 10px; width: fit-content; font-weight: bold;}
-        .news-content h3 { font-family: var(--font-heading); font-size: 1.6rem; color: var(--luffy-red); margin-bottom: 0.8rem; line-height: 1.1; }
-        .news-content p { font-size: 0.95rem; color: #444; margin-bottom: 1.5rem; flex-grow: 1; }
-        .read-more { text-align: center; background: var(--ocean-blue); color: white; padding: 8px; border-radius: 4px; font-weight: bold; cursor: pointer; transition: 0.2s; margin-top: auto; }
-        .read-more:hover { background: var(--bg-dark); }
-        
-        /* Games */
-        .games-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .game-item { background: #fff; padding: 15px; border-radius: 8px; border: 1px solid var(--text-main); display: flex; flex-direction: column; gap: 10px; transition: 0.3s; }
-        .game-item:hover { transform: translateY(-3px); box-shadow: 0 5px 10px rgba(0,0,0,0.1); }
-        .game-header { display: flex; justify-content: space-between; align-items: center; }
-        .game-title { font-family: var(--font-heading); font-size: 1.4rem; color: var(--ocean-blue); }
-        .game-platform { font-size: 0.75rem; font-weight: bold; padding: 2px 6px; border-radius: 4px; color: white; }
-        .plat-mobile { background: #e67e22; }
-        .plat-roblox { background: #e74c3c; }
-        
-        /* Quiz */
-        #quiz-game { background: rgba(255, 255, 255, 0.6); border-radius: 20px; border: 3px dashed var(--bg-dark); padding: 2rem; margin-top: 2rem; }
-        .quiz-container { max-width: 800px; margin: 0 auto; text-align: center; }
-        .quiz-question { font-size: 1.5rem; font-weight: bold; margin-bottom: 20px; color: var(--bg-dark); }
-        .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .quiz-btn { padding: 15px; background: var(--bg-dark); color: var(--gold); border: none; border-radius: 8px; cursor: pointer; font-size: 1.1rem; transition: 0.2s; font-family: var(--font-body); }
-        .quiz-btn:hover { background: var(--luffy-red); color: white; transform: scale(1.02); }
-        .quiz-score { font-family: var(--font-heading); font-size: 2rem; margin-top: 20px; color: var(--ocean-blue); }
-        .feedback { margin-top: 15px; font-weight: bold; min-height: 30px; }
-        
-        /* Fruit */
-        #fruit-game { text-align: center; margin-top: 3rem; border-top: 2px solid var(--luffy-red); padding-top: 2rem; }
-        .fruit-box { background: #fff; border: 4px double var(--bg-dark); width: 300px; height: 300px; margin: 20px auto; display: flex; flex-direction: column; justify-content: center; align-items: center; border-radius: 50%; box-shadow: 0 0 20px rgba(0,0,0,0.2); transition: 0.5s; position: relative;}
-        .fruit-name { font-family: var(--font-heading); font-size: 2rem; color: var(--luffy-red); margin-bottom: 10px; }
-        .fruit-type { background: var(--gold); color: var(--bg-dark); padding: 2px 10px; border-radius: 20px; font-weight: bold; font-size: 0.9rem;}
-        .fruit-desc { font-size: 0.9rem; padding: 10px; color: #555; }
-        .fruit-chance { position: absolute; bottom: 30px; font-size: 0.8rem; color: #999; }
-        .spin-btn { padding: 10px 30px; background: var(--ocean-blue); color: white; border: none; font-size: 1.2rem; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 0 #003049; }
-        .spin-btn:active { transform: translateY(4px); box-shadow: none; }
-        .spin-limit { margin-top: 10px; font-size: 0.9rem; color: #555; }
-        
-        #leaderboard, #guilds { background: #fff; border: 2px solid var(--bg-dark); border-radius: 10px; padding: 2rem; max-width: 800px; margin: 3rem auto; }
-        .rank-table { width: 100%; border-collapse: collapse; }
-        .rank-table th { background: var(--bg-dark); color: var(--gold); padding: 10px; text-align: left; }
-        .rank-table td { padding: 10px; border-bottom: 1px solid #ddd; vertical-align: middle; }
-        .current-user-row { background: #e3f2fd; font-weight: bold; border: 2px solid var(--ocean-blue); }
-        .guild-flag { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); margin-right: 10px; vertical-align: middle; }
-        .role-badge { font-size: 0.7rem; padding: 2px 4px; border-radius: 4px; color: white; margin-left: 5px; }
-        .role-captain { background: #d62828; } .role-righthand { background: #e67e22; } .role-lefthand { background: #f1c40f; color: black; } .role-senior { background: #2980b9; } .role-member { background: #95a5a6; }
-
-        /* CHAT */
-        #chat-section { 
-            background: linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url('xebec.jpg');
-            background-size: cover; background-position: top center;
-            padding: 2rem; border: 3px solid var(--bg-dark); border-radius: 10px; max-width: 800px; margin: 3rem auto; 
-        }
-        #chat-box { height: 300px; overflow-y: auto; border: 1px solid #ccc; background: rgba(255,255,255,0.85); padding: 10px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 10px; }
-        .chat-msg { max-width: 70%; padding: 8px 12px; border-radius: 10px; font-size: 0.9rem; position: relative; }
-        .msg-other { background: #eee; align-self: flex-start; border-bottom-left-radius: 0; }
-        .msg-me { background: var(--ocean-blue); color: white; align-self: flex-end; border-bottom-right-radius: 0; }
-        .msg-sender { font-size: 0.7rem; font-weight: bold; margin-bottom: 2px; display: block; }
-        .chat-input-area { display: flex; gap: 10px; }
-        
-        #post-wall { background: #fff; padding: 2rem; border-radius: 10px; border: 2px solid var(--bg-dark); max-width: 800px; margin: 3rem auto; }
-        .post-input-box { background: #eee; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
-        .post-card { border-bottom: 1px solid #ddd; padding: 15px 0; }
-        .post-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
-        .post-author { font-weight: bold; color: var(--ocean-blue); }
-        .post-time { font-size: 0.8rem; color: #777; }
-        .post-title { font-family: var(--font-heading); font-size: 1.3rem; color: var(--luffy-red); margin: 0; }
-        .post-body { font-size: 0.95rem; margin: 5px 0; }
-        .post-actions { margin-top: 5px; }
-        .btn-respect { background: var(--gold); border: none; padding: 5px 10px; border-radius: 20px; font-weight: bold; cursor: pointer; color: var(--bg-dark); }
-        .btn-respect:hover { background: #e6a800; }
-
-        #weekly-poll { background: var(--bg-dark); color: white; padding: 2rem; border-radius: 10px; max-width: 800px; margin: 3rem auto; text-align: center; }
-        .poll-options { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
-        .poll-option { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 5px; cursor: pointer; text-align: left; position: relative; overflow: hidden; }
-        .poll-option:hover { background: rgba(255,255,255,0.2); }
-        .poll-bar { position: absolute; top: 0; left: 0; height: 100%; background: rgba(214, 40, 40, 0.5); z-index: 0; transition: width 0.5s; width: 0%; }
-        .poll-text { position: relative; z-index: 1; display: flex; justify-content: space-between; }
-
-        #countdown-section { 
-            background: linear-gradient(rgba(44, 36, 27, 0.6), rgba(44, 36, 27, 0.6)), url('aokiji.jpg');
-            background-size: cover; background-position: top center;
-            color: #fff; margin-top: 4rem; border-radius: 10px; text-align: center; border-top: 5px solid var(--gold); padding-bottom: 3rem; 
-        }
-        #countdown-section .section-title { color: var(--gold); border-bottom: none; text-shadow: none; }
-        .timers-wrapper { display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem; }
-        .timer-box { background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 10px; min-width: 250px; border: 1px solid rgba(255,255,255,0.1); }
-        .timer-title { color: var(--ocean-blue); font-weight: bold; font-size: 1.2rem; margin-bottom: 10px; text-transform: uppercase; }
-        .timer-display { font-family: monospace; font-size: 1.5rem; color: var(--gold); font-weight: bold; }
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(5px); }
-        .modal-content { background: var(--bg-paper); padding: 2rem; border-radius: 10px; max-width: 800px; width: 90%; position: relative; border: 4px solid var(--bg-dark); max-height: 80vh; overflow-y: auto; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
-        .close-modal { position: absolute; top: 10px; right: 20px; font-size: 2.5rem; cursor: pointer; color: var(--luffy-red); font-weight: bold; }
-        .modal-body h2 { font-family: var(--font-heading); margin-bottom: 1rem; color: var(--bg-dark); border-bottom: 2px solid var(--luffy-red); }
-        .modal-body h3 { font-family: var(--font-heading); margin-top: 1.5rem; color: var(--ocean-blue); }
-        .modal-body ul { padding-left: 20px; }
-        .modal-body li { margin-bottom: 5px; color: #333; }
-        .modal-body p { margin-bottom: 1rem; color: #333; font-size: 1rem; }
-        .sbs-item { margin-bottom: 20px; border-bottom: 1px dashed #ccc; padding-bottom: 10px; }
-        .sbs-q { font-weight: bold; color: var(--ocean-blue); display: block; margin-bottom: 5px; }
-        .sbs-q::before { content: 'S: '; color: var(--text-main); }
-        .sbs-a { font-style: italic; margin-left: 15px; display: block; }
-        .sbs-a::before { content: 'O: '; font-weight: bold; font-style: normal; }
-        .auth-form input, .auth-form textarea { width: 100%; padding: 10px; margin-bottom: 15px; border: 2px solid var(--bg-dark); border-radius: 5px; font-family: var(--font-body); }
-        .auth-form label { font-weight: bold; display: block; margin-bottom: 5px; color: var(--bg-dark); }
-        .auth-btn { width: 100%; padding: 12px; background: var(--luffy-red); color: white; border: none; font-weight: bold; cursor: pointer; font-size: 1.1rem; margin-top: 10px; transition: 0.3s;}
-        .auth-btn:hover { background: #b71c1c; }
-        .auth-toggle { display: flex; gap: 10px; margin-bottom: 20px; }
-        .auth-toggle button { flex: 1; padding: 10px; background: #ddd; border: none; cursor: pointer; font-weight: bold; }
-        .auth-toggle button.active { background: var(--ocean-blue); color: white; }
-        .wanted-poster { background: #fff; border: 5px solid #5a4a3a; padding: 20px; text-align: center; max-width: 350px; margin: 0 auto; box-shadow: 5px 5px 15px rgba(0,0,0,0.3); position: relative; }
-        .wanted-header { font-family: serif; font-size: 2.5rem; letter-spacing: 5px; color: #5a4a3a; margin-bottom: 10px; }
-        .wanted-img { width: 100%; height: 250px; object-fit: cover; background: #ccc; border: 2px solid #5a4a3a; }
-        .wanted-name { font-family: var(--font-heading); font-size: 2rem; text-transform: uppercase; margin: 10px 0; line-height: 1; }
-        .wanted-bounty { font-family: serif; font-size: 1.2rem; color: #5a4a3a; border-top: 2px solid #5a4a3a; padding-top: 5px; }
-        .bounty-amount { font-family: var(--font-heading); font-size: 2rem; color: #5a4a3a; }
-        .bio-text { font-size: 0.9rem; color: #555; margin-top: 10px; font-style: italic; white-space: pre-wrap; }
-        .friend-list { margin-top: 15px; text-align: left; border-top: 1px solid #ccc; padding-top: 10px; }
-        .friend-list ul { list-style: none; padding: 0; max-height: 150px; overflow-y: auto; }
-        .friend-list li { background: #f0f0f0; margin-bottom: 5px; padding: 5px; border-radius: 5px; font-size: 0.9rem; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 5px;}
-        .friend-list li:hover { background: #e0e0e0; }
-        .friend-actions { margin-left: auto; display: flex; gap: 5px; }
-        .btn-tiny { padding: 2px 6px; font-size: 0.7rem; border: none; border-radius: 4px; cursor: pointer; color: white;}
-        .btn-accept { background: green; } .btn-decline { background: red; } .btn-remove { background: #555; }
-        .fruit-badge { background: var(--gold); color: black; font-size: 0.8rem; padding: 3px 8px; border-radius: 10px; font-weight: bold; display: inline-block; margin-top: 5px;}
-        
-        .guild-tab-content { display:none; margin-top:15px; border-top: 2px solid #333; padding-top:15px; }
-        .guild-tab-content.active { display:block; }
-        .tab-btn-group { display:flex; gap:5px; margin-bottom:10px; }
-        .tab-btn { flex:1; padding:5px; border:1px solid #ccc; background:#eee; cursor:pointer; font-weight: bold;}
-        .tab-btn.active { background:var(--luffy-red); color:white; border-color:var(--luffy-red); }
-
-        footer { text-align: center; margin-top: 50px; color: #666; font-size: 0.9rem; }
-        @media (max-width: 768px) { header { flex-direction: column; gap: 10px; } .quiz-options { grid-template-columns: 1fr; } }
-    </style>
-</head>
-<body>
-
-    <header>
-        <div class="logo">☠️ ONE PIECE HABER</div>
-        <nav>
-            <ul>
-                <li><a href="#chat-section">Sohbet</a></li>
-                <li><a href="#guilds">İttifak</a></li>
-                <li><a href="#post-wall">Köşe</a></li>
-                <li><a href="#leaderboard">Sıralama</a></li>
-                <li id="auth-section">
-                    <button class="login-btn" onclick="openLoginModal()">Giriş / Kayıt</button>
-                </li>
-            </ul>
-        </nav>
-    </header>
-
-    <section id="chat-section">
-        <h2 class="section-title">Denizci Salyangozu (Chat)</h2>
-        <div id="chat-box"><div style="text-align:center; color:gray;">Bağlanıyor...</div></div>
-        <div class="chat-input-area">
-            <input type="text" id="chat-input" placeholder="Mesajını yaz korsan..." style="flex-grow:1; padding:10px;">
-            <button class="auth-btn" style="width:auto; margin:0;" onclick="sendMessage()">Gönder</button>
-        </div>
-    </section>
-
-    <section id="news">
-        <h2 class="section-title">Grand Line'dan Son Dakika</h2>
-        <div class="news-grid">
-            <article class="news-card" onclick="openModal('manga')">
-                <div class="news-img-placeholder" style="background-image: url('luffy3.jpg');">
-                    <span class="news-title-overlay">ELBAF</span>
-                </div>
-                <div class="news-content">
-                    <span class="tag">Manga Spoiler</span>
-                    <h3>Bölüm 1174 ve "Büyük Mola"</h3>
-                    <p>Manga şu an Elbaf Arkı'nın zirvesinde. 1174. Bölüm'ün yarın yayınlanması bekleniyor.</p>
-                    <div class="read-more">Özeti Oku</div>
-                </div>
-            </article>
-            <article class="news-card" onclick="openModal('sbs')">
-                <div class="news-img-placeholder" style="background-image: url('robin.jpg');">
-                    <span class="news-title-overlay">SBS</span>
-                </div>
-                <div class="news-content">
-                    <span class="tag">SBS Özel</span>
-                    <h3>Karakter Sırları</h3>
-                    <p>Oda-sensei'den şok cevaplar! Banyo yapma sıklıkları, karakterlerin gerçek hayattaki ülkeleri...</p>
-                    <div class="read-more">Tamamını Oku</div>
-                </div>
-            </article>
-            <article class="news-card" onclick="openModal('anime')">
-                <div class="news-img-placeholder" style="background-image: url('zoro.jpg');">
-                    <span class="news-title-overlay">ANIME</span>
-                </div>
-                <div class="news-content">
-                    <span class="tag">Anime</span>
-                    <h3>Anime Dönüşü</h3>
-                    <p>Nisan ayında Elbaf Arc başlıyor! Wit Studio'nun "The One Piece" remake projesi sessizliğini koruyor.</p>
-                    <div class="read-more">Detaylar</div>
-                </div>
-            </article>
-        </div>
-    </section>
-
-    <section id="post-wall">
-        <h2 class="section-title">Grand Line Köşe Yazarları</h2>
-        <div class="post-input-box">
-            <input type="text" id="post-title" placeholder="Başlık (Örn: Shanks'ın Planı)" style="width:100%; padding:10px; margin-bottom:5px;">
-            <textarea id="post-content" rows="3" placeholder="Teorini veya haberini buraya yaz..." style="width:100%; padding:10px;"></textarea>
-            <button class="auth-btn" style="width:auto; margin-top:5px;" onclick="createPost()">Paylaş</button>
-        </div>
-        <div id="posts-feed">
-            <div style="text-align:center; color:gray;">Yazılar yükleniyor...</div>
-        </div>
-    </section>
-
-    <section id="weekly-poll">
-        <h2 class="section-title" style="color:var(--gold); border:none;">📊 Haftanın Anketi</h2>
-        <h3>Korsanlar Kralı Kim Olacak?</h3>
-        <div class="poll-options" id="poll-options-container"></div>
-    </section>
-
-    <section id="guilds">
-        <h2 class="section-title">En Güçlü İttifaklar</h2>
-        <table class="rank-table">
-            <thead><tr><th>#</th><th>Bayrak</th><th>İttifak Adı</th><th>Toplam Ödül</th></tr></thead>
-            <tbody id="guild-leaderboard"><tr><td colspan="4" style="text-align:center;">Yükleniyor...</td></tr></tbody>
-        </table>
-    </section>
-
-    <section id="leaderboard">
-        <h2 class="section-title">Dünya Sıralaması (Top 50)</h2>
-        <div style="overflow-x:auto;">
-            <table class="rank-table">
-                <thead><tr><th>#</th><th>Korsan Adı</th><th>Ödül (Bounty)</th><th>Meyve</th></tr></thead>
-                <tbody id="leaderboard-body"><tr><td colspan="4" style="text-align:center;">Veritabanına bağlanıyor...</td></tr></tbody>
-            </table>
-        </div>
-    </section>
-
-    <section id="games">
-        <h2 class="section-title">Korsan Oyunları</h2>
-        <div class="games-grid">
-            <div class="game-item"><div class="game-header"><span class="game-title">OP: Bounty Rush</span><span class="game-platform plat-mobile">Mobil</span></div><p>4v4 Bayrak kapma oyunu. Yeni Elbaf karakterleri metayı sallıyor.</p></div>
-            <div class="game-item"><div class="game-header"><span class="game-title">Project: Fighter</span><span class="game-platform plat-mobile">Mobil</span></div><p>Tencent yapımı, inanılmaz grafikli dövüş oyunu.</p></div>
-            <div class="game-item" style="border-color: #e74c3c;"><div class="game-header"><span class="game-title">Blox Fruits</span><span class="game-platform plat-roblox">Roblox</span></div><p>Roblox'un en popüleri. Yeni Kitsune meyvesi ve Dragon rework gündemde.</p></div>
-            <div class="game-item" style="border-color: #e74c3c;"><div class="game-header"><span class="game-title">King Legacy</span><span class="game-platform plat-roblox">Roblox</span></div><p>Yeni boss raidleri ile oyuncu sayısını artırdı. Grind sevenler için.</p></div>
-            <div class="game-item" style="border-color: #e74c3c;"><div class="game-header"><span class="game-title">Fruit Battlegrounds</span><span class="game-platform plat-roblox">Roblox</span></div><p>Tamamen PVP odaklı. Nika meyvesini uyandırmak için savaş.</p></div>
-        </div>
-    </section>
-
-    <section id="quiz-game">
-        <h2 class="section-title">Grand Line Bilgi Yarışması</h2>
-        <div class="quiz-container">
-            <div class="quiz-score">Kazanılan Bounty: <span id="current-score" style="color:var(--luffy-red)">0</span> ฿</div>
-            <p style="margin-bottom:20px; color:#666;">40 sorudan rastgele 10 tanesi sorulur!</p>
-            <div id="quiz-box">
-                <div class="quiz-question" id="question-text">Soru Yükleniyor...</div>
-                <div class="quiz-options">
-                    <button class="quiz-btn" onclick="checkAnswer(0)">A</button><button class="quiz-btn" onclick="checkAnswer(1)">B</button>
-                    <button class="quiz-btn" onclick="checkAnswer(2)">C</button><button class="quiz-btn" onclick="checkAnswer(3)">D</button>
-                </div>
-                <div class="feedback" id="feedback-text"></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="fruit-game">
-        <h2 class="section-title">Şeytan Meyveni Keşfet</h2>
-        <p>Dikkat! Yeni meyve çıkarsa eskisinin puanı silinir, yenisi eklenir!</p>
-        <div class="fruit-box" id="fruit-display">
-            <div class="fruit-name">?</div>
-            <div class="fruit-desc">Çevirmek için butona bas!</div>
-        </div>
-        <button class="spin-btn" onclick="spinFruit()">Çarkı Çevir</button>
-        <div class="spin-limit">Kalan Hakkın: <span id="spin-count">3</span></div>
-    </section>
-
-    <section id="countdown-section">
-        <h2 class="section-title">Geri Sayım</h2>
-        <div class="timers-wrapper">
-            <div class="timer-box"><div class="timer-title">Manga 1175</div><div class="timer-display" id="manga-timer">...</div><small>Tahmini Perşembe</small></div>
-            <div class="timer-box"><div class="timer-title">Live Action S2</div><div class="timer-display" id="la-timer">...</div><small>10 Mart 2026</small></div>
-            <div class="timer-box"><div class="timer-title">Anime Yeni Sezon</div><div class="timer-display" id="anime-timer">Hesaplanıyor...</div><small>Nisan 2026</small></div>
-        </div>
-    </section>
-
-    <footer><p>&copy; 2026 One Piece Haber. Fan Yapımıdır.</p></footer>
-
-    <div class="modal-overlay" id="infoModal"><div class="modal-content"><span class="close-modal" onclick="closeModal('infoModal')">×</span><div class="modal-body" id="modalBody"></div></div></div>
+    <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Cinzel:wght@400;600;800&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     
-    <div class="modal-overlay" id="loginModal">
-        <div class="modal-content" style="max-width: 450px;">
-            <span class="close-modal" onclick="closeModal('loginModal')">×</span>
-            <h2 style="text-align: center; font-family: var(--font-heading);">Korsan Pasaportu</h2>
-            <div class="auth-toggle">
-                <button id="btn-show-login" class="active" onclick="switchAuthMode('login')">Giriş Yap</button>
-                <button id="btn-show-register" onclick="switchAuthMode('register')">Kayıt Ol</button>
-            </div>
-            <div id="login-form" class="auth-form">
-                <label>Kullanıcı Adı:</label><input type="text" id="login-name" placeholder="Adın...">
-                <label>Şifre:</label><input type="password" id="login-pass" placeholder="Şifren...">
-                <button class="auth-btn" onclick="performLogin()">Giriş Yap</button>
-            </div>
-            <div id="register-form" class="auth-form" style="display:none;">
-                <label>Kullanıcı Adı Belirle:</label><input type="text" id="reg-name" placeholder="Yeni korsan adı...">
-                <label>Şifre Belirle:</label><input type="password" id="reg-pass" placeholder="Güçlü bir şifre...">
-                <label>Hakkında:</label><textarea id="reg-bio" rows="2" placeholder="Örn: Geleceğin Korsanlar Kralı"></textarea>
-                <label>Profil Resmi (Cihazından):</label><input type="file" id="reg-file" accept="image/*" onchange="previewImage()">
-                <div style="text-align:center;"><img id="img-preview" src="https://static.wikia.nocookie.net/onepiece/images/c/c5/Revolutionary_Army_Jolly_Roger.png" style="width:80px;height:80px;border-radius:50%;display:none;margin:10px auto;border:2px solid #333;object-fit:cover;"></div>
-                <button class="auth-btn" onclick="performRegister()">Kayıt Ol</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="profileModal">
-        <div class="modal-content" style="max-width: 500px; background: transparent; box-shadow: none; border: none;">
-            <span class="close-modal" onclick="closeModal('profileModal')" style="color: white; z-index: 2001;">×</span>
-            <div class="wanted-poster">
-                <div class="wanted-header">WANTED</div><div style="font-size:0.8rem;">DEAD OR ALIVE</div>
-                <img id="profile-img" class="wanted-img" src=""><div id="profile-name" class="wanted-name"></div>
-                <div class="wanted-bounty">฿ <span id="profile-bounty" class="bounty-amount"></span> -</div>
-                <div id="profile-fruit" class="fruit-badge" style="display:none;"></div>
-                <p id="profile-bio" class="bio-text"></p>
-
-                <div class="tab-btn-group" style="margin-top:15px;">
-                    <button class="tab-btn active" onclick="showTab('friends')">Tayfa</button>
-                    <button class="tab-btn" onclick="showTab('guild')">İttifak</button>
-                </div>
-
-                <div id="tab-friends" class="guild-tab-content active">
-                    <strong>Gelen İstekler:</strong><ul id="request-ul" style="border-bottom:1px dashed #5a4a3a; margin-bottom:10px; padding-bottom:5px;"></ul>
-                    <strong>Dostlar (Ekle):</strong>
-                    <div style="display:flex; gap:5px; margin-bottom:5px;"><input type="text" id="friend-input" placeholder="İsim Gir..." style="width:70%;padding:5px;"><button onclick="sendFriendRequest()" style="padding:5px;cursor:pointer;">EKLE</button></div>
-                    <ul id="friend-ul"></ul>
-                </div>
-
-                <div id="tab-guild" class="guild-tab-content">
-                    <div id="guild-status-area">
-                        <p style="font-size:0.9rem;">Bir ittifaka katıl veya kendininkini kur!</p>
-                        <div style="background:#eee; padding:10px; border-radius:5px; margin-bottom:10px;">
-                            <strong>Yeni İttifak Kur:</strong>
-                            <input type="text" id="guild-create-input" placeholder="İsim" style="padding:5px; width:100%; margin:5px 0;">
-                            <textarea id="guild-desc-input" placeholder="Açıklama" style="width:100%; height:40px; margin-bottom:5px;"></textarea>
-                            <label style="font-size:0.8rem;">Bayrak Seç:</label>
-                            <input type="file" id="guild-flag-input" accept="image/*" style="font-size:0.8rem;">
-                            <button onclick="createGuild()" style="width:100%; padding:5px; cursor:pointer; background:var(--luffy-red); color:white; border:none; margin-top:5px;">KUR</button>
-                        </div>
-                        <div style="display:flex; gap:5px;"><input type="text" id="guild-join-input" placeholder="Mevcut İttifak Adı" style="padding:5px; width:70%;"><button onclick="joinGuild()" style="padding:5px; cursor:pointer; width:30%;">KATIL</button></div>
-                    </div>
-                    <div id="my-guild-info" style="display:none;">
-                        <img id="g-flag-display" class="guild-flag" src="" style="width:60px; height:60px; display:block; margin:0 auto;">
-                        <h3 id="g-name" style="color:var(--luffy-red); margin:5px 0;"></h3>
-                        <p id="g-desc" style="font-size:0.8rem; font-style:italic; color:#555;"></p>
-                        <p style="font-size:0.8rem;">Kaptan: <span id="g-captain"></span></p>
-                        <p style="font-size:0.8rem;">Toplam Ödül: <span id="g-bounty"></span> ฿</p>
-                        <hr>
-                        <div style="max-height:150px; overflow-y:auto; border:1px solid #ddd; padding:5px;">
-                            <ul id="g-members" style="list-style:none; padding:0; font-size:0.8rem; text-align:left;"></ul>
-                        </div>
-                        <button onclick="leaveGuild()" style="width:100%; margin-top:5px; background:#555; color:white; border:none; padding:5px; cursor:pointer;">İttifaktan Ayrıl</button>
-                    </div>
-                </div>
-
-            </div>
-            <button onclick="enableEdit()" style="width:100%;margin-top:10px;padding:10px;background:#006994;color:white;border:none;cursor:pointer;font-weight:bold;">Profili Düzenle</button>
-            <button onclick="performLogout()" style="width:100%;margin-top:5px;padding:10px;background:#333;color:white;border:none;cursor:pointer;font-weight:bold;">Çıkış Yap</button>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="viewFriendModal">
-        <div class="modal-content" style="max-width: 400px; background: transparent; box-shadow: none; border: none;">
-            <span class="close-modal" onclick="closeModal('viewFriendModal')" style="color: white; z-index: 2001;">×</span>
-            <div class="wanted-poster">
-                <div class="wanted-header">FRIEND</div>
-                <img id="view-img" class="wanted-img" src=""><div id="view-name" class="wanted-name"></div>
-                <div class="wanted-bounty">฿ <span id="view-bounty" class="bounty-amount"></span></div>
-                <div id="view-fruit" class="fruit-badge" style="display:none;"></div>
-                <p id="view-bio" class="bio-text"></p>
-                <div style="margin-top:10px; font-weight:bold;" id="view-status"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="editProfileModal">
-        <div class="modal-content" style="max-width: 400px;">
-            <span class="close-modal" onclick="closeModal('editProfileModal')">×</span>
-            <h3>Profili Düzenle</h3>
-            <div class="auth-form">
-                <label>Yeni Hakkında Yazısı:</label><textarea id="edit-bio" rows="3"></textarea>
-                <label>Yeni Resim Seç:</label><input type="file" id="edit-file" accept="image/*" onchange="previewEditImage()">
-                <div style="text-align:center;"><img id="edit-preview" src="" style="width:80px;height:80px;border-radius:50%;margin:10px auto;border:2px solid #333;object-fit:cover;"></div>
-                <button class="auth-btn" onclick="saveProfileEdit()">Kaydet</button>
-            </div>
-        </div>
-    </div>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    
+    <!-- Tone.js for Sound Effects -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
 
     <script>
-        const allQ = [ {q:"Luffy’nin şeytan meyvesinin gerçek adı nedir?", a:["Gomu Gomu no Mi","Hito Hito no Mi","Hito Hito no Mi, Model: Nika","Nika Nika no Mi"], c:2}, {q:"Zoro’nun ustasının adı nedir?", a:["Mihawk","Koshiro","Rayleigh","Oden"], c:1}, {q:"Sanji hangi denizde doğmuştur?", a:["West Blue","North Blue","South Blue","East Blue"], c:1}, {q:"Nami’nin ilk bağlı olduğu korsan kimdi?", a:["Arlong","Buggy","Crocodile","Don Krieg"], c:0}, {q:"Usopp’un babasının adı nedir?", a:["Yasopp","Beckman","Lucky Roo","Shanks"], c:0}, {q:"Tony Tony Chopper hangi meyveyi yemiştir?", a:["Gomu Gomu no Mi","Hito Hito no Mi","Mera Mera no Mi","Ushi Ushi no Mi"], c:1}, {q:"Nico Robin’in ilk örgütü hangisidir?", a:["CP9","Baroque Works","Donquixote Ailesi","Devrim Ordusu"], c:1}, {q:"Franky’nin gerçek adı nedir?", a:["Iceburg","Cutty Flam","Tom","Paulie"], c:1}, {q:"Brook kaç yıl boyunca tek başına denizde kalmıştır?", a:["10","20","30","50"], c:3}, {q:"Jinbe hangi ırktandır?", a:["Dev","Mink","Balık Adam","Lunarian"], c:2}, {q:"Luffy ilk olarak hangi denizde yola çıktı?", a:["Grand Line","East Blue","West Blue","North Blue"], c:1}, {q:"Shanks hangi Yonko grubundadır?", a:["Beyazsakal Korsanları","Big Mom Korsanları","Kızıl Saç Korsanları","Kara Sakal Korsanları"], c:2}, {q:"Portgas D. Ace’in şeytan meyvesi nedir?", a:["Magu Magu no Mi","Mera Mera no Mi","Gura Gura no Mi","Suna Suna no Mi"], c:1}, {q:"Whitebeard’ın gerçek adı nedir?", a:["Edward Teach","Edward Newgate","Rocks D. Xebec","Marshall D. Teach"], c:1}, {q:"Enies Lobby’de Straw Hat’lere karşı savaşan CP9 lideri kimdi?", a:["Kaku","Jabra","Lucci","Spandam"], c:2}, {q:"Doflamingo hangi krallığın eski prensi?", a:["Alabasta","Dressrosa","Wano","Drum"], c:1}, {q:"Wano’nun eski shogunu kimdi?", a:["Orochi","Oden","Kaido","Momonosuke"], c:1}, {q:"Kaido hangi meyveye sahiptir?", a:["Ryu Ryu no Mi","Uo Uo no Mi, Model: Seiryu","Hebi Hebi no Mi","Tori Tori no Mi"], c:1}, {q:"Big Mom’un gerçek adı nedir?", a:["Charlotte Smoothie","Charlotte Linlin","Streusen","Perospero"], c:1}, {q:"Trafalgar Law’un meyvesi nedir?", a:["Ope Ope no Mi","Ito Ito no Mi","Yami Yami no Mi","Bari Bari no Mi"], c:0}, {q:"Blackbeard kaç şeytan meyvesi gücüne sahiptir?", a:["1","2","3","4"], c:1}, {q:"Gol D. Roger’ın lakabı nedir?", a:["Altın Aslan","Korsan Kral","Deniz Şeytanı","Efsanevi Kılıç Ustası"], c:1}, {q:"One Piece hazinesinin bulunduğu ada?", a:["Raftel","Laugh Tale","Lodestar","Elbaf"], c:1}, {q:"Sabo hangi örgütün üyesidir?", a:["CP0","Devrim Ordusu","Marine","Baroque Works"], c:1}, {q:"Monkey D. Dragon kimdir?", a:["Amiral","Yonko","Devrim Ordusu lideri","Shichibukai"], c:2}, {q:"En güçlü denizci unvanı nedir?", a:["Koramiral","Filo Amiral","Amiral","Yüzbaşı"], c:1}, {q:"Luffy’nin Gear 2 tekniğini ilk kullandığı yer?", a:["Alabasta","Enies Lobby","Thriller Bark","Marineford"], c:1}, {q:"Zoro’nun “Enma” kılıcı nereden gelmiştir?", a:["Mihawk","Wano","East Blue","Marine"], c:1}, {q:"Shichibukai sistemi kaç üyeden oluşur?", a:["5","6","7","8"], c:2}, {q:"Akainu’nun meyvesi nedir?", a:["Mera Mera no Mi","Magu Magu no Mi","Hie Hie no Mi","Pika Pika no Mi"], c:1}, {q:"Aokiji’nin meyvesi nedir?", a:["Hie Hie no Mi","Moku Moku no Mi","Suna Suna no Mi","Yami Yami no Mi"], c:0}, {q:"Kizaru’nun meyvesi nedir?", a:["Pika Pika no Mi","Magu Magu no Mi","Ope Ope no Mi","Goro Goro no Mi"], c:0}, {q:"Enel hangi adada yaşıyordu?", a:["Skypiea","Dressrosa","Fishman Island","Zou"], c:0}, {q:"Crocodile’ın meyvesi nedir?", a:["Suna Suna no Mi","Ito Ito no Mi","Gura Gura no Mi","Doku Doku no Mi"], c:0}, {q:"Bartholomew Kuma’nın meyvesi nedir?", a:["Paw Paw (Nikyu Nikyu no Mi)","Bari Bari no Mi","Hobi Hobi no Mi","Hana Hana no Mi"], c:0}, {q:"Mihawk’ın lakabı nedir?", a:["Denizlerin İmparatoru","En Güçlü Kılıç Ustası","Kara Şövalye","Kızıl Şahin"], c:1}, {q:"Wano ülkesinin kapalı kalmasının sebebi nedir?", a:["Dünya Hükümeti korkusu","Antik silah","Geleneksel izolasyon politikası","Deniz taşları"], c:2}, {q:"Joy Boy ismi ilk nerede duyuldu?", a:["Marineford","Fishman Island","Dressrosa","Alabasta"], c:1}, {q:"Luffy’nin babası kimdir?", a:["Garp","Dragon","Roger","Shanks"], c:1}, {q:"Straw Hat’lerin gemisinin adı nedir?", a:["Going Merry","Thousand Sunny","Red Force","Moby Dick"], c:1} ];
-        let quizQ=[], qIdx=0;
-        
-        function initQuiz(){ 
-            quizQ = [...allQ].sort(()=>0.5-Math.random()).slice(0,10); 
-            qIdx=0; 
-            loadQ(); 
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'luffy-red': '#d62828',
+                        'luffy-dark': '#8b0000',
+                        'ocean-blue': '#006994',
+                        'ocean-deep': '#003d5c',
+                        'treasure-gold': '#ffb703',
+                        'gold-light': '#ffd700',
+                        'parchment': '#f4e4bc',
+                        'parchment-dark': '#e6d5a7',
+                        'glass-white': 'rgba(255, 255, 255, 0.15)',
+                        'glass-dark': 'rgba(0, 0, 0, 0.6)',
+                    },
+                    fontFamily: {
+                        'pirata': ['"Pirata One"', 'cursive'],
+                        'cinzel': ['"Cinzel"', 'serif'],
+                        'roboto': ['"Roboto"', 'sans-serif'],
+                    },
+                    animation: {
+                        'spin-slow': 'spin 4s cubic-bezier(0.4, 0, 0.2, 1) infinite',
+                        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'shimmer': 'shimmer 2s linear infinite',
+                        'slide-up': 'slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'slide-case': 'slideCase 5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-20px) rotate(2deg)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 20px rgba(255, 183, 3, 0.5)' },
+                            '50%': { boxShadow: '0 0 40px rgba(255, 183, 3, 0.8), 0 0 60px rgba(214, 40, 40, 0.4)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px) scale(0.95)' },
+                            '100%': { opacity: '1', transform: 'translateY(0) scale(1)' },
+                        },
+                        glow: {
+                            '0%': { filter: 'brightness(1) drop-shadow(0 0 5px rgba(255,183,3,0.5))' },
+                            '100%': { filter: 'brightness(1.2) drop-shadow(0 0 20px rgba(255,183,3,0.8))' },
+                        },
+                        slideCase: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-200%)' },
+                        }
+                    }
+                }
+            }
         }
-        
-        function loadQ(){ 
-            if(qIdx>=quizQ.length){ 
-                document.getElementById('quiz-box').innerHTML=`<p>Bitti! (+Ödül eklendi)</p><button class='quiz-btn' onclick='location.reload()'>Tekrar</button>`; 
-                return; 
-            } 
-            const q = quizQ[qIdx]; 
-            document.getElementById('question-text').textContent = (qIdx+1)+". "+q.q; 
-            document.querySelectorAll('.quiz-btn').forEach((b,i)=>{ 
-                b.textContent=q.a[i]; 
-                b.disabled=false; 
-                b.style.background="var(--bg-dark)"; 
-            }); 
-        }
-        
-        // Bu fonksiyon Firebase script'i ile haberleşecek
-        window.checkAnswer = function(i){ 
-            if(i===quizQ[qIdx].c){ 
-                document.getElementById('feedback-text').textContent="Doğru! (+5000)";
-                // Eğer Firebase yüklendiyse ve kullanıcı giriş yaptıysa ödülü ver
-                if(window.updateLocalBounty) window.updateLocalBounty(5000);
-            } else { 
-                document.getElementById('feedback-text').textContent="Yanlış!"; 
-            } 
-            qIdx++; 
-            setTimeout(loadQ, 800); 
-        }
-
-        window.spinFruit = function() {
-            // Basit kontrol, detaylı kontrol Firebase tarafında
-            document.getElementById('fruit-display').style.transform = "rotate(1080deg)";
-            setTimeout(() => {
-                const fruitList = [{n:"Hito Hito: Nika", v:3000000000, c:0.01}, {n:"Gura Gura", v:1500000000, c:0.03}, {n:"Ope Ope", v:1000000000, c:0.05}, {n:"Mera Mera", v:500000000, c:0.10}, {n:"Gomu Gomu", v:100000000, c:0.20}, {n:"Bara Bara", v:15000000, c:0.30}, {n:"Sube Sube", v:5000000, c:0.31}];
-                let rand = Math.random(), cumulative = 0, selected = fruitList[fruitList.length-1];
-                for(let f of fruitList) { cumulative += f.c; if(rand <= cumulative) { selected = f; break; } }
-                
-                document.getElementById('fruit-display').innerHTML = `<div class="fruit-name">${selected.n}</div><div class="fruit-desc">+${selected.v.toLocaleString()}</div>`;
-                document.getElementById('fruit-display').style.transform = "rotate(0deg)";
-                
-                // Eğer Firebase yüklendiyse işlemi kaydet
-                if(window.processSpinResult) window.processSpinResult(selected);
-                else alert("Giriş yapmadığın için sonuç kaydedilmedi!");
-            }, 1000);
-        }
-
-        const contents = {
-            'manga': `<h2>🚨 Önemliler (En Sıcak Gelişmeler)</h2><h3>1. Manga: Bölüm 1174 ve "Büyük Mola"</h3><p><strong>Güncel Durum:</strong> Manga şu an Elbaf Arkı'nın zirvesinde. İnternetteki son raporlara göre 1174. Bölüm'ün yarın (15 Şubat 2026) yayınlanması bekleniyor.</p><p><strong>Kötü Haber (Ara):</strong> 1174. bölümden sonra Eiichiro Oda'nın klasik "3 bölüm çiz, 1 hafta ara ver" rutini devreye girecek. Yani 22 Şubat haftası manga yok.</p><p><strong>Dönüş:</strong> Seri, 1 Mart 2026'da 1175. Bölüm ile geri dönecek.</p><p><strong>Büyük Olay (Spoiler İçerebilir):</strong> İnternetteki sızıntılar ve tartışmalar, 1175. bölümün serinin en büyük savaşlarından birine, Luffy vs. Imu karşılaşmasına sahne olacağını (veya bu savaşın kızışacağını) işaret ediyor.</p><h3>2. Live Action (2. Sezon): Tarih Kesinleşti!</h3><p><strong>Yayın Tarihi:</strong> Netflix, One Piece Live Action 2. Sezon'un 10 Mart 2026'da yayınlanacağını doğruladı. Yani 1 aydan az bir süre kaldı.</p><p><strong>Kapsam:</strong> Bu sezon Loguetown ile başlayıp, Drum Adası'na kadar gidecek (Alabasta muhtemelen 3. sezona saklandı).</p><p><strong>3. Sezon Onayı:</strong> Şimdiden 3. sezon onayı alındığı ve çekimlerin (özellikle Alabasta kısımları için) başladığına dair güçlü haberler var.</p><p><strong>Kadro:</strong> Smoker (Callum Kerr) ve Tashigi (Julia Rehwald) gibi karakterler fragmanlarda göründü. Tony Tony Chopper'ın CGI/Makyaj karışımı görünümü büyük merak konusu.</p><h3>🔥 Öne Çıkanlar (Detaylar & Yan Projeler)</h3><p><strong>1. Anime (Wit Studio Remake): Sessizlik Sürüyor</strong><br>Netflix ve Wit Studio'nun (Attack on Titan'ın ilk stüdyosu) hazırladığı "THE ONE PIECE" yeniden yapımı (remake) için Jump Festa 2026'da beklenen fragman gelmedi. Proje "yapım aşamasında" denilerek geçiştirildi. İnternetteki genel kanı, projenin beklenenden yavaş ilerlediği yönünde.</p><p><strong>2. Mevcut Anime (Toei Animation)</strong><br>Orijinal anime serisi de manga ile paralel olarak Elbaf dönemine giriş yapmış durumda (veya Egghead'in finalini işliyor, takvime göre değişebilir). Ancak manga şu an çok kritik bir savaşta olduğu için tüm gözler okuyucularda.</p><h3>🔮 Hayranlara Göre Önümüzdeki Bölümler & Teoriler</h3><p><strong>Luffy vs. Imu (Bölüm 1175+):</strong><br>Hayranlar, 1 Mart'ta gelecek 1175. bölümün, Luffy'nin "Güneş Tanrısı Nika" formu ile Imu arasındaki doğrudan çatışmanın başlangıcı olacağına inanıyor. Bu, serinin finaline giden en net yol olarak görülüyor. Bir diğer teori, Elbaf'taki Devlerin bu savaşta Luffy'ye nasıl bir ordu desteği vereceği üzerine.</p><p><strong>Shanks'ın Hamlesi:</strong><br>Elbaf, Shanks'ın bölgesi olduğu için, hayranlar Shanks'ın Luffy ile Imu arasındaki savaşa müdahil olmasını veya "One Piece"i almak için son hamlesini yapmasını bekliyor. "Davy Back Fight" teorileri veya "Son Poneglyph"in konumu hakkında spekülasyonlar zirvede.</p><p><strong>Live Action Chopper:</strong><br>10 Mart'taki prömiyer öncesi en büyük korku ve merak Chopper. Dedektif Pikachu tarzı gerçekçi bir yaklaşım mı yoksa daha maskotvari bir yaklaşım mı olduğu hala en çok tartışılan konu.</p>`,
-            'sbs': `<h2>SBS (Soru-Cevap Köşesi)</h2><p>Bu SBS'ler genellikle karakterlerin kişisel özelliklerini tanımlar ve hayranlar arasında "canon" (resmi) bilgi kabul edilir.</p><h3>Eğer Hasır Şapkalar Gerçek Dünyada Yaşasaydı (Cilt 56)</h3><p><strong>Okuyucu (D):</strong> Oda-sensei! Luffy ve diğerleri gerçek hayatta olsalardı hangi ülkeden olurlardı?</p><p><strong>Oda (O):</strong> Karakterlerin görünüşlerine ve imajlarına dayanarak şöyle olurdu:<br>Luffy: Brezilya<br>Zoro: Japonya<br>Nami: İsveç<br>Usopp: Afrika (Kıta olarak belirtmiş)<br>Sanji: Fransa<br>Chopper: Kanada<br>Robin: Rusya<br>Franky: ABD<br>Brook: Avusturya<br>(Not: Jinbe daha sonra eklendiğinde onun için "Hindistan" demiştir.)</p><h3>Banyo Yapma Sıklıkları (Cilt 48)</h3><p><strong>D:</strong> Merak ediyorum, Hasır Şapka Korsanları ne sıklıkla banyo yapıyor?</p><p><strong>O:</strong> Bu soru çok geliyor. İşte cevaplar:<br>Luffy, Zoro, Brook: Haftada 1 kez.<br>Usopp, Franky, Chopper: 3 günde 1 kez.<br>Sanji, Nami, Robin: Her gün.<br><strong>Oda'nın notu:</strong> Sanji her gün yıkanır çünkü kadınların yanına temiz gitmek ister. Erkeklerin olduğu günler "erkekler günü" gibi toplu yıkanırlar ve tam bir kaos ortamı olur. Chopper genelde kadınlarla yıkanır çünkü erkekler çok vahşi davranır.</p><h3>⚔️ Karakter Detayları ve Sırlar</h3><p><strong>Zoro'nun Kılıçlarını Ağzıyla Tutması (Cilt 5)</strong><br>D: Zoro konuşurken kılıcı ağzında tutuyor. Dişleri ağrımıyor mu? Nasıl konuşabiliyor?<br>O: O, kalbiyle konuşuyor! (Şaka bir yana, bu bir manga, çok takılmayın ama evet, çenesi çok güçlü.)</p><p><strong>Sanji'nin Kaşları (Cilt 7)</strong><br>D: Sanji'nin kaşı neden kıvrık?<br>O: Hey! Dur orada! O kaş hakkında şaka yapma! O kaşın kıvrımı, evrenin enerjisini içinde barındırır. Eğer o kıvrım düzleşirse dünya yok olabilir... Şaka şaka. Sadece tasarımı hoşuma gidiyor.</p><p><strong>Nami'nin Kıyafetleri (Cilt 20 civarı)</strong><br>D: Nami neden hep bu kadar açık giyiniyor?<br>O: Çünkü modayı seviyor! Ayrıca... Çizmesi daha eğlenceli değil mi? (Oda'nın klasik sapık şakaları).</p><h3>🍎 Şeytan Meyveleri Hakkında</h3><p><strong>İnsan İnsan Meyvesi (Hito Hito no Mi) (Cilt 20)</strong><br>D: Chopper "Hito Hito no Mi" yedi ve insan-geyik oldu. Peki ya bir insan bu meyveyi yerse ne olur?<br>O: Sanırım "Aydınlanmış İnsan" olurdu. Nirvana'ya ulaşmış, kendini bulmuş bir insan... Ya da sadece yüzmesi imkansız hale gelen normal bir insan. (Oda burada Luffy'nin meyvesiyle ilgili gerçeği yıllar öncesinden saklıyordu).</p><p><strong>Luffy'nin Uzaması (Çeşitli Ciltler)</strong><br>D: Luffy'nin vücudu lastik olduğu için... Şeyi de uzuyor mu?<br>O: Evet. (Net ve kısa cevap).</p><h3>👴 Karakterlerin Gelecekteki Halleri</h3><p>Oda, son zamanlarda SBS'lerde karakterlerin "İşler yolunda giderse" ve "İşler kötü giderse" 40 ve 60 yaşındaki hallerini çiziyor.</p><p><strong>Luffy'nin Geleceği (Cilt 89)</strong><br>40 Yaş (İyi Yol): "Et!! Yine mi et yiyoruz? Şahane!" (Shanks'a benziyor).<br>60 Yaş (İyi Yol): "Korsanlar Kralı mı? Evet, o benim." (Garp'a benziyor).<br>40 Yaş (Kötü Yol): "Korsanlar Kralı mı? Rüya görmeyi bırak." (Şişman ve bakımsız).<br>60 Yaş (Kötü Yol): "Hey, bana biraz et versene, borç yaz." (Dişleri dökülmüş).</p><p><strong>Ace'in Geleceği (Eğer ölmeseydi - Cilt 89)</strong><br>O: Eğer hayatta kalsaydı böyle görünürdü... (Oda burada Ace'in yaşlanmış, olgun ve Beyazbıyık'a sadık, güçlü bir korsan halini çizdi. Hayranları ağlatan bir SBS'dir.)</p><h3>🤪 Komik ve Meta Sorular</h3><p><strong>Beyazbıyık'ın Bıyığı mı Yoksa... (Cilt 39)</strong><br>D: Beyazbıyık'ın (Whitebeard) yüzündeki o şey... O bir bıyık mı yoksa burnundan çıkan kıllar mı?<br>O: Ne kadar kaba! O şanlı bir bıyık! Aslında o bir bumerang! Savaşta yerinden çıkarıp fırlatıyor ve geri dönüp tekrar yapışıyor! (Tabii ki yalan söylüyor).</p><p><strong>Karakterlerin Beyin Yapısı (Cilt 50 civarı)</strong><br>D: Hasır Şapkaların beyninin içinde ne var?<br>O:<br>Luffy: Et, Et, Et, Et, Korsanlar Kralı.<br>Zoro: Kılıç, Kılıç, Güç, Uyku, Sake.<br>Nami: Para, Para, Para, Güzellik, Para.<br>Sanji: Kadınlar, Yemek, Kadınlar, Nami-san, Robin-chan.<br>Chopper: Doktorluk, İlaç, Tatlı, Pamuk Şeker.</p><h3>🗡️ Nesnelerin İnsanlaştırılması</h3><p><strong>Zoro'nun Kılıçları İnsan Olsaydı (Cilt 92)</strong><br>D: Zoro'nun kılıçları (Wado Ichimonji, Sandai Kitetsu, Shusui) insan olsaydı nasıl görünürdü?<br>O:<br>Wado Ichimonji: Ciddi, geleneksel kıyafetli, onurlu bir adam.<br>Sandai Kitetsu: Sapkın, korkunç görünümlü, lanetli bir serseri.<br>Shusui: Savaşçı ruhlu, güçlü ama biraz kaba bir samuray.</p><h3>❓ SBS Nasıl Başlar ve Biter?</h3><p>SBS'nin en büyük kuralı, okuyucunun köşeyi başlatmaya çalışması ve Oda'nın bunu engellemeye çalışmasıdır (veya tam tersi).<br>Örnek (Neredeyse her cilt):<br>D: "SBS Başlıy..."<br>O: "BAŞLAMIYOR!"<br>Örnek (Cilt 4):<br>D: "Lütfen SBS'yi başlatmama izin verin."<br>O: "Pekala, başlayın."<br>D: "SBS BAŞLADI!"<br>O: "Hah! Ben başlatacaktım!"</p>`,
-            'anime': `<h2>Anime & Remake Güncellemesi</h2><p><strong>Mevcut Anime (Toei Animation):</strong> Orijinal anime serisi de manga ile paralel olarak Elbaf dönemine giriş yapmış durumda. Ancak manga şu an çok kritik bir savaşta olduğu için tüm gözler okuyucularda.</p><p><strong>Wit Studio Remake:</strong> Sessizlik sürüyor. Jump Festa 2026'da beklenen fragman gelmedi. Proje "yapım aşamasında" denilerek geçiştirildi. İnternetteki genel kanı, projenin beklenenden yavaş ilerlediği yönünde.</p>`
-        };
-
-        window.openModal = function(key) { document.getElementById('modalBody').innerHTML = contents[key]; document.getElementById('infoModal').style.display='flex'; }
-        window.closeModal = function(id) { document.getElementById(id || 'infoModal').style.display='none'; }
-        window.openLoginModal = function() { document.getElementById('loginModal').style.display='flex'; }
-        window.onclick = function(e) { if(e.target.classList.contains('modal-overlay')) e.target.style.display='none'; }
-
-        // Anime Sayacı Düzeltildi
-        setInterval(()=>{
-            const now = new Date();
-            const animeDate = new Date("2026-04-01");
-            const diff = Math.ceil((animeDate - now) / (1000*60*60*24));
-            document.getElementById('anime-timer').textContent = diff > 0 ? diff + " gün" : "Yayında!";
-            
-            const mangaDate = new Date(); mangaDate.setDate(now.getDate() + (4 + 7 - now.getDay()) % 7);
-            const d = Math.floor((mangaDate-now)/(1000*60*60*24));
-            document.getElementById('manga-timer').textContent = d + " gün";
-            document.getElementById('la-timer').textContent = Math.ceil((new Date("2026-03-10") - now)/(1000*60*60*24)) + " gün";
-        }, 1000);
-
-        // OYUNU BAŞLAT (Firebase'den bağımsız)
-        initQuiz();
     </script>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, doc, setDoc, getDoc, updateDoc, arrayUnion, arrayRemove, addDoc, onSnapshot, query, orderBy, limit, serverTimestamp, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    <style>
+        /* Enhanced Glassmorphism */
+        .glass-premium {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(255, 183, 3, 0.3);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 
+                0 20px 60px rgba(214, 40, 40, 0.3),
+                0 0 40px rgba(255, 183, 3, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 183, 3, 0.8);
+        }
 
-        // FIREBASE CONFIG (SENİN ANAHTARLARIN)
+        /* Image Fallback System */
+        .hero-luffy {
+            background-image: 
+                url('luffy3.jpg'), 
+                url('https://images.unsplash.com/photo-1618336753974-aae8e04506aa?w=800&q=80'),
+                linear-gradient(135deg, #d62828 0%, #8b0000 50%, #000000 100%);
+            background-size: cover;
+            background-position: center top;
+        }
+        
+        .hero-zoro {
+            background-image: 
+                url('zoro.jpg'), 
+                url('https://images.unsplash.com/photo-1578632767115-351597cf2477?w=800&q=80'),
+                linear-gradient(135deg, #006400 0%, #003d00 50%, #000000 100%);
+            background-size: cover;
+            background-position: center top;
+        }
+        
+        .hero-robin {
+            background-image: 
+                url('robin.jpg'), 
+                url('https://images.unsplash.com/photo-1535701121395-c1a14c1e8c5e?w=800&q=80'),
+                linear-gradient(135deg, #4B0082 0%, #2d0052 50%, #000000 100%);
+            background-size: cover;
+            background-position: center top;
+        }
+        
+        .bg-aokiji {
+            background-image: 
+                url('aokiji.jpg'), 
+                url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800&q=80'),
+                linear-gradient(135deg, #4682B4 0%, #1e3d5c 50%, #000000 100%);
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .bg-xebec {
+            background-image: 
+                url('xebec.jpg'), 
+                url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80'),
+                linear-gradient(135deg, #2F4F4F 0%, #1a2f2f 50%, #000000 100%);
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Premium Typography */
+        .title-epic {
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            text-shadow: 
+                0 0 10px rgba(255, 183, 3, 0.5),
+                0 0 20px rgba(214, 40, 40, 0.3),
+                2px 2px 4px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, #ffb703 0%, #fff 50%, #ffb703 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle-glow {
+            text-shadow: 0 0 20px rgba(255, 183, 3, 0.6);
+            letter-spacing: 0.1em;
+        }
+
+        /* Enhanced Shadows */
+        .shadow-epic {
+            box-shadow: 
+                0 10px 40px -10px rgba(214, 40, 40, 0.5),
+                0 0 20px rgba(255, 183, 3, 0.2);
+        }
+        
+        .shadow-gold {
+            box-shadow: 
+                0 4px 20px rgba(255, 183, 3, 0.4),
+                0 0 0 1px rgba(255, 183, 3, 0.3);
+        }
+
+        /* Button Effects */
+        .btn-premium {
+            background: linear-gradient(135deg, #d62828 0%, #8b0000 100%);
+            border: 2px solid #ffb703;
+            box-shadow: 
+                0 4px 15px rgba(214, 40, 40, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-premium::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-premium:hover::before {
+            left: 100%;
+        }
+        
+        .btn-premium:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 
+                0 8px 25px rgba(214, 40, 40, 0.6),
+                0 0 30px rgba(255, 183, 3, 0.4);
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #ffb703 0%, #cc8a00 100%);
+            border: 2px solid #fff;
+            box-shadow: 0 4px 15px rgba(255, 183, 3, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-gold:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 8px 25px rgba(255, 183, 3, 0.6),
+                0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            border-radius: 6px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #d62828, #ffb703);
+            border-radius: 6px;
+            border: 3px solid #1a1a1a;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #ff4444, #ffd700);
+        }
+
+        /* Texture Overlay */
+        .texture-parchment {
+            background-color: #f4e4bc;
+            background-image: 
+                url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E"),
+                linear-gradient(180deg, rgba(244,228,188,1) 0%, rgba(230,213,167,1) 100%);
+        }
+
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #ffb703 0%, #fff 50%, #d62828 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Card Hover Glow */
+        .card-glow {
+            position: relative;
+        }
+        .card-glow::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(135deg, #d62828, #ffb703, #006994);
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .card-glow:hover::after {
+            opacity: 1;
+        }
+
+        /* Case Opening Styles */
+        .case-container {
+            position: relative;
+            height: 120px;
+            overflow: hidden;
+            background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%);
+            border: 3px solid #ffb703;
+            border-radius: 12px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+        }
+        
+        .case-strip {
+            display: flex;
+            gap: 10px;
+            padding: 10px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(0);
+        }
+        
+        .case-item {
+            min-width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            border: 2px solid;
+            background: rgba(0,0,0,0.5);
+        }
+        
+        .case-selector {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #ffb703;
+            transform: translateX(-50%);
+            z-index: 10;
+            box-shadow: 0 0 10px #ffb703;
+        }
+
+        /* Idle Game Styles */
+        .idle-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .idle-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .power-bar {
+            background: linear-gradient(90deg, #d62828, #ffb703);
+            transition: width 0.3s ease;
+        }
+
+        /* Music Player */
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 40;
+        }
+
+        /* Tab System */
+        .tab-active {
+            background: linear-gradient(135deg, #d62828, #8b0000);
+            color: white;
+            border-color: #ffb703;
+        }
+        
+        .tab-inactive {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ccc;
+            border-color: transparent;
+        }
+        
+        .tab-inactive:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+    </style>
+</head>
+<body class="texture-parchment font-roboto text-gray-800 overflow-x-hidden">
+
+    <!-- Firebase Config -->
+    <script>
         const firebaseConfig = {
             apiKey: "AIzaSyAYQ1FVg9YwQTb8kuWIfg9KHiUIHBbkpqY",
             authDomain: "one-piece-haber.firebaseapp.com",
@@ -544,281 +393,1602 @@
             appId: "1:292653018558:web:e275236747771db3329def",
             measurementId: "G-G4NTRHD0YH"
         };
-
-        let db;
-        try { const app = initializeApp(firebaseConfig); db = getFirestore(app); console.log("Firebase Bağlandı!"); } catch(e) { console.error("Firebase Hatası:", e); }
-
-        let currentUser = null;
-        let uploadedImg = "https://static.wikia.nocookie.net/onepiece/images/c/c5/Revolutionary_Army_Jolly_Roger.png"; 
-        let editImgTemp = "";
-
-        // UI & HELPERS
-        window.switchAuthMode = function(mode) {
-            if(mode === 'login') { document.getElementById('login-form').style.display='block'; document.getElementById('register-form').style.display='none'; document.getElementById('btn-show-login').classList.add('active'); document.getElementById('btn-show-register').classList.remove('active'); } 
-            else { document.getElementById('login-form').style.display='none'; document.getElementById('register-form').style.display='block'; document.getElementById('btn-show-login').classList.remove('active'); document.getElementById('btn-show-register').classList.add('active'); }
-        }
-        window.showTab = function(tabName) {
-            document.querySelectorAll('.guild-tab-content').forEach(el => el.style.display='none');
-            document.getElementById('tab-'+tabName).style.display='block';
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-        }
-        window.previewImage = function() { const f = document.getElementById('reg-file').files[0]; if(f){ const r=new FileReader(); r.onload=()=>{ uploadedImg=r.result; document.getElementById('img-preview').src=uploadedImg; document.getElementById('img-preview').style.display="block"; }; r.readAsDataURL(f); } }
-        window.previewEditImage = function() { const f = document.getElementById('edit-file').files[0]; if(f){ const r=new FileReader(); r.onload=()=>{ editImgTemp=r.result; document.getElementById('edit-preview').src=editImgTemp; }; r.readAsDataURL(f); } }
-
-        // AUTH & SELF-REPAIR
-        window.checkLogin = async function() {
-            const saved = localStorage.getItem('op_user_v36'); // Sürüm V36 yapıldı
-            if(saved) {
-                const temp = JSON.parse(saved);
-                if(db) {
-                    const snap = await getDoc(doc(db, "users", temp.name));
-                    if(snap.exists()) { 
-                        currentUser = snap.data(); 
-                        let needsUpdate = false;
-                        if(currentUser.guild === undefined) { currentUser.guild = ""; needsUpdate = true; }
-                        if(currentUser.friends === undefined) { currentUser.friends = []; needsUpdate = true; }
-                        if(currentUser.friendRequests === undefined) { currentUser.friendRequests = []; needsUpdate = true; }
-                        if(needsUpdate) await updateUserData();
-                        localStorage.setItem('op_user_v36', JSON.stringify(currentUser)); 
-                    }
-                }
-                const today = new Date().toDateString();
-                if (currentUser.lastSpinDate !== today) { currentUser.spinsLeft = 3; currentUser.lastSpinDate = today; updateUserData(); }
-                document.getElementById('auth-section').innerHTML = `<div class="user-profile-mini" onclick="openProfile()"><img src="${currentUser.avatar}" class="user-avatar-small"><span>${currentUser.name}</span></div>`;
-                document.getElementById('spin-count').textContent = currentUser.spinsLeft;
-                listenLeaderboard(); listenChat(); listenGuilds(); listenPosts(); listenPoll();
-            }
-        }
-        window.performRegister = async function() {
-            if(!db) return alert("Hata!");
-            const name = document.getElementById('reg-name').value.trim(); const pass = document.getElementById('reg-pass').value; const bio = document.getElementById('reg-bio').value;
-            if(!name || !pass) return alert("Eksik bilgi!");
-            const snap = await getDoc(doc(db, "users", name));
-            if(snap.exists()) return alert("İsim alınmış!");
-            currentUser = { name, pass, bio: bio||"Yeni Korsan", avatar: uploadedImg, bounty: 1000, fruit: "Meyvesiz", fruitVal: 0, spinsLeft: 3, lastSpinDate: new Date().toDateString(), friends: [], friendRequests: [], isActive: true, guild: "" };
-            await setDoc(doc(db, "users", name), currentUser);
-            localStorage.setItem('op_user_v36', JSON.stringify(currentUser)); location.reload();
-        }
-        window.performLogin = async function() {
-            if(!db) return alert("Hata!");
-            const name = document.getElementById('login-name').value.trim(); const pass = document.getElementById('login-pass').value;
-            const snap = await getDoc(doc(db, "users", name));
-            if(snap.exists() && snap.data().pass === pass) {
-                currentUser = snap.data(); currentUser.isActive = true;
-                if(!currentUser.friends) currentUser.friends=[]; if(!currentUser.friendRequests) currentUser.friendRequests=[]; if(!currentUser.guild) currentUser.guild="";
-                await updateUserData(); localStorage.setItem('op_user_v36', JSON.stringify(currentUser)); location.reload();
-            } else { alert("Hatalı!"); }
-        }
-        window.performLogout = function() { if(currentUser){ currentUser.isActive=false; updateUserData(); } localStorage.removeItem('op_user_v36'); location.reload(); }
-        async function updateUserData() { if(!currentUser || !db) return; await setDoc(doc(db, "users", currentUser.name), currentUser); localStorage.setItem('op_user_v36', JSON.stringify(currentUser)); if(document.getElementById('current-score')) document.getElementById('current-score').textContent = currentUser.bounty.toLocaleString(); }
         
-        async function updateGuildTotalBounty(gName) {
-            if(!gName) return; const gRef = doc(db, "guilds", gName);
-            try { await runTransaction(db, async (t) => { const gDoc = await t.get(gRef); if(!gDoc.exists()) return; const gData = gDoc.data(); let total = 0;
-            for(const mName of gData.members) { const mDoc = await t.get(doc(db, "users", mName)); if(mDoc.exists()) total += mDoc.data().bounty; }
-            t.update(gRef, { totalBounty: total }); }); } catch(e){console.error(e);}
-        }
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const auth = firebase.auth();
+    </script>
 
-        // --- OYUN <-> FIREBASE KÖPRÜSÜ ---
-        // Oyun script'i (yukarıdaki) bu fonksiyonları çağırarak puanı kaydeder
-        window.updateLocalBounty = async function(amount) {
-            if(currentUser) {
-                currentUser.bounty += amount;
-                await updateUserData();
-                if(currentUser.guild) await updateGuildTotalBounty(currentUser.guild);
-            }
-        }
-        window.processSpinResult = async function(selected) {
-            if(currentUser) {
-                if(currentUser.fruitVal > 0) currentUser.bounty -= currentUser.fruitVal;
-                currentUser.fruit = selected.n; currentUser.fruitVal = selected.v; currentUser.bounty += selected.v; if(currentUser.bounty < 0) currentUser.bounty = 0;
-                await updateUserData(); 
-                if(currentUser.guild) await updateGuildTotalBounty(currentUser.guild);
-                document.getElementById('spin-count').textContent = currentUser.spinsLeft;
-            }
-        }
+    <!-- Music Player -->
+    <div class="music-player glass-premium rounded-full p-3 border-2 border-treasure-gold shadow-lg flex items-center space-x-3">
+        <button onclick="toggleMusic()" id="musicBtn" class="w-10 h-10 rounded-full bg-luffy-red text-white flex items-center justify-center hover:scale-110 transition-transform">
+            <span id="musicIcon">▶️</span>
+        </button>
+        <div class="flex flex-col">
+            <span class="text-xs font-bold text-treasure-gold">Binks' Sake</span>
+            <input type="range" id="volumeSlider" min="0" max="100" value="20" class="w-20 h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer" onchange="setVolume(this.value)">
+        </div>
+        <audio id="bgMusic" loop>
+            <source src="binks_sake.mp3" type="audio/mpeg">
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        </audio>
+    </div>
 
-        // PROFİL & ARKADAŞLIK
-        window.openProfile = function() {
-            if(!currentUser) return;
-            document.getElementById('profile-name').textContent = currentUser.name; document.getElementById('profile-img').src = currentUser.avatar;
-            document.getElementById('profile-bounty').textContent = currentUser.bounty.toLocaleString(); document.getElementById('profile-bio').textContent = currentUser.bio;
-            const fb = document.getElementById('profile-fruit');
-            if(currentUser.fruit && currentUser.fruit !== "Meyvesiz") { fb.textContent = "Meyve: " + currentUser.fruit; fb.style.display="inline-block"; } else { fb.style.display="none"; }
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-90 backdrop-blur-xl transition-all duration-500">
+        <div class="glass-premium bg-gradient-to-br from-gray-900 to-black p-10 rounded-2xl max-w-md w-full mx-4 border-2 border-treasure-gold shadow-2xl transform scale-100 relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-luffy-red/10 to-ocean-blue/10 pointer-events-none"></div>
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-treasure-gold to-transparent"></div>
             
-            if(currentUser.guild) { document.getElementById('guild-status-area').style.display="none"; document.getElementById('my-guild-info').style.display="block"; loadGuildInfo(currentUser.guild); }
-            else { document.getElementById('guild-status-area').style.display="block"; document.getElementById('my-guild-info').style.display="none"; }
-            renderFriendsAndRequests();
-            document.getElementById('profileModal').style.display='flex';
-        }
-        window.enableEdit = function() { document.getElementById('edit-bio').value = currentUser.bio; document.getElementById('edit-preview').src = currentUser.avatar; editImgTemp = currentUser.avatar; closeModal('profileModal'); document.getElementById('editProfileModal').style.display = 'flex'; }
-        window.saveProfileEdit = async function() { currentUser.bio = document.getElementById('edit-bio').value; currentUser.avatar = editImgTemp; await updateUserData(); alert("Kaydedildi!"); closeModal('editProfileModal'); openProfile(); }
-        window.sendFriendRequest = async function() {
-            const t = document.getElementById('friend-input').value.trim();
-            if(!t || t===currentUser.name || (currentUser.friends && currentUser.friends.includes(t))) return alert("Geçersiz!");
-            const snap = await getDoc(doc(db, "users", t));
-            if(!snap.exists()) return alert("Böyle bir korsan yok!");
-            const tData = snap.data(); if(tData.friendRequests && tData.friendRequests.includes(currentUser.name)) return alert("İstek zaten var!");
-            await updateDoc(doc(db, "users", t), { friendRequests: arrayUnion(currentUser.name) }); alert("Yollandı!"); document.getElementById('friend-input').value="";
-        }
-        async function renderFriendsAndRequests() {
-            const snap = await getDoc(doc(db, "users", currentUser.name)); currentUser = snap.data();
-            const rl = document.getElementById('request-ul');
-            if(!currentUser.friendRequests || !currentUser.friendRequests.length) rl.innerHTML="<li>İstek yok.</li>";
-            else rl.innerHTML = currentUser.friendRequests.map(r=>`<li>${r} <div class="friend-actions"><button class="btn-tiny btn-accept" onclick="acceptRequest('${r}')">✓</button><button class="btn-tiny btn-decline" onclick="declineRequest('${r}')">✗</button></div></li>`).join('');
-            const fl = document.getElementById('friend-ul');
-            if(!currentUser.friends || !currentUser.friends.length) fl.innerHTML="<li>Kimse yok...</li>";
-            else fl.innerHTML = currentUser.friends.map(f=>`<li><span onclick="viewFriendProfile('${f}')" style="flex-grow:1;cursor:pointer;">☠️ ${f}</span><button class="btn-tiny btn-remove" onclick="removeFriend('${f}')">🗑️</button></li>`).join('');
-        }
-        window.acceptRequest = async function(r) { await updateDoc(doc(db, "users", currentUser.name), { friendRequests: arrayRemove(r), friends: arrayUnion(r) }); await updateDoc(doc(db, "users", r), { friends: arrayUnion(currentUser.name) }); alert("Dost oldunuz!"); renderFriendsAndRequests(); }
-        window.declineRequest = async function(r) { await updateDoc(doc(db, "users", currentUser.name), { friendRequests: arrayRemove(r) }); renderFriendsAndRequests(); }
-        window.removeFriend = async function(f) { if(confirm("Silinsin mi?")){ await updateDoc(doc(db, "users", currentUser.name), { friends: arrayRemove(f) }); await updateDoc(doc(db, "users", f), { friends: arrayRemove(currentUser.name) }); renderFriendsAndRequests(); } }
-        window.viewFriendProfile = async function(n) {
-            const snap = await getDoc(doc(db, "users", n));
-            if(snap.exists()) { const u = snap.data(); document.getElementById('view-name').textContent = u.name; document.getElementById('view-img').src = u.avatar; document.getElementById('view-bounty').textContent = u.bounty.toLocaleString(); document.getElementById('view-bio').textContent = u.bio; const vf = document.getElementById('view-fruit'); if(u.fruit && u.fruit!=="Meyvesiz") { vf.textContent=u.fruit; vf.style.display="inline-block"; } else { vf.style.display="none"; } document.getElementById('view-status').textContent = u.isActive ? "🟢 Aktif" : "🔴 Pasif"; closeModal('profileModal'); document.getElementById('viewFriendModal').style.display='flex'; }
+            <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl transition">&times;</button>
+            
+            <div class="relative z-10">
+                <div class="text-center mb-8">
+                    <span class="text-6xl mb-4 block animate-float">☠️</span>
+                    <h2 class="font-cinzel text-4xl font-bold gradient-text mb-2">KAPTAN GİRİŞİ</h2>
+                    <p class="text-gray-400 text-sm tracking-widest">GRAND LINE'A GİRİŞ İZNİ</p>
+                </div>
+                
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-treasure-gold mb-2 font-bold text-sm uppercase">Korsan Adın</label>
+                        <input type="text" id="usernameInput" class="w-full px-4 py-4 rounded-lg bg-black/50 border-2 border-gray-700 text-white focus:border-treasure-gold focus:outline-none transition-all" placeholder="Örn: Monkey D. Luffy">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-treasure-gold mb-2 font-bold text-sm uppercase">Avatar Seç</label>
+                        <input type="file" id="avatarFile" accept="image/*" class="w-full px-4 py-3 rounded-lg bg-black/50 border-2 border-gray-700 text-white text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-luffy-red file:text-white hover:file:bg-red-700 transition-all">
+                    </div>
+                    
+                    <button onclick="handleLogin()" class="w-full btn-premium text-white font-bold py-4 px-6 rounded-lg text-lg tracking-wider uppercase">
+                        GİRİŞ YAP
+                    </button>
+                    
+                    <p id="loginError" class="text-red-400 text-sm text-center hidden bg-red-900/30 p-2 rounded border border-red-500/50">Kaptan adı boş olamaz!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-90 backdrop-blur-xl transition-all duration-500">
+        <div class="glass-premium bg-gradient-to-br from-gray-900 to-black p-8 rounded-2xl max-w-2xl w-full mx-4 border-2 border-treasure-gold shadow-2xl relative overflow-hidden max-h-[90vh] overflow-y-auto">
+            <div class="absolute inset-0 bg-gradient-to-br from-luffy-red/10 to-ocean-blue/10 pointer-events-none"></div>
+            
+            <button onclick="closeProfileModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl transition z-50">&times;</button>
+            
+            <div class="relative z-10">
+                <div class="text-center mb-8">
+                    <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-luffy-red to-luffy-dark flex items-center justify-center text-4xl border-4 border-treasure-gold shadow-2xl mb-4 relative overflow-hidden">
+                        <img id="profileAvatarImg" src="" class="w-full h-full object-cover hidden">
+                        <span id="profileAvatarFallback" class="text-4xl">🏴‍☠️</span>
+                    </div>
+                    <h2 class="font-cinzel text-3xl font-bold gradient-text mb-1" id="profileName">KAPTAN</h2>
+                    <p class="text-treasure-gold font-mono text-lg">Bounty: <span id="profileBounty">0</span> ₿</p>
+                </div>
+
+                <!-- Tabs -->
+                <div class="flex space-x-2 mb-6 border-b border-white/20 pb-4">
+                    <button onclick="switchTab('edit')" id="tab-edit" class="flex-1 py-3 px-4 rounded-lg font-bold text-sm tracking-wider transition-all tab-active border-2">PROFİLİ DÜZENLE</button>
+                    <button onclick="switchTab('crew')" id="tab-crew" class="flex-1 py-3 px-4 rounded-lg font-bold text-sm tracking-wider transition-all tab-inactive border-2">TAYFA (0)</button>
+                    <button onclick="switchTab('alliance')" id="tab-alliance" class="flex-1 py-3 px-4 rounded-lg font-bold text-sm tracking-wider transition-all tab-inactive border-2">İTTİFAK</button>
+                </div>
+
+                <!-- Tab Content: Edit Profile -->
+                <div id="content-edit" class="space-y-6">
+                    <div>
+                        <label class="block text-treasure-gold mb-2 font-bold text-sm uppercase">Yeni Avatar</label>
+                        <input type="file" id="newAvatarFile" accept="image/*" class="w-full px-4 py-3 rounded-lg bg-black/50 border-2 border-gray-700 text-white text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-luffy-red file:text-white hover:file:bg-red-700 transition-all">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-treasure-gold mb-2 font-bold text-sm uppercase">Hakkımda</label>
+                        <textarea id="aboutInput" rows="3" class="w-full px-4 py-3 rounded-lg bg-black/50 border-2 border-gray-700 text-white focus:border-treasure-gold focus:outline-none transition-all resize-none" placeholder="Kendinden bahset, Kaptan..."></textarea>
+                    </div>
+                    
+                    <button onclick="saveProfile()" class="w-full btn-gold text-black font-bold py-3 rounded-lg uppercase tracking-wider">
+                        KAYDET
+                    </button>
+                </div>
+
+                <!-- Tab Content: Crew -->
+                <div id="content-crew" class="hidden space-y-4">
+                    <div class="flex gap-2">
+                        <input type="text" id="crewInput" class="flex-1 px-4 py-3 rounded-lg bg-black/50 border-2 border-gray-700 text-white focus:border-treasure-gold focus:outline-none transition-all" placeholder="Tayfa adı gir...">
+                        <button onclick="addCrew()" class="btn-premium text-white px-6 py-3 rounded-lg font-bold">EKLE</button>
+                    </div>
+                    <div id="crewList" class="space-y-2 max-h-60 overflow-y-auto">
+                        <p class="text-gray-500 text-center py-8 italic">Henüz tayfan yok. Korsanlar topla!</p>
+                    </div>
+                </div>
+
+                <!-- Tab Content: Alliance -->
+                <div id="content-alliance" class="hidden space-y-6">
+                    <div id="noAlliance" class="text-center py-8">
+                        <p class="text-gray-400 mb-6">Henüz bir ittifaka katılmadın veya klan kurmadın.</p>
+                        
+                        <div class="space-y-4 bg-white/5 p-6 rounded-xl border border-white/10">
+                            <h3 class="text-treasure-gold font-bold text-lg mb-4">Yeni Klan Kur</h3>
+                            
+                            <div>
+                                <label class="block text-gray-400 mb-2 text-sm uppercase">Klan Adı</label>
+                                <input type="text" id="clanNameInput" class="w-full px-4 py-3 rounded-lg bg-black/50 border-2 border-gray-700 text-white focus:border-treasure-gold focus:outline-none transition-all" placeholder="Örn: Hasır Şapka Tayfası">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-400 mb-2 text-sm uppercase">Klan Bayrağı</label>
+                                <input type="file" id="clanFlagFile" accept="image/*" class="w-full px-4 py-3 rounded-lg bg-black/50 border-2 border-gray-700 text-white text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-ocean-blue file:text-white hover:file:bg-blue-700 transition-all">
+                            </div>
+                            
+                            <button onclick="createClan()" class="w-full btn-gold text-black font-bold py-3 rounded-lg uppercase tracking-wider mt-4">
+                                KLAN KUR
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="hasAlliance" class="hidden text-center">
+                        <div class="w-32 h-32 mx-auto rounded-lg bg-gradient-to-br from-luffy-red to-luffy-dark flex items-center justify-center text-6xl border-4 border-treasure-gold shadow-2xl mb-4 overflow-hidden">
+                            <img id="clanFlagImg" src="" class="w-full h-full object-cover hidden">
+                            <span id="clanFlagFallback" class="hidden">⚔️</span>
+                        </div>
+                        <h3 class="font-cinzel text-2xl font-bold text-white mb-2" id="clanNameDisplay"></h3>
+                        <p class="text-treasure-gold text-sm">Klan Kaptanı</p>
+                        <button onclick="leaveClan()" class="mt-6 text-red-400 hover:text-red-300 text-sm underline">Klandan Ayrıl</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- News Detail Modal -->
+    <div id="newsModal" class="fixed inset-0 z-40 hidden items-center justify-center bg-black bg-opacity-95 backdrop-blur-xl p-4">
+        <div class="glass-premium max-w-4xl w-full rounded-2xl border-2 border-treasure-gold shadow-2xl max-h-[90vh] overflow-y-auto relative">
+            <button onclick="closeNewsModal()" class="absolute top-4 right-4 z-50 text-4xl text-treasure-gold hover:text-white font-bold transition transform hover:rotate-90">&times;</button>
+            <div id="newsModalContent" class="p-0">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-30 glass-premium border-b-2 border-treasure-gold/50 shadow-epic">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4 group cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <span class="text-5xl animate-float filter drop-shadow-[0_0_10px_rgba(255,183,3,0.5)] group-hover:scale-110 transition-transform">☠️</span>
+                <div>
+                    <h1 class="font-cinzel text-3xl md:text-4xl font-black gradient-text tracking-widest">ONE PIECE</h1>
+                    <p class="font-pirata text-treasure-gold text-lg tracking-[0.3em] subtitle-glow">HABER MERKEZİ</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <div id="userSection" class="hidden items-center space-x-4 glass-premium px-6 py-3 rounded-full border border-treasure-gold/50 shadow-gold cursor-pointer hover:scale-105 transition-transform" onclick="openProfileModal()">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-br from-luffy-red to-luffy-dark flex items-center justify-center text-white font-bold border-2 border-treasure-gold shadow-lg overflow-hidden relative">
+                        <img id="navAvatar" src="" class="w-full h-full object-cover hidden">
+                        <span id="userAvatar">🏴‍☠️</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span id="displayUsername" class="text-treasure-gold font-bold text-sm leading-tight tracking-wider uppercase">KAPTAN</span>
+                        <span class="text-xs text-gray-300 font-mono">BOUNTY: <span id="bountyDisplay" class="text-treasure-gold font-bold text-lg">0</span> ₿</span>
+                    </div>
+                </div>
+                
+                <button id="loginBtn" onclick="openLoginModal()" class="btn-premium text-white font-bold py-3 px-8 rounded-full tracking-wider uppercase text-sm">
+                    Giriş Yap
+                </button>
+                <button id="logoutBtn" onclick="handleLogout()" class="hidden bg-gray-800 hover:bg-gray-700 text-treasure-gold border border-treasure-gold/50 py-2 px-4 rounded-full transition duration-300 text-sm font-bold">
+                    Çıkış
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative py-16 px-4 overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-20 left-10 w-32 h-32 bg-luffy-red rounded-full filter blur-[100px] animate-pulse"></div>
+            <div class="absolute bottom-20 right-10 w-40 h-40 bg-ocean-blue rounded-full filter blur-[100px] animate-pulse delay-1000"></div>
+        </div>
+
+        <div class="container mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="font-cinzel text-5xl md:text-7xl font-black title-epic mb-6 animate-slide-up">YENİ DÜNYA</h2>
+                <p class="text-xl md:text-2xl text-ocean-blue font-bold tracking-widest subtitle-glow animate-slide-up" style="animation-delay: 0.2s">GRAND LINE'IN EN GÜNCEL HABERLERİ</p>
+                <div class="w-32 h-1 bg-gradient-to-r from-transparent via-treasure-gold to-transparent mx-auto mt-6"></div>
+            </div>
+
+            <!-- News Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 perspective-1000">
+                <!-- Card 1: Manga -->
+                <div onclick="openNewsModal('manga')" class="group relative h-[500px] rounded-2xl overflow-hidden cursor-pointer card-glow glass-card transform transition-all duration-500 hover:-translate-y-4 hover:rotate-1">
+                    <div class="absolute inset-0 hero-luffy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-500"></div>
+                    </div>
+                    <div class="absolute top-4 left-4 z-20">
+                        <span class="bg-luffy-red text-white text-xs font-bold px-4 py-2 rounded-full border border-white/30 shadow-lg backdrop-blur-sm">MANGA</span>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8 z-20 transform transition-transform duration-500 group-hover:translate-y-[-10px]">
+                        <h3 class="font-cinzel text-3xl text-white mb-3 font-bold group-hover:text-treasure-gold transition-colors drop-shadow-lg">Bölüm 1174: Büyük Mola</h3>
+                        <p class="text-gray-300 text-sm line-clamp-3 mb-4 leading-relaxed">Elbaf Arkı'nda kritik gelişmeler! 1174. bölüm detayları ve ardından gelecek olan büyük ara hakkında önemli bilgiler...</p>
+                        <div class="flex items-center text-treasure-gold text-sm font-bold tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span>DEVAMINI OKU</span>
+                            <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: SBS -->
+                <div onclick="openNewsModal('sbs')" class="group relative h-[500px] rounded-2xl overflow-hidden cursor-pointer card-glow glass-card transform transition-all duration-500 hover:-translate-y-4 hover:rotate-1" style="animation-delay: 0.1s">
+                    <div class="absolute inset-0 hero-robin">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-500"></div>
+                    </div>
+                    <div class="absolute top-4 left-4 z-20">
+                        <span class="bg-purple-600 text-white text-xs font-bold px-4 py-2 rounded-full border border-white/30 shadow-lg backdrop-blur-sm">SBS</span>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8 z-20 transform transition-transform duration-500 group-hover:translate-y-[-10px]">
+                        <h3 class="font-cinzel text-3xl text-white mb-3 font-bold group-hover:text-treasure-gold transition-colors drop-shadow-lg">Karakter Sırları</h3>
+                        <p class="text-gray-300 text-sm line-clamp-3 mb-4 leading-relaxed">Oda Sensei'nin SBS köşesinden: Hasır Şapkalar hangi ülkeden olurdu? Banyo yapma sıklıkları ve daha fazlası...</p>
+                        <div class="flex items-center text-treasure-gold text-sm font-bold tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span>DEVAMINI OKU</span>
+                            <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Anime -->
+                <div onclick="openNewsModal('anime')" class="group relative h-[500px] rounded-2xl overflow-hidden cursor-pointer card-glow glass-card transform transition-all duration-500 hover:-translate-y-4 hover:rotate-1" style="animation-delay: 0.2s">
+                    <div class="absolute inset-0 hero-zoro">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-500"></div>
+                    </div>
+                    <div class="absolute top-4 left-4 z-20">
+                        <span class="bg-green-600 text-white text-xs font-bold px-4 py-2 rounded-full border border-white/30 shadow-lg backdrop-blur-sm">ANIME</span>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8 z-20 transform transition-transform duration-500 group-hover:translate-y-[-10px]">
+                        <h3 class="font-cinzel text-3xl text-white mb-3 font-bold group-hover:text-treasure-gold transition-colors drop-shadow-lg">Anime & Remake</h3>
+                        <p class="text-gray-300 text-sm line-clamp-3 mb-4 leading-relaxed">Toei Animation güncel durumu ve Wit Studio'nun merakla beklenen One Piece remake'i hakkında son gelişmeler...</p>
+                        <div class="flex items-center text-treasure-gold text-sm font-bold tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span>DEVAMINI OKU</span>
+                            <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12 space-y-16">
+        
+        <!-- Theory Wall -->
+        <section class="glass-premium rounded-3xl p-8 shadow-epic border border-treasure-gold/30 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-luffy-red rounded-full filter blur-[120px] opacity-20"></div>
+            
+            <div class="relative z-10">
+                <h2 class="font-cinzel text-4xl font-bold text-ocean-blue mb-2 flex items-center">
+                    <span class="mr-4 text-5xl">📝</span>
+                    <span class="gradient-text">KÖŞE YAZARLARI</span>
+                </h2>
+                <p class="text-gray-600 mb-8 ml-16 font-bold tracking-wider">TEORİ DUVARI - SENİN DÜŞÜNCEN</p>
+                
+                <div class="mb-8 relative">
+                    <textarea id="theoryInput" rows="4" class="w-full p-6 rounded-xl border-2 border-ocean-blue/30 bg-white/80 backdrop-blur-sm focus:outline-none focus:border-treasure-gold focus:shadow-[0_0_30px_rgba(255,183,3,0.2)] transition-all text-gray-800 font-medium resize-none" placeholder="Kendi One Piece teorini yaz... (Örn: Im-sama'nın gerçek kimliği...)"></textarea>
+                    <div class="absolute bottom-4 right-4">
+                        <button onclick="postTheory()" class="btn-gold text-black font-bold py-3 px-8 rounded-full shadow-lg flex items-center space-x-2">
+                            <span>PAYLAŞ</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="theoryFeed" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[500px] overflow-y-auto pr-2">
+                    <!-- Theories loaded from Firebase -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Center: Idle + Quiz + Case Opening -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Idle Game: Haki Training -->
+            <div class="glass-premium rounded-3xl p-8 relative overflow-hidden border-2 border-ocean-blue/50 shadow-[0_0_40px_rgba(0,105,148,0.3)]">
+                <div class="absolute inset-0 bg-gradient-to-br from-ocean-blue/20 to-transparent pointer-events-none"></div>
+                
+                <div class="relative z-10">
+                    <h2 class="font-cinzel text-3xl font-bold text-ocean-blue mb-6 flex items-center">
+                        <span class="mr-3 text-4xl">💪</span>
+                        HAKİ ANTRENMANI
+                    </h2>
+                    
+                    <div class="text-center mb-6">
+                        <div class="text-5xl font-black text-treasure-gold font-cinzel mb-2" id="powerDisplay">0</div>
+                        <p class="text-gray-400 text-sm uppercase tracking-wider">Güç Puanı</p>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between text-sm mb-2 text-gray-400">
+                            <span>Seviye: <span id="levelDisplay" class="text-treasure-gold font-bold">1</span></span>
+                            <span><span id="autoPower">0</span>/sn Otomatik</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-4 overflow-hidden border border-gray-600">
+                            <div id="xpBar" class="power-bar h-full" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="trainHaki()" id="trainBtn" class="w-full btn-premium text-white font-bold py-6 rounded-xl text-xl tracking-wider uppercase mb-4 idle-btn active:scale-95 transition-transform">
+                        ANTRENMAN YAP! (+<span id="clickPower">1</span>)
+                    </button>
+                    
+                    <div class="space-y-3">
+                        <p class="text-treasure-gold font-bold text-sm uppercase mb-3">Tayfa Üyeleri (Otomatik)</p>
+                        
+                        <button onclick="buyCrew('zoro')" id="buy-zoro" class="w-full bg-black/40 p-3 rounded-lg border border-white/10 flex justify-between items-center hover:border-green-500/50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-2xl">⚔️</span>
+                                <div class="text-left">
+                                    <div class="text-white font-bold text-sm">Zoro</div>
+                                    <div class="text-green-400 text-xs">+<span id="zoroPower">5</span>/sn</div>
+                                </div>
+                            </div>
+                            <div class="text-treasure-gold font-bold text-sm"><span id="zoroCost">100</span>₿</div>
+                        </button>
+                        
+                        <button onclick="buyCrew('sanji')" id="buy-sanji" class="w-full bg-black/40 p-3 rounded-lg border border-white/10 flex justify-between items-center hover:border-blue-500/50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-2xl">🍳</span>
+                                <div class="text-left">
+                                    <div class="text-white font-bold text-sm">Sanji</div>
+                                    <div class="text-blue-400 text-xs">+<span id="sanjiPower">15</span>/sn</div>
+                                </div>
+                            </div>
+                            <div class="text-treasure-gold font-bold text-sm"><span id="sanjiCost">500</span>₿</div>
+                        </button>
+                        
+                        <button onclick="buyCrew('jinbe')" id="buy-jinbe" class="w-full bg-black/40 p-3 rounded-lg border border-white/10 flex justify-between items-center hover:border-orange-500/50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-2xl">🌊</span>
+                                <div class="text-left">
+                                    <div class="text-white font-bold text-sm">Jinbe</div>
+                                    <div class="text-orange-400 text-xs">+<span id="jinbePower">50</span>/sn</div>
+                                </div>
+                            </div>
+                            <div class="text-treasure-gold font-bold text-sm"><span id="jinbeCost">2000</span>₿</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Extended Quiz -->
+            <div class="glass-premium rounded-3xl p-8 relative overflow-hidden border-2 border-luffy-red/50 shadow-[0_0_40px_rgba(214,40,40,0.3)]">
+                <div class="absolute inset-0 bg-gradient-to-br from-luffy-red/20 to-transparent pointer-events-none"></div>
+                
+                <div class="relative z-10">
+                    <h2 class="font-cinzel text-3xl font-bold text-treasure-gold mb-6 flex items-center">
+                        <span class="mr-3 text-4xl">⚔️</span>
+                        GRAND LINE QUIZ
+                    </h2>
+                    
+                    <div id="quizContainer" class="bg-black/40 rounded-2xl p-6 backdrop-blur-sm border border-white/10">
+                        <div id="quizQuestion" class="text-xl font-bold mb-6 min-h-[80px] text-white leading-relaxed">Hazır mısın Kaptan? İlk soru için başla!</div>
+                        
+                        <div id="quizOptions" class="grid grid-cols-1 gap-3 mb-6">
+                            <button onclick="startQuiz()" class="btn-gold text-black font-bold py-4 px-6 rounded-xl text-lg tracking-wider uppercase shadow-lg animate-pulse-glow">
+                                MACERA BAŞLASIN
+                            </button>
+                        </div>
+                        
+                        <div class="flex justify-between items-center pt-4 border-t border-white/20">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-gray-400 text-sm uppercase tracking-wider">Skor</span>
+                                <span id="quizScore" class="font-cinzel text-2xl font-bold text-treasure-gold">0</span>
+                                <span class="text-gray-500">/10</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="text-gray-400 text-sm uppercase tracking-wider">Soru</span>
+                                <span id="quizQuestionNum" class="font-cinzel text-2xl font-bold text-white">0</span>
+                                <span class="text-gray-500">/10</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CS2 Style Case Opening -->
+            <div class="glass-premium rounded-3xl p-8 relative overflow-hidden border-2 border-purple-500/50 shadow-[0_0_40px_rgba(147,51,234,0.3)]">
+                <div class="absolute inset-0 bg-gradient-to-br from-purple-900/30 to-transparent pointer-events-none"></div>
+                
+                <div class="relative z-10">
+                    <h2 class="font-cinzel text-3xl font-bold text-purple-300 mb-6 flex items-center">
+                        <span class="mr-3 text-4xl">🎰</span>
+                        MEYVE KASASI
+                    </h2>
+                    
+                    <div class="case-container mb-6 relative">
+                        <div class="case-selector"></div>
+                        <div id="caseStrip" class="case-strip">
+                            <!-- Items generated by JS -->
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-gray-400 text-sm">Kasa Fiyatı: <span class="text-treasure-gold font-bold">100₿</span></span>
+                        <span id="caseResult" class="text-purple-300 font-bold min-h-[24px]"></span>
+                    </div>
+                    
+                    <button onclick="openCase()" id="caseBtn" class="w-full btn-gold text-black font-bold py-4 rounded-xl text-lg tracking-wider uppercase shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed">
+                        KASA AÇ
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Social Area & Sidebar -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Real-time Chat (Firebase) -->
+            <div class="lg:col-span-2 glass-premium rounded-3xl overflow-hidden shadow-2xl border-2 border-gray-700 relative h-[600px] flex flex-col">
+                <div class="absolute inset-0 bg-xebec opacity-30"></div>
+                <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/80"></div>
+                
+                <div class="relative z-10 p-6 border-b border-white/10 bg-gradient-to-r from-black/50 to-transparent">
+                    <h3 class="font-cinzel text-3xl font-bold text-treasure-gold flex items-center">
+                        <span class="mr-3 text-4xl">💬</span>
+                        GERÇEK ZAMANLI SOHBET
+                        <span class="ml-auto flex items-center text-xs bg-green-600/80 px-3 py-1 rounded-full border border-green-400/50 animate-pulse">
+                            <span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-ping"></span>
+                            CANLI
+                        </span>
+                    </h3>
+                </div>
+                
+                <div id="chatMessages" class="relative z-10 flex-1 overflow-y-auto p-6 space-y-4">
+                    <!-- Messages loaded from Firebase -->
+                </div>
+                
+                <div class="relative z-10 p-6 bg-gradient-to-t from-black/80 to-transparent border-t border-white/10">
+                    <div class="flex gap-3">
+                        <input type="text" id="chatInput" class="flex-1 bg-gray-900/80 border-2 border-gray-700 rounded-xl px-5 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-treasure-gold focus:shadow-[0_0_20px_rgba(255,183,3,0.2)] transition-all" placeholder="Mesajın..." onkeypress="if(event.key === 'Enter') sendChat()">
+                        <button onclick="sendChat()" class="btn-premium text-white px-6 py-4 rounded-xl font-bold transition transform hover:scale-105">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Poll -->
+                <div class="glass-premium p-8 rounded-3xl shadow-epic border-2 border-luffy-red/30 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-luffy-red rounded-full filter blur-[80px] opacity-20"></div>
+                    
+                    <h3 class="font-cinzel text-2xl font-bold text-luffy-red mb-6 flex items-center">
+                        <span class="mr-2">📊</span>
+                        HAFTANIN ANKETİ
+                    </h3>
+                    
+                    <p class="font-bold mb-6 text-gray-700 text-sm uppercase tracking-wider">Korsanlar Kralı Kim Olacak?</p>
+                    
+                    <div id="pollContainer" class="space-y-4">
+                        <button onclick="votePoll('luffy')" class="w-full group">
+                            <div class="flex justify-between text-sm mb-2 font-bold text-gray-700 group-hover:text-luffy-red transition-colors">
+                                <span class="flex items-center"><span class="w-2 h-2 bg-luffy-red rounded-full mr-2"></span>Luffy</span>
+                                <span id="pct-luffy" class="font-mono">45%</span>
+                            </div>
+                            <div class="w-full bg-gray-300 rounded-full h-3 overflow-hidden border border-gray-400 shadow-inner">
+                                <div id="bar-luffy" class="bg-gradient-to-r from-luffy-red to-red-600 h-full transition-all duration-1000 shadow-lg" style="width: 45%"></div>
+                            </div>
+                        </button>
+                        
+                        <button onclick="votePoll('buggy')" class="w-full group">
+                            <div class="flex justify-between text-sm mb-2 font-bold text-gray-700 group-hover:text-orange-600 transition-colors">
+                                <span class="flex items-center"><span class="w-2 h-2 bg-orange-500 rounded-full mr-2"></span>Buggy</span>
+                                <span id="pct-buggy" class="font-mono">15%</span>
+                            </div>
+                            <div class="w-full bg-gray-300 rounded-full h-3 overflow-hidden border border-gray-400 shadow-inner">
+                                <div id="bar-buggy" class="bg-gradient-to-r from-orange-500 to-orange-600 h-full transition-all duration-1000 shadow-lg" style="width: 15%"></div>
+                            </div>
+                        </button>
+                        
+                        <button onclick="votePoll('teach')" class="w-full group">
+                            <div class="flex justify-between text-sm mb-2 font-bold text-gray-700 group-hover:text-purple-900 transition-colors">
+                                <span class="flex items-center"><span class="w-2 h-2 bg-purple-900 rounded-full mr-2"></span>Teach</span>
+                                <span id="pct-teach" class="font-mono">25%</span>
+                            </div>
+                            <div class="w-full bg-gray-300 rounded-full h-3 overflow-hidden border border-gray-400 shadow-inner">
+                                <div id="bar-teach" class="bg-gradient-to-r from-purple-900 to-purple-800 h-full transition-all duration-1000 shadow-lg" style="width: 25%"></div>
+                            </div>
+                        </button>
+                        
+                        <button onclick="votePoll('shanks')" class="w-full group">
+                            <div class="flex justify-between text-sm mb-2 font-bold text-gray-700 group-hover:text-red-800 transition-colors">
+                                <span class="flex items-center"><span class="w-2 h-2 bg-red-800 rounded-full mr-2"></span>Shanks</span>
+                                <span id="pct-shanks" class="font-mono">15%</span>
+                            </div>
+                            <div class="w-full bg-gray-300 rounded-full h-3 overflow-hidden border border-gray-400 shadow-inner">
+                                <div id="bar-shanks" class="bg-gradient-to-r from-red-800 to-red-900 h-full transition-all duration-1000 shadow-lg" style="width: 15%"></div>
+                            </div>
+                        </button>
+                    </div>
+                    
+                    <div id="pollMessage" class="mt-4 p-3 bg-green-100 border border-green-500 rounded-lg text-center hidden animate-slide-up">
+                        <p class="text-green-800 font-bold text-sm">✓ Oy kullandın! Bounty +10₿</p>
+                    </div>
+                </div>
+
+                <!-- Countdown -->
+                <div class="glass-premium p-8 rounded-3xl shadow-epic border-2 border-ocean-blue/30 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-aokiji opacity-40"></div>
+                    <div class="absolute inset-0 bg-gradient-to-b from-ocean-blue/80 to-ocean-deep/90"></div>
+                    
+                    <div class="relative z-10">
+                        <h3 class="font-cinzel text-2xl font-bold text-treasure-gold mb-6 flex items-center">
+                            <span class="mr-2">⏰</span>
+                            GERİ SAYIM
+                        </h3>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-black/40 p-4 rounded-xl border border-white/10 backdrop-blur-sm">
+                                <div class="text-xs text-gray-300 mb-1 uppercase tracking-wider font-bold">Manga Bölüm 1175</div>
+                                <div id="countdown-manga" class="font-cinzel text-2xl font-bold text-treasure-gold tracking-wider">00:00:00</div>
+                            </div>
+                            
+                            <div class="bg-black/40 p-4 rounded-xl border border-white/10 backdrop-blur-sm">
+                                <div class="text-xs text-gray-300 mb-1 uppercase tracking-wider font-bold">Anime Bölüm 1111</div>
+                                <div id="countdown-anime" class="font-cinzel text-2xl font-bold text-treasure-gold tracking-wider">00:00:00</div>
+                            </div>
+                            
+                            <div class="bg-black/40 p-4 rounded-xl border border-white/10 backdrop-blur-sm">
+                                <div class="text-xs text-gray-300 mb-1 uppercase tracking-wider font-bold">Live Action S2</div>
+                                <div id="countdown-live" class="font-cinzel text-2xl font-bold text-treasure-gold tracking-wider">00:00:00</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Leaderboard -->
+                <div class="glass-premium p-8 rounded-3xl shadow-epic border-2 border-treasure-gold/50 bg-gradient-to-b from-yellow-100/80 to-yellow-200/80">
+                    <h3 class="font-cinzel text-2xl font-bold text-yellow-800 mb-6 flex items-center">
+                        <span class="mr-2">🏆</span>
+                        LİDERLİK TABLOSU
+                    </h3>
+                    
+                    <ul id="leaderboardList" class="space-y-3">
+                        <!-- JS ile doldurulacak -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative bg-gray-900 text-parchment py-16 mt-20 border-t-4 border-luffy-red overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-treasure-gold to-transparent"></div>
+        
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <div class="mb-8">
+                <span class="text-6xl mb-4 block animate-float">☠️</span>
+                <p class="font-cinzel text-4xl font-bold gradient-text mb-2">ONE PIECE HABER</p>
+                <p class="font-pirata text-treasure-gold text-xl tracking-[0.5em]">YENİ DÜNYA</p>
+            </div>
+            
+            <div class="w-full max-w-md mx-auto h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent mb-8"></div>
+            
+            <p class="text-sm text-gray-500 mb-2">© 2024 Yeni Dünya Medya. Tüm hakları saklıdır.</p>
+            <p class="text-xs text-gray-600">Bu site hayran yapımıdır ve resmi bir bağlantısı yoktur.</p>
+            <p class="text-xs text-gray-600 mt-4 font-mono">"Hayallerinin peşinden gitmekten asla vazgeçme!"</p>
+        </div>
+    </footer>
+
+    <script>
+        // ==================== FIREBASE CONFIG & INIT ====================
+        const firebaseConfig = {
+            apiKey: "AIzaSyAYQ1FVg9YwQTb8kuWIfg9KHiUIHBbkpqY",
+            authDomain: "one-piece-haber.firebaseapp.com",
+            projectId: "one-piece-haber",
+            storageBucket: "one-piece-haber.firebasestorage.app",
+            messagingSenderId: "292653018558",
+            appId: "1:292653018558:web:e275236747771db3329def",
+            measurementId: "G-G4NTRHD0YH"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const auth = firebase.auth();
+
+        // ==================== EXTENDED QUESTION POOL (30 Questions) ====================
+        const allQuestions = [
+            {q:"Luffy'nin şeytan meyvesinin gerçek adı?", a:["Gomu Gomu","Hito Hito: Nika","Mera Mera","Yami Yami"], c:1},
+            {q:"Zoro'nun ustası?", a:["Mihawk","Koshiro","Rayleigh","Oden"], c:1},
+            {q:"One Piece'i yazan kişi?", a:["Toriyama","Kishimoto","Oda","Kubo"], c:2},
+            {q:"Roger'ın idam edildiği yer?", a:["Marineford","Loguetown","Wano","Dressrosa"], c:1},
+            {q:"Nami'nin harita tutkusu neden?", a:["Hazine","Bellemere","Para","Arlong"], c:1},
+            {q:"Sanji'nin ailesi?", a:["Charlotte","Vinsmoke","Donquixote","Rocks"], c:1},
+            {q:"Zoro'nun kayıp gözü?", a:["Sol","Sağ","İkisi de","Hiçbiri"], c:0},
+            {q:"Im-sama ilk görüldüğü bölüm?", a:["906","908","957","1000"], c:1},
+            {q:"Grand Line geçiş şartı?", a:["Harita","Log Pose","Gemici","Denizcilik"], c:1},
+            {q:"Brook'un meyvesi?", a:["Yomi Yomi","Gura Gura","Ope Ope","Hito Hito"], c:0},
+            {q:"Chopper'ın mesleği?", a:["Sniper","Doktor","Tersane","Aşçı"], c:1},
+            {q:"Franky'nin ilk ismi?", a:["Cutty Flam","Froggy","Iron Man","Cyborg"], c:0},
+            {q:"Robin'in ilk göründüğü arc?", a:["Alabasta","Skypiea","Water 7","Enies Lobby"], c:0},
+            {q:"Joy Boy'un mesajı nerede?", a:["Laugh Tale","Fish-Man Island","Zou","Marie Geoise"], c:1},
+            {q:"Kaido'nun meyvesi?", a:["Uo Uo","Tori Tori","Ryu Ryu","Hebi Hebi"], c:0},
+            {q:"Big Mom'ın gerçek adı?", a:["Charlotte Linlin","Linlin Charlotte","Lin Charlotte","Char Linlin"], c:0},
+            {q:"Shanks'in kılıcı?", a:["Gryphon","Enma","Wado","Sandai Kitetsu"], c:0},
+            {q:"Whitebeard'ın gemisi?", a:["Moby Dick","Red Force","Thousand Sunny","Oro Jackson"], c:0},
+            {q:"Ace'in annesi?", a:["Rouge","Portgas","Rouge Portgas","Anne yok"], c:0},
+            {q:"Luffy'nin annesi biliniyor mu?", a:["Evet","Hayır","Belki","Oda açıklamadı"], c:1},
+            {q:"Garp'ın lakabı?", a:["Kahraman","Demir Yumruk","Denizci","Amiral"], c:1},
+            {q:"Aokiji'nin gerçek adı?", a:["Kuzan","Borsalino","Sakazuki","Issho"], c:0},
+            {q:"Akainu'nun meyvesi?", a:["Magu Magu","Pika Pika","Mera Mera","Goro Goro"], c:0},
+            {q:"Kizaru'nun meyvesi?", a:["Pika Pika","Magu Magu","Hie Hie","Goro Goro"], c:0},
+            {q:"Enel'in meyvesi?", a:["Goro Goro","Pika Pika","Mera Mera","Gura Gura"], c:0},
+            {q:"Blackbeard'in ilk meyvesi?", a:["Yami Yami","Gura Gura","Goro Goro","Mera Mera"], c:0},
+            {q:"Law'un meyvesi?", a:["Ope Ope","Hito Hito","Gomu Gomu","Yami Yami"], c:0},
+            {q:"Doflamingo'nun meyvesi?", a:["Ito Ito","Hito Hito","Gomu Gomu","Bara Bara"], c:0},
+            {q:"Buggy'nin meyvesi?", a:["Bara Bara","Ito Ito","Sube Sube","Bomu Bomu"], c:0},
+            {q:"Luffy'nin ilk yemekliği?", a:["Shanks","Zoro","Ace","Garp"], c:0}
+        ];
+
+        // ==================== DEVIL FRUITS FOR CASE OPENING ====================
+        const caseItems = [
+            { name: "Gomu Gomu no Mi", icon: "🍌", color: "#d62828", value: 100, rarity: "common" },
+            { name: "Bara Bara no Mi", icon: "🎪", color: "#ff6b35", value: 80, rarity: "common" },
+            { name: "Sube Sube no Mi", icon: "💃", color: "#ff69b4", value: 90, rarity: "common" },
+            { name: "Bomu Bomu no Mi", icon: "💣", color: "#8b4513", value: 120, rarity: "uncommon" },
+            { name: "Kilo Kilo no Mi", icon: "⚖️", color: "#9370db", value: 110, rarity: "uncommon" },
+            { name: "Hana Hana no Mi", icon: "🌸", color: "#ff1493", value: 150, rarity: "uncommon" },
+            { name: "Doru Doru no Mi", icon: "🕯️", color: "#f5deb3", value: 130, rarity: "uncommon" },
+            { name: "Baku Baku no Mi", icon: "🍽️", color: "#8b0000", value: 140, rarity: "rare" },
+            { name: "Mane Mane no Mi", icon: "🎭", color: "#ff6347", value: 160, rarity: "rare" },
+            { name: "Tori Tori no Mi", icon: "🦅", color: "#ffd700", value: 200, rarity: "rare" },
+            { name: "Mera Mera no Mi", icon: "🔥", color: "#ff4500", value: 250, rarity: "epic" },
+            { name: "Ope Ope no Mi", icon: "❤️", color: "#dc143c", value: 300, rarity: "epic" },
+            { name: "Gura Gura no Mi", icon: "🌍", color: "#8b4513", value: 400, rarity: "legendary" },
+            { name: "Yami Yami no Mi", icon: "🌑", color: "#2f2f2f", value: 350, rarity: "legendary" },
+            { name: "Hito Hito no Mi: Nika", icon: "☀️", color: "#ffd700", value: 500, rarity: "mythic" }
+        ];
+
+        // ==================== STATE ====================
+        let state = {
+            user: null,
+            userId: null,
+            bounty: 100,
+            power: 0,
+            level: 1,
+            xp: 0,
+            crew: { zoro: 0, sanji: 0, jinbe: 0 },
+            quiz: { active: false, current: 0, score: 0, questions: [] },
+            pollVoted: false,
+            profile: { avatar: '', about: '', crewList: [], clan: null }
+        };
+
+        let idleInterval;
+        let isMusicPlaying = false;
+
+        // ==================== INITIALIZATION ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            initCaseStrip();
+            startCountdowns();
+            loadLeaderboard();
+            
+            // Check auth state
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    state.userId = user.uid;
+                    loadUserData(user.uid);
+                } else {
+                    // Anonymous auth for demo
+                    auth.signInAnonymously().catch(console.error);
+                }
+            });
+
+            // Real-time listeners
+            setupRealtimeListeners();
+        });
+
+        // ==================== MUSIC PLAYER ====================
+        function toggleMusic() {
+            const audio = document.getElementById('bgMusic');
+            const icon = document.getElementById('musicIcon');
+            
+            if (isMusicPlaying) {
+                audio.pause();
+                icon.textContent = '▶️';
+                isMusicPlaying = false;
+            } else {
+                audio.volume = 0.2;
+                audio.play().catch(e => console.log('Audio play failed:', e));
+                icon.textContent = '⏸️';
+                isMusicPlaying = true;
+            }
         }
 
-        // --- GUILDS ---
-        window.createGuild = async function() {
-            const gName = document.getElementById('guild-create-input').value.trim();
-            const gDesc = document.getElementById('guild-desc-input').value.trim();
-            const gFile = document.getElementById('guild-flag-input').files[0];
-            if(!gName) return alert("İsim lazım!");
-            let flagBase64 = "https://static.wikia.nocookie.net/onepiece/images/a/a2/Straw_Hat_Pirates_Jolly_Roger.png"; 
-            if(gFile) { const reader = new FileReader(); reader.readAsDataURL(gFile); await new Promise(resolve => reader.onload = () => { flagBase64 = reader.result; resolve(); }); }
-            const snap = await getDoc(doc(db, "guilds", gName));
-            if(snap.exists()) return alert("Bu isimde ittifak var!");
-            const roles = {}; roles[currentUser.name] = "Kaptan";
-            await setDoc(doc(db, "guilds", gName), { name: gName, desc: gDesc, flag: flagBase64, captain: currentUser.name, roles: roles, members: [currentUser.name], totalBounty: currentUser.bounty });
-            currentUser.guild = gName; await updateUserData(); alert("İttifak kuruldu!"); openProfile();
+        function setVolume(val) {
+            const audio = document.getElementById('bgMusic');
+            audio.volume = val / 100;
         }
-        window.joinGuild = async function() {
-            const gName = document.getElementById('guild-join-input').value.trim();
-            if(!gName) return;
-            const gRef = doc(db, "guilds", gName);
-            const snap = await getDoc(gRef);
-            if(!snap.exists()) return alert("Bulunamadı!");
-            const gData = snap.data(); if(!gData.roles) gData.roles = {}; gData.roles[currentUser.name] = "Tayfa";
-            await updateDoc(gRef, { members: arrayUnion(currentUser.name), roles: gData.roles });
-            currentUser.guild = gName; await updateUserData(); await updateGuildTotalBounty(gName); alert("Katıldın!"); openProfile();
-        }
-        window.leaveGuild = async function() {
-            if(!currentUser.guild) return;
-            const gName = currentUser.guild; const gRef = doc(db, "guilds", gName);
-            const snap = await getDoc(gRef);
-            if(snap.exists()) {
-                const gData = snap.data();
-                if(gData.captain === currentUser.name && gData.members.length > 1) return alert("Kaptan ayrılamaz! Önce devret veya tek kal.");
-                const newRoles = {...gData.roles}; delete newRoles[currentUser.name];
-                await updateDoc(gRef, { members: arrayRemove(currentUser.name), roles: newRoles });
+
+        // ==================== FIREBASE FUNCTIONS ====================
+        async function loadUserData(uid) {
+            const doc = await db.collection('users').doc(uid).get();
+            if (doc.exists) {
+                const data = doc.data();
+                state.user = data.name;
+                state.bounty = data.bounty || 100;
+                state.power = data.power || 0;
+                state.level = data.level || 1;
+                state.crew = data.crew || { zoro: 0, sanji: 0, jinbe: 0 };
+                state.profile = data.profile || { avatar: '', about: '', crewList: [], clan: null };
+                updateUI();
+                startIdleGame();
             }
-            currentUser.guild = ""; await updateUserData(); await updateGuildTotalBounty(gName); alert("Ayrıldın!"); openProfile();
         }
-        window.promoteMember = async function(mName) {
-            const gRef = doc(db, "guilds", currentUser.guild); const snap = await getDoc(gRef); const gData = snap.data();
-            const currentRole = gData.roles[mName]; let newRole = "";
-            if(currentRole === "Tayfa") newRole = "Kıdemli"; else if(currentRole === "Kıdemli") newRole = "Sol Kol"; else if(currentRole === "Sol Kol") newRole = "Sağ Kol"; else return alert("Zirve!");
-            gData.roles[mName] = newRole; await updateDoc(gRef, { roles: gData.roles }); openProfile();
+
+        async function saveUserData() {
+            if (!state.userId) return;
+            await db.collection('users').doc(state.userId).set({
+                name: state.user,
+                bounty: state.bounty,
+                power: state.power,
+                level: state.level,
+                crew: state.crew,
+                profile: state.profile,
+                lastActive: firebase.firestore.FieldValue.serverTimestamp()
+            }, { merge: true });
         }
-        window.demoteMember = async function(mName) {
-            const gRef = doc(db, "guilds", currentUser.guild); const snap = await getDoc(gRef); const gData = snap.data();
-            const currentRole = gData.roles[mName]; let newRole = "";
-            if(currentRole === "Sağ Kol") newRole = "Sol Kol"; else if(currentRole === "Sol Kol") newRole = "Kıdemli"; else if(currentRole === "Kıdemli") newRole = "Tayfa"; else return;
-            gData.roles[mName] = newRole; await updateDoc(gRef, { roles: gData.roles }); openProfile();
+
+        function setupRealtimeListeners() {
+            // Chat messages
+            db.collection('chat').orderBy('timestamp', 'desc').limit(50).onSnapshot(snapshot => {
+                const container = document.getElementById('chatMessages');
+                container.innerHTML = '';
+                snapshot.docs.reverse().forEach(doc => {
+                    const msg = doc.data();
+                    addChatMessageToDOM(msg.sender, msg.text, msg.sender === 'Sistem', msg.avatar);
+                });
+            });
+
+            // Theories
+            db.collection('theories').orderBy('timestamp', 'desc').limit(10).onSnapshot(snapshot => {
+                const container = document.getElementById('theoryFeed');
+                container.innerHTML = '';
+                snapshot.docs.forEach(doc => {
+                    const theory = doc.data();
+                    addTheoryToDOM(theory.author, theory.text, theory.timestamp);
+                });
+            });
         }
-        window.kickMember = async function(mName) {
-            if(!confirm(mName + " atılsın mı?")) return;
-            const gRef = doc(db, "guilds", currentUser.guild); const snap = await getDoc(gRef); const gData = snap.data();
-            const newRoles = {...gData.roles}; delete newRoles[mName];
-            await updateDoc(gRef, { members: arrayRemove(mName), roles: newRoles });
-            const uRef = doc(db, "users", mName); await updateDoc(uRef, { guild: "" });
-            await updateGuildTotalBounty(currentUser.guild); openProfile();
+
+        // ==================== AUTH & PROFILE ====================
+        async function handleLogin() {
+            const name = document.getElementById('usernameInput').value.trim();
+            if (!name) {
+                document.getElementById('loginError').classList.remove('hidden');
+                return;
+            }
+
+            const fileInput = document.getElementById('avatarFile');
+            let avatarBase64 = '';
+            
+            if (fileInput.files[0]) {
+                avatarBase64 = await fileToBase64(fileInput.files[0]);
+            }
+
+            state.user = name;
+            state.profile.avatar = avatarBase64;
+            
+            await saveUserData();
+            updateUI();
+            closeLoginModal();
+            
+            // Add welcome message
+            await db.collection('chat').add({
+                sender: 'Sistem',
+                text: `🏴‍☠️ Hoşgeldin Kaptan ${name}! Yeni Dünya maceran başlıyor!`,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                avatar: ''
+            });
+            
+            playSound('coin');
+            startIdleGame();
         }
-        async function loadGuildInfo(gName) {
-            const snap = await getDoc(doc(db, "guilds", gName));
-            if(snap.exists()) {
-                const g = snap.data(); await updateGuildTotalBounty(gName);
-                document.getElementById('g-name').textContent = g.name; document.getElementById('g-desc').textContent = g.desc || ""; document.getElementById('g-flag-display').src = g.flag; document.getElementById('g-captain').textContent = g.captain; document.getElementById('g-bounty').textContent = g.totalBounty.toLocaleString();
-                const ul = document.getElementById('g-members'); ul.innerHTML = "";
-                const roleClass = { "Kaptan": "role-captain", "Sağ Kol": "role-righthand", "Sol Kol": "role-lefthand", "Kıdemli": "role-senior", "Tayfa": "role-member" };
-                const order = {"Kaptan":1, "Sağ Kol":2, "Sol Kol":3, "Kıdemli":4, "Tayfa":5};
-                const safeRoles = g.roles || {};
-                const sortedMembers = g.members.sort((a,b) => (order[safeRoles[a]] || 5) - (order[safeRoles[b]] || 5));
-                for(const m of sortedMembers) {
-                     const uSnap = await getDoc(doc(db, "users", m));
-                     if(uSnap.exists()) {
-                         const uData = uSnap.data(); const role = safeRoles[m] || "Tayfa"; let actions = "";
-                         if(currentUser.name === g.captain && m !== currentUser.name) { actions = `<div style="display:inline-block; float:right;"><button class="btn-tiny" style="background:green" onclick="promoteMember('${m}')">▲</button><button class="btn-tiny" style="background:orange" onclick="demoteMember('${m}')">▼</button><button class="btn-tiny" style="background:red" onclick="kickMember('${m}')">X</button></div>`; }
-                         ul.innerHTML += `<li style="border-bottom:1px solid #ccc; padding:5px;"><span class="role-badge ${roleClass[role] || 'role-member'}">${role}</span> <b>${m}</b> (${uData.bounty.toLocaleString()}) ${actions}</li>`;
-                     }
+
+        function handleLogout() {
+            auth.signOut().then(() => {
+                location.reload();
+            });
+        }
+
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        function updateUI() {
+            if (state.user) {
+                document.getElementById('loginBtn').classList.add('hidden');
+                document.getElementById('logoutBtn').classList.remove('hidden');
+                document.getElementById('userSection').classList.remove('hidden');
+                document.getElementById('userSection').classList.add('flex');
+                document.getElementById('displayUsername').textContent = state.user;
+                document.getElementById('bountyDisplay').textContent = state.bounty.toLocaleString();
+                
+                if (state.profile.avatar) {
+                    document.getElementById('navAvatar').src = state.profile.avatar;
+                    document.getElementById('navAvatar').classList.remove('hidden');
+                    document.getElementById('userAvatar').classList.add('hidden');
                 }
             }
         }
-        function listenGuilds() { const q = query(collection(db, "guilds"), orderBy("totalBounty", "desc"), limit(10)); onSnapshot(q, (snap) => { const tb = document.getElementById('guild-leaderboard'); tb.innerHTML = ""; let i = 1; snap.forEach(d => { const g = d.data(); tb.innerHTML += `<tr><td>${i++}</td><td><img src="${g.flag}" class="guild-flag"></td><td>${g.name}</td><td>${(g.totalBounty || 0).toLocaleString()} ฿</td></tr>`; }); }); }
 
-        // --- TEORİ DUVARI & ANKET ---
-        window.createPost = async function() {
-            if(!currentUser) return alert("Giriş yap!");
-            const title = document.getElementById('post-title').value.trim(); const content = document.getElementById('post-content').value.trim();
-            if(!title || !content) return alert("Boş bırakma!");
-            await addDoc(collection(db, "posts"), { title, content, author: currentUser.name, time: serverTimestamp(), likes: [] });
-            document.getElementById('post-title').value=""; document.getElementById('post-content').value=""; alert("Paylaşıldı!");
+        // ==================== PROFILE MODAL FUNCTIONS ====================
+        function openProfileModal() {
+            if (!state.user) {
+                openLoginModal();
+                return;
+            }
+            
+            document.getElementById('profileModal').classList.remove('hidden');
+            document.getElementById('profileModal').classList.add('flex');
+            
+            document.getElementById('profileName').textContent = state.user;
+            document.getElementById('profileBounty').textContent = state.bounty.toLocaleString();
+            
+            if (state.profile.avatar) {
+                document.getElementById('profileAvatarImg').src = state.profile.avatar;
+                document.getElementById('profileAvatarImg').classList.remove('hidden');
+                document.getElementById('profileAvatarFallback').classList.add('hidden');
+            }
+            
+            document.getElementById('aboutInput').value = state.profile.about || '';
+            updateCrewList();
+            updateClanDisplay();
+            switchTab('edit');
         }
-        function listenPosts() {
-            const q = query(collection(db, "posts"), orderBy("time", "desc"), limit(20));
-            onSnapshot(q, (snap) => {
-                const feed = document.getElementById('posts-feed'); feed.innerHTML = "";
-                snap.forEach(d => {
-                    const p = d.data(); const pid = d.id; const likeCount = p.likes ? p.likes.length : 0;
-                    feed.innerHTML += `<div class="post-card"><div class="post-header"><span class="post-author">@${p.author}</span><span class="post-time">Yeni</span></div><h4 class="post-title">${p.title}</h4><p class="post-body">${p.content}</p><div class="post-actions"><button class="btn-respect" onclick="likePost('${pid}')">Respect (+${likeCount})</button></div></div>`;
+
+        function closeProfileModal() {
+            document.getElementById('profileModal').classList.add('hidden');
+            document.getElementById('profileModal').classList.remove('flex');
+        }
+
+        function switchTab(tabName) {
+            ['edit', 'crew', 'alliance'].forEach(t => {
+                document.getElementById(`content-${t}`).classList.add('hidden');
+                document.getElementById(`tab-${t}`).classList.remove('tab-active');
+                document.getElementById(`tab-${t}`).classList.add('tab-inactive');
+            });
+            
+            document.getElementById(`content-${tabName}`).classList.remove('hidden');
+            document.getElementById(`tab-${tabName}`).classList.remove('tab-inactive');
+            document.getElementById(`tab-${tabName}`).classList.add('tab-active');
+            
+            if (tabName === 'crew') {
+                document.getElementById('tab-crew').textContent = `TAYFA (${state.profile.crewList?.length || 0})`;
+            }
+        }
+
+        async function saveProfile() {
+            const fileInput = document.getElementById('newAvatarFile');
+            const about = document.getElementById('aboutInput').value.trim();
+            
+            if (fileInput.files[0]) {
+                state.profile.avatar = await fileToBase64(fileInput.files[0]);
+            }
+            
+            state.profile.about = about;
+            await saveUserData();
+            updateUI();
+            
+            playSound('coin');
+            addBounty(20);
+            alert('Profil güncellendi! (+20₿)');
+        }
+
+        async function addCrew() {
+            const name = document.getElementById('crewInput').value.trim();
+            if (!name) return;
+            
+            if (!state.profile.crewList) state.profile.crewList = [];
+            
+            if (state.profile.crewList.includes(name)) {
+                alert('Bu korsan zaten tayfanda!');
+                return;
+            }
+            
+            state.profile.crewList.push(name);
+            await saveUserData();
+            updateCrewList();
+            document.getElementById('crewInput').value = '';
+            playSound('coin');
+            addBounty(10);
+        }
+
+        function updateCrewList() {
+            const list = document.getElementById('crewList');
+            const crew = state.profile.crewList || [];
+            
+            if (crew.length === 0) {
+                list.innerHTML = '<p class="text-gray-500 text-center py-8 italic">Henüz tayfan yok. Korsanlar topla!</p>';
+            } else {
+                list.innerHTML = crew.map((member, idx) => `
+                    <div class="flex justify-between items-center bg-white/10 p-3 rounded-lg border border-white/20">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-luffy-red to-luffy-dark flex items-center justify-center text-white font-bold border border-treasure-gold">
+                                ${member.charAt(0).toUpperCase()}
+                            </div>
+                            <span class="text-white font-bold">${member}</span>
+                        </div>
+                        <button onclick="removeCrew(${idx})" class="text-red-400 hover:text-red-300 text-sm">×</button>
+                    </div>
+                `).join('');
+            }
+        }
+
+        async function removeCrew(index) {
+            state.profile.crewList.splice(index, 1);
+            await saveUserData();
+            updateCrewList();
+        }
+
+        async function createClan() {
+            const name = document.getElementById('clanNameInput').value.trim();
+            const fileInput = document.getElementById('clanFlagFile');
+            
+            if (!name) {
+                alert('Klan adı girmelisin!');
+                return;
+            }
+            
+            let flagBase64 = '';
+            if (fileInput.files[0]) {
+                flagBase64 = await fileToBase64(fileInput.files[0]);
+            }
+            
+            state.profile.clan = { name, flag: flagBase64 };
+            await saveUserData();
+            updateClanDisplay();
+            playSound('win');
+            addBounty(50);
+            alert(`${name} klanı kuruldu! (+50₿)`);
+        }
+
+        function updateClanDisplay() {
+            const noAlliance = document.getElementById('noAlliance');
+            const hasAlliance = document.getElementById('hasAlliance');
+            
+            if (state.profile.clan) {
+                noAlliance.classList.add('hidden');
+                hasAlliance.classList.remove('hidden');
+                document.getElementById('clanNameDisplay').textContent = state.profile.clan.name;
+                
+                if (state.profile.clan.flag) {
+                    document.getElementById('clanFlagImg').src = state.profile.clan.flag;
+                    document.getElementById('clanFlagImg').classList.remove('hidden');
+                    document.getElementById('clanFlagFallback').classList.add('hidden');
+                }
+            } else {
+                noAlliance.classList.remove('hidden');
+                hasAlliance.classList.add('hidden');
+            }
+        }
+
+        async function leaveClan() {
+            if (confirm('Klandan ayrılmak istediğine emin misin?')) {
+                state.profile.clan = null;
+                await saveUserData();
+                updateClanDisplay();
+            }
+        }
+
+        function addBounty(amount) {
+            state.bounty += amount;
+            document.getElementById('bountyDisplay').textContent = state.bounty.toLocaleString();
+            saveUserData();
+        }
+
+        // ==================== IDLE GAME ====================
+        function startIdleGame() {
+            if (idleInterval) clearInterval(idleInterval);
+            
+            idleInterval = setInterval(() => {
+                const autoPower = (state.crew.zoro * 5) + (state.crew.sanji * 15) + (state.crew.jinbe * 50);
+                if (autoPower > 0) {
+                    state.power += autoPower;
+                    updateIdleUI();
+                    checkLevelUp();
+                }
+            }, 1000);
+        }
+
+        function trainHaki() {
+            const clickPower = 1 + Math.floor(state.level / 5);
+            state.power += clickPower;
+            state.xp += clickPower;
+            updateIdleUI();
+            checkLevelUp();
+            playSound('coin');
+            
+            // Visual feedback
+            const btn = document.getElementById('trainBtn');
+            btn.style.transform = 'scale(0.95)';
+            setTimeout(() => btn.style.transform = 'scale(1)', 100);
+        }
+
+        function updateIdleUI() {
+            document.getElementById('powerDisplay').textContent = state.power.toLocaleString();
+            document.getElementById('levelDisplay').textContent = state.level;
+            
+            const autoPower = (state.crew.zoro * 5) + (state.crew.sanji * 15) + (state.crew.jinbe * 50);
+            document.getElementById('autoPower').textContent = autoPower;
+            
+            const clickPower = 1 + Math.floor(state.level / 5);
+            document.getElementById('clickPower').textContent = clickPower;
+            
+            const xpNeeded = state.level * 100;
+            const xpPercent = Math.min((state.xp / xpNeeded) * 100, 100);
+            document.getElementById('xpBar').style.width = xpPercent + '%';
+            
+            // Update costs
+            document.getElementById('zoroCost').textContent = (100 * Math.pow(1.5, state.crew.zoro)).toFixed(0);
+            document.getElementById('sanjiCost').textContent = (500 * Math.pow(1.5, state.crew.sanji)).toFixed(0);
+            document.getElementById('jinbeCost').textContent = (2000 * Math.pow(1.5, state.crew.jinbe)).toFixed(0);
+        }
+
+        function checkLevelUp() {
+            const xpNeeded = state.level * 100;
+            if (state.xp >= xpNeeded) {
+                state.level++;
+                state.xp = 0;
+                playSound('win');
+                alert(`Seviye atladın! Yeni seviye: ${state.level}`);
+            }
+        }
+
+        async function buyCrew(type) {
+            const costs = {
+                zoro: 100 * Math.pow(1.5, state.crew.zoro),
+                sanji: 500 * Math.pow(1.5, state.crew.sanji),
+                jinbe: 2000 * Math.pow(1.5, state.crew.jinbe)
+            };
+            
+            if (state.bounty >= costs[type]) {
+                state.bounty -= costs[type];
+                state.crew[type]++;
+                await saveUserData();
+                updateUI();
+                updateIdleUI();
+                playSound('coin');
+            } else {
+                alert('Yeterli Bounty yok!');
+            }
+        }
+
+        // ==================== QUIZ GAME ====================
+        function startQuiz() {
+            state.quiz.active = true;
+            state.quiz.current = 0;
+            state.quiz.score = 0;
+            
+            // Shuffle and pick 10 random questions
+            const shuffled = [...allQuestions].sort(() => 0.5 - Math.random());
+            state.quiz.questions = shuffled.slice(0, 10);
+            
+            document.getElementById('quizScore').textContent = '0';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            if (state.quiz.current >= 10) {
+                endQuiz();
+                return;
+            }
+            
+            const q = state.quiz.questions[state.quiz.current];
+            document.getElementById('quizQuestionNum').textContent = state.quiz.current + 1;
+            document.getElementById('quizQuestion').innerHTML = `<span class="text-treasure-gold font-cinzel text-2xl mr-2">Soru ${state.quiz.current + 1}:</span> ${q.q}`;
+            
+            const optionsDiv = document.getElementById('quizOptions');
+            optionsDiv.innerHTML = '';
+            
+            q.a.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'w-full bg-white/10 hover:bg-white/20 border-2 border-white/30 text-white font-bold py-4 px-6 rounded-xl transition-all text-left flex items-center group hover:border-treasure-gold';
+                btn.innerHTML = `<span class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mr-4 text-sm group-hover:bg-treasure-gold group-hover:text-black transition-colors">${String.fromCharCode(65 + idx)}</span><span>${opt}</span>`;
+                btn.onclick = () => checkAnswer(idx);
+                optionsDiv.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(idx) {
+            const q = state.quiz.questions[state.quiz.current];
+            const buttons = document.getElementById('quizOptions').children;
+            
+            if (idx === q.c) {
+                buttons[idx].classList.remove('bg-white/10', 'border-white/30');
+                buttons[idx].classList.add('bg-green-500/50', 'border-green-400');
+                state.quiz.score++;
+                document.getElementById('quizScore').textContent = state.quiz.score;
+                addBounty(50);
+                playSound('correct');
+            } else {
+                buttons[idx].classList.remove('bg-white/10', 'border-white/30');
+                buttons[idx].classList.add('bg-red-600/50', 'border-red-400');
+                buttons[q.c].classList.add('bg-green-500/50', 'border-green-400');
+                playSound('wrong');
+            }
+            
+            setTimeout(() => {
+                state.quiz.current++;
+                showQuestion();
+            }, 1500);
+        }
+
+        function endQuiz() {
+            const container = document.getElementById('quizContainer');
+            const finalScore = state.quiz.score;
+            const bonus = finalScore === 10 ? 500 : finalScore * 50;
+            
+            container.innerHTML = `
+                <div class="text-center py-12 animate-slide-up">
+                    <div class="text-8xl mb-6 animate-bounce">🏆</div>
+                    <h3 class="font-cinzel text-4xl font-bold text-treasure-gold mb-4">Quiz Tamamlandı!</h3>
+                    <div class="text-6xl font-black text-white mb-4 font-cinzel">${finalScore}<span class="text-2xl text-gray-400">/10</span></div>
+                    <p class="text-xl text-gray-300 mb-2">Tebrikler Kaptan!</p>
+                    <div class="bg-treasure-gold/20 border-2 border-treasure-gold rounded-xl p-4 mb-8 inline-block">
+                        <p class="text-treasure-gold font-bold text-xl">Bonus Kazancın: +${bonus}₿</p>
+                    </div>
+                    <div>
+                        <button onclick="location.reload()" class="btn-gold text-black font-bold py-4 px-10 rounded-full text-lg shadow-2xl hover:scale-110 transition-transform">
+                            TEKRAR OYNA
+                        </button>
+                    </div>
+                </div>
+            `;
+            addBounty(bonus);
+        }
+
+        // ==================== CASE OPENING (CS2 STYLE) ====================
+        function initCaseStrip() {
+            const strip = document.getElementById('caseStrip');
+            // Generate many items for the strip
+            let html = '';
+            for (let i = 0; i < 50; i++) {
+                const item = caseItems[Math.floor(Math.random() * caseItems.length)];
+                html += `
+                    <div class="case-item" style="border-color: ${item.color}; background: linear-gradient(135deg, ${item.color}20, #000);">
+                        <div class="text-3xl">${item.icon}</div>
+                        <div class="text-xs text-center mt-1 font-bold" style="color: ${item.color}">${item.name}</div>
+                    </div>
+                `;
+            }
+            strip.innerHTML = html;
+        }
+
+        async function openCase() {
+            if (!state.user) {
+                openLoginModal();
+                return;
+            }
+            
+            if (state.bounty < 100) {
+                alert('Yeterli Bounty yok! (Gereken: 100₿)');
+                return;
+            }
+            
+            addBounty(-100);
+            playSound('spin');
+            
+            const btn = document.getElementById('caseBtn');
+            const strip = document.getElementById('caseStrip');
+            const result = document.getElementById('caseResult');
+            
+            btn.disabled = true;
+            result.textContent = '';
+            
+            // Determine winning item
+            const winningItem = caseItems[Math.floor(Math.random() * caseItems.length)];
+            
+            // Animation
+            const randomOffset = Math.floor(Math.random() * 800) + 400;
+            strip.style.transition = 'transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)';
+            strip.style.transform = `translateX(-${randomOffset}px)`;
+            
+            setTimeout(() => {
+                result.innerHTML = `<span style="color: ${winningItem.color}">${winningItem.icon} ${winningItem.name}!</span>`;
+                addBounty(winningItem.value);
+                playSound('win');
+                
+                // Reset after delay
+                setTimeout(() => {
+                    strip.style.transition = 'none';
+                    strip.style.transform = 'translateX(0)';
+                    initCaseStrip();
+                    btn.disabled = false;
+                }, 3000);
+            }, 5000);
+        }
+
+        // ==================== CHAT (FIREBASE) ====================
+        async function sendChat() {
+            if (!state.user) {
+                openLoginModal();
+                return;
+            }
+            
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (!text) return;
+            
+            await db.collection('chat').add({
+                sender: state.user,
+                text: text,
+                avatar: state.profile.avatar || '',
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            
+            input.value = '';
+            addBounty(5);
+        }
+
+        function addChatMessageToDOM(sender, text, isSystem, avatar) {
+            const container = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            div.className = 'animate-slide-up mb-4';
+            
+            if (isSystem) {
+                div.innerHTML = `
+                    <div class="text-center my-4">
+                        <div class="inline-block bg-treasure-gold/20 border border-treasure-gold/50 rounded-full px-4 py-2">
+                            <span class="text-treasure-gold text-xs font-bold tracking-wider uppercase">${text}</span>
+                        </div>
+                    </div>
+                `;
+            } else {
+                const isMe = sender === state.user;
+                const bgClass = isMe ? 'bg-blue-600/20 border-blue-500/30' : 'bg-gray-800/50 border-white/10';
+                
+                div.innerHTML = `
+                    <div class="flex items-start space-x-3 ${isMe ? 'flex-row-reverse space-x-reverse' : ''}">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center text-lg border-2 border-treasure-gold/50 flex-shrink-0 overflow-hidden">
+                            ${avatar ? `<img src="${avatar}" class="w-full h-full object-cover">` : sender.charAt(0)}
+                        </div>
+                        <div class="max-w-[80%] ${bgClass} backdrop-blur-sm p-4 rounded-2xl border ${isMe ? 'rounded-tr-sm' : 'rounded-tl-sm'}">
+                            <div class="font-bold ${isMe ? 'text-blue-400' : 'text-gray-300'} text-sm mb-1">${sender}</div>
+                            <div class="text-gray-200 leading-relaxed">${text}</div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // ==================== THEORIES ====================
+        async function postTheory() {
+            if (!state.user) {
+                openLoginModal();
+                return;
+            }
+            
+            const input = document.getElementById('theoryInput');
+            const text = input.value.trim();
+            if (!text) return;
+            
+            await db.collection('theories').add({
+                author: state.user,
+                text: text,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            
+            input.value = '';
+            addBounty(20);
+            playSound('post');
+        }
+
+        function addTheoryToDOM(author, text, timestamp) {
+            const feed = document.getElementById('theoryFeed');
+            const div = document.createElement('div');
+            div.className = 'glass-card p-6 rounded-xl border-l-4 border-treasure-gold animate-slide-up';
+            
+            const colors = ['from-luffy-red to-red-800', 'from-ocean-blue to-blue-900', 'from-purple-600 to-purple-900'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            div.innerHTML = `
+                <div class="flex justify-between items-start mb-3">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br ${randomColor} flex items-center justify-center text-white font-bold text-sm border-2 border-treasure-gold shadow-lg">
+                            ${author.charAt(0).toUpperCase()}
+                        </div>
+                        <span class="font-bold text-gray-800 tracking-wider">@${author}</span>
+                    </div>
+                    <span class="text-xs text-gray-500 font-mono bg-gray-200 px-2 py-1 rounded">${timestamp ? new Date(timestamp.toDate()).toLocaleDateString('tr-TR') : 'Az önce'}</span>
+                </div>
+                <p class="text-gray-800 leading-relaxed font-medium text-lg">${text}</p>
+            `;
+            
+            feed.appendChild(div);
+        }
+
+        // ==================== NEWS CONTENT ====================
+        function openNewsModal(type) {
+            const modal = document.getElementById('newsModal');
+            const content = document.getElementById('newsModalContent');
+            
+            const contents = {
+                manga: {
+                    title: "Bölüm 1174: Büyük Mola - Elbaf ve Gelecek",
+                    img: "luffy3.jpg",
+                    fallback: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?w=800&q=80",
+                    color: "from-luffy-red to-red-900",
+                    html: `
+                        <div class="prose prose-lg max-w-none text-gray-200 font-roboto leading-relaxed space-y-6">
+                            <div class="bg-red-900/30 border-l-4 border-luffy-red p-6 rounded-r-xl">
+                                <h2 class="text-2xl font-bold text-treasure-gold mb-4 flex items-center">
+                                    <span class="mr-2">🚨</span> Önemliler (En Sıcak Gelişmeler)
+                                </h2>
+                                
+                                <h3 class="text-xl font-bold text-white mb-3">1. Manga: Bölüm 1174 ve "Büyük Mola"</h3>
+                                <p class="mb-4"><strong class="text-treasure-gold">Güncel Durum:</strong> Manga şu an Elbaf Arkı'nın zirvesinde. İnternetteki son raporlara göre 1174. Bölüm'ün yarın (15 Şubat 2026) yayınlanması bekleniyor.</p>
+                                
+                                <p class="mb-4"><strong class="text-red-400">Kötü Haber (Ara):</strong> 1174. bölümden sonra Eiichiro Oda'nın klasik "3 bölüm çiz, 1 hafta ara ver" rutini devreye girecek. Yani 22 Şubat haftası manga yok.</p>
+                                
+                                <p class="mb-4"><strong class="text-green-400">Dönüş:</strong> Seri, 1 Mart 2026'da 1175. Bölüm ile geri dönecek.</p>
+                                
+                                <div class="bg-black/40 p-4 rounded-lg border border-treasure-gold/30 mt-4">
+                                    <p class="italic"><strong class="text-treasure-gold">Büyük Olay (Spoiler İçerebilir):</strong> İnternetteki sızıntılar ve tartışmalar, 1175. bölümün serinin en büyük savaşlarından birine, Luffy vs. Imu karşılaşmasına sahne olacağını (veya bu savaşın kızışacağını) işaret ediyor.</p>
+                                </div>
+                            </div>
+
+                            <div class="bg-blue-900/30 border-l-4 border-ocean-blue p-6 rounded-r-xl">
+                                <h3 class="text-xl font-bold text-white mb-3">2. Live Action (2. Sezon): Tarih Kesinleşti!</h3>
+                                <p><strong class="text-treasure-gold">Yayın Tarihi:</strong> Netflix, One Piece Live Action 2. Sezon'un <span class="bg-treasure-gold text-black px-2 py-1 rounded font-bold">10 Mart 2026</span>'da yayınlanacağını doğruladı. Yani 1 aydan az bir süre kaldı.</p>
+                            </div>
+                        </div>
+                    `
+                },
+                sbs: {
+                    title: "SBS - Soru Cevap Köşesi: Karakter Sırları",
+                    img: "robin.jpg",
+                    fallback: "https://images.unsplash.com/photo-1535701121395-c1a14c1e8c5e?w=800&q=80",
+                    color: "from-purple-900 to-indigo-900",
+                    html: `
+                        <div class="prose prose-lg max-w-none text-gray-200 font-roboto leading-relaxed space-y-6">
+                            <div class="bg-purple-900/30 border-l-4 border-purple-500 p-6 rounded-r-xl">
+                                <h2 class="text-2xl font-bold text-treasure-gold mb-4">SBS (Soru-Cevap Köşesi)</h2>
+                                <p class="mb-4 italic text-gray-300">Bu SBS'ler genellikle karakterlerin kişisel özelliklerini tanımlar ve hayranlar arasında "canon" (resmi) bilgi kabul edilir.</p>
+                                
+                                <h3 class="text-xl font-bold text-white mb-4 mt-6">Eğer Hasır Şapkalar Gerçek Dünyada Yaşasaydı (Cilt 56)</h3>
+                                
+                                <div class="bg-black/40 p-6 rounded-lg border border-purple-500/30 space-y-4">
+                                    <p><strong class="text-treasure-gold">Okuyucu (D):</strong> Oda-sensei! Luffy ve diğerleri gerçek hayatta olsalardı hangi ülkeden olurlardı?</p>
+                                    
+                                    <p><strong class="text-green-400">Oda (O):</strong> Karakterlerin görünüşlerine ve imajlarına dayanarak şöyle olurdu:</p>
+                                    
+                                    <ul class="grid grid-cols-2 gap-3 mt-4 text-sm">
+                                        <li class="flex items-center"><span class="w-3 h-3 bg-red-500 rounded-full mr-2"></span>Luffy: Brezilya</li>
+                                        <li class="flex items-center"><span class="w-3 h-3 bg-green-500 rounded-full mr-2"></span>Zoro: Japonya</li>
+                                        <li class="flex items-center"><span class="w-3 h-3 bg-orange-400 rounded-full mr-2"></span>Nami: İsveç</li>
+                                        <li class="flex items-center"><span class="w-3 h-3 bg-yellow-600 rounded-full mr-2"></span>Usopp: Afrika</li>
+                                        <li class="flex items-center"><span class="w-3 h-3 bg-blue-400 rounded-full mr-2"></span>Sanji: Fransa</li>
+                                        <li class="flex items-center"><span class="w-3 h-3 bg-pink-400 rounded-full mr-2"></span>Chopper: Kanada</li>
+                                        <li class="flex items-center"><span class="w-3 h-3 bg-purple-600 rounded-full mr-2"></span>Robin: Rusya</li>
+                                        <li class="flex items-center"><span class="w-3 h-3 bg-cyan-400 rounded-full mr-2"></span>Franky: ABD</li>
+                                        <li class="flex items-center"><span class="w-3 h-3 bg-gray-400 rounded-full mr-2"></span>Brook: Avusturya</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="bg-indigo-900/30 border-l-4 border-indigo-500 p-6 rounded-r-xl">
+                                <h3 class="text-xl font-bold text-white mb-4">Banyo Yapma Sıklıkları (Cilt 48)</h3>
+                                
+                                <div class="bg-black/40 p-6 rounded-lg border border-indigo-500/30 space-y-4">
+                                    <p><strong class="text-treasure-gold">D:</strong> Merak ediyorum, Hasır Şapka Korsanları ne sıklıkla banyo yapıyor?</p>
+                                    
+                                    <p><strong class="text-green-400">O:</strong> Bu soru çok geliyor. İşte cevaplar:</p>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                                        <div class="bg-red-900/30 p-3 rounded border border-red-500/30">
+                                            <p class="font-bold text-red-400 mb-2">Haftada 1 kez:</p>
+                                            <p class="text-sm">Luffy, Zoro, Brook</p>
+                                        </div>
+                                        <div class="bg-blue-900/30 p-3 rounded border border-blue-500/30">
+                                            <p class="font-bold text-blue-400 mb-2">3 günde 1 kez:</p>
+                                            <p class="text-sm">Usopp, Franky, Chopper</p>
+                                        </div>
+                                        <div class="bg-green-900/30 p-3 rounded border border-green-500/30 md:col-span-2">
+                                            <p class="font-bold text-green-400 mb-2">Her gün:</p>
+                                            <p class="text-sm">Sanji, Nami, Robin</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                },
+                anime: {
+                    title: "Anime & Remake Güncellemesi",
+                    img: "zoro.jpg",
+                    fallback: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=800&q=80",
+                    color: "from-green-800 to-emerald-900",
+                    html: `
+                        <div class="prose prose-lg max-w-none text-gray-200 font-roboto leading-relaxed space-y-6">
+                            <div class="bg-green-900/30 border-l-4 border-green-600 p-6 rounded-r-xl">
+                                <h2 class="text-2xl font-bold text-treasure-gold mb-4">Anime & Remake Güncellemesi</h2>
+                                
+                                <div class="space-y-6">
+                                    <div class="bg-black/40 p-6 rounded-lg border border-green-500/30">
+                                        <h3 class="text-lg font-bold text-green-400 mb-3">Mevcut Anime (Toei Animation)</h3>
+                                        <p>Orijinal anime serisi de manga ile paralel olarak Elbaf dönemine giriş yapmış durumda. Ancak manga şu an çok kritik bir savaşta olduğu için tüm gözler okuyucularda.</p>
+                                    </div>
+
+                                    <div class="bg-black/40 p-6 rounded-lg border border-yellow-500/30">
+                                        <h3 class="text-lg font-bold text-yellow-400 mb-3">Wit Studio Remake</h3>
+                                        <p class="mb-4">Sessizlik sürüyor. Jump Festa 2026'da beklenen fragman gelmedi. Proje "yapım aşamasında" denilerek geçiştirildi.</p>
+                                        
+                                        <div class="bg-yellow-900/30 p-4 rounded border border-yellow-500/30">
+                                            <p class="italic text-sm"><strong class="text-yellow-400">İnternetteki genel kanı:</strong> Projenin beklenenden yavaş ilerlediği yönünde.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                }
+            };
+            
+            const data = contents[type];
+            content.innerHTML = `
+                <div class="relative h-64 md:h-80 overflow-hidden rounded-t-2xl">
+                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('${data.img}'), url('${data.fallback}'), linear-gradient(to bottom, #333, #000);"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <span class="${type === 'manga' ? 'bg-luffy-red' : type === 'sbs' ? 'bg-purple-600' : 'bg-green-600'} text-white text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider shadow-lg">${type}</span>
+                    </div>
+                </div>
+                <div class="p-8 bg-gradient-to-br ${data.color} bg-opacity-10">
+                    <h2 class="font-cinzel text-3xl md:text-4xl font-bold text-white mb-6 leading-tight drop-shadow-lg">${data.title}</h2>
+                    ${data.html}
+                    <div class="mt-8 pt-6 border-t border-white/20 flex justify-between items-center">
+                        <span class="text-gray-400 text-sm font-mono">Yayınlanma: ${new Date().toLocaleDateString('tr-TR')}</span>
+                        <button onclick="closeNewsModal()" class="btn-gold text-black font-bold py-3 px-8 rounded-full shadow-lg hover:scale-105 transition-transform">KAPAT</button>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeNewsModal() {
+            document.getElementById('newsModal').classList.add('hidden');
+            document.getElementById('newsModal').classList.remove('flex');
+        }
+
+        // ==================== OTHER FUNCTIONS ====================
+        function votePoll(candidate) {
+            if (state.pollVoted) return;
+            if (!state.user) {
+                openLoginModal();
+                return;
+            }
+            
+            state.pollVoted = true;
+            addBounty(10);
+            
+            const pcts = { luffy: 48, buggy: 12, teach: 23, shanks: 17 };
+            Object.keys(pcts).forEach(key => {
+                document.getElementById(`bar-${key}`).style.width = pcts[key] + '%';
+                document.getElementById(`pct-${key}`).textContent = pcts[key] + '%';
+            });
+            
+            document.getElementById('pollMessage').classList.remove('hidden');
+            playSound('coin');
+        }
+
+        function startCountdowns() {
+            const targets = [
+                { id: 'countdown-manga', date: new Date(Date.now() + 86400000 * 2 + 3600000 * 5) },
+                { id: 'countdown-anime', date: new Date(Date.now() + 43200000 + 1800000) },
+                { id: 'countdown-live', date: new Date('2026-03-10T00:00:00') }
+            ];
+            
+            setInterval(() => {
+                const now = new Date();
+                targets.forEach(t => {
+                    const diff = t.date - now;
+                    if (diff > 0) {
+                        const days = Math.floor(diff / 86400000);
+                        const hours = Math.floor((diff % 86400000) / 3600000);
+                        const minutes = Math.floor((diff % 3600000) / 60000);
+                        const seconds = Math.floor((diff % 60000) / 1000);
+                        
+                        const timeStr = days > 0 
+                            ? `${days}g ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+                            : `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                            
+                        document.getElementById(t.id).textContent = timeStr;
+                    }
                 });
-            });
+            }, 1000);
         }
-        window.likePost = async function(pid) {
-            if(!currentUser) return; const pRef = doc(db, "posts", pid);
-            await runTransaction(db, async (t) => {
-                const pDoc = await t.get(pRef); if(!pDoc.exists()) return; const pData = pDoc.data();
-                if(pData.likes && pData.likes.includes(currentUser.name)) return alert("Zaten beğendin!");
-                t.update(pRef, { likes: arrayUnion(currentUser.name) });
-                const authorRef = doc(db, "users", pData.author); t.update(authorRef, { bounty: (await t.get(authorRef)).data().bounty + 100000 });
+
+        async function loadLeaderboard() {
+            const snapshot = await db.collection('users').orderBy('bounty', 'desc').limit(5).get();
+            const list = document.getElementById('leaderboardList');
+            list.innerHTML = '';
+            
+            snapshot.docs.forEach((doc, i) => {
+                const u = doc.data();
+                const isMe = state.user && u.name === state.user;
+                
+                let medal = ['🥇', '🥈', '🥉', '4.', '5.'][i];
+                let colors = ['text-yellow-600', 'text-gray-500', 'text-orange-600', 'text-gray-400', 'text-gray-400'];
+                
+                li = document.createElement('li');
+                li.className = 'flex justify-between items-center bg-white/60 p-4 rounded-xl border border-yellow-600/30 shadow-md';
+                li.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <span class="text-2xl ${colors[i]}">${medal}</span>
+                        <span class="font-bold ${isMe ? 'text-luffy-red underline decoration-treasure-gold' : 'text-yellow-900'}">${u.name} ${isMe ? '(Sen)' : ''}</span>
+                    </div>
+                    <span class="font-cinzel font-bold text-luffy-red text-lg">${(u.bounty || 0).toLocaleString()}₿</span>
+                `;
+                list.appendChild(li);
             });
         }
 
-        const pollOptions = ["Luffy", "Blackbeard", "Shanks", "Buggy"];
-        const pollId = "poll_v1";
-        
-        async function initPoll() { listenPoll(); }
-        function listenPoll() {
-            const pollRef = doc(db, "polls", pollId);
-            onSnapshot(pollRef, (doc) => {
-                if(!doc.exists()) { setDoc(pollRef, { votes: {Luffy:0, Blackbeard:0, Shanks:0, Buggy:0}, voters: [] }); return; }
-                const data = doc.data(); const total = Object.values(data.votes).reduce((a,b)=>a+b, 0);
-                const container = document.getElementById('poll-options-container'); container.innerHTML = "";
-                pollOptions.forEach(opt => {
-                    const count = data.votes[opt] || 0; const pct = total > 0 ? Math.round((count/total)*100) : 0;
-                    container.innerHTML += `<div class="poll-option" onclick="votePoll('${opt}')"><div class="poll-bar" style="width:${pct}%"></div><div class="poll-text"><span>${opt}</span><span>%${pct} (${count})</span></div></div>`;
-                });
-            });
-        }
-        window.votePoll = async function(opt) {
-            if(!currentUser) return alert("Giriş yap!");
-            const pollRef = doc(db, "polls", pollId);
-            await runTransaction(db, async (t) => {
-                const pDoc = await t.get(pollRef); const pData = pDoc.data();
-                if(pData.voters && pData.voters.includes(currentUser.name)) return alert("Zaten oy verdin!");
-                const newVotes = pData.votes; newVotes[opt]++;
-                t.update(pollRef, { votes: newVotes, voters: arrayUnion(currentUser.name) });
-            });
-            alert("Oy kullanıldı!");
+        function playSound(type) {
+            try {
+                const synth = new Tone.Synth().toDestination();
+                switch(type) {
+                    case 'coin':
+                        synth.triggerAttackRelease("C6", "8n");
+                        setTimeout(() => synth.triggerAttackRelease("E6", "8n"), 100);
+                        break;
+                    case 'correct':
+                        const poly = new Tone.PolySynth().toDestination();
+                        poly.triggerAttackRelease(["C5", "E5", "G5"], "8n");
+                        break;
+                    case 'wrong':
+                        const membrane = new Tone.MembraneSynth().toDestination();
+                        membrane.triggerAttackRelease("C2", "8n");
+                        break;
+                    case 'spin':
+                        const noise = new Tone.Noise("pink").start();
+                        noise.volume.rampTo(-10, 0.1);
+                        noise.stop("+4");
+                        break;
+                    case 'win':
+                        const polyWin = new Tone.PolySynth().toDestination();
+                        polyWin.triggerAttackRelease(["C4", "E4", "G4", "C5"], "4n");
+                        setTimeout(() => polyWin.triggerAttackRelease(["D4", "F#4", "A4", "D5"], "4n"), 200);
+                        setTimeout(() => polyWin.triggerAttackRelease(["E4", "G#4", "B4", "E5"], "2n"), 400);
+                        break;
+                    case 'post':
+                        synth.triggerAttackRelease("G4", "16n");
+                        break;
+                }
+            } catch(e) {
+                console.log("Audio context not ready");
+            }
         }
 
-        function listenChat() { const q = query(collection(db, "chat"), orderBy("time", "asc"), limit(50)); onSnapshot(q, (snap) => { const box = document.getElementById('chat-box'); box.innerHTML = ""; snap.forEach(d => { const m = d.data(); const cls = m.user === currentUser.name ? "msg-me" : "msg-other"; box.innerHTML += `<div class="chat-msg ${cls}"><span class="msg-sender">${m.user}</span>${m.text}</div>`; }); box.scrollTop = box.scrollHeight; }); }
-        window.sendMessage = async function() { const txt = document.getElementById('chat-input').value.trim(); if(!txt || !currentUser) return; await addDoc(collection(db, "chat"), { user: currentUser.name, text: txt, time: serverTimestamp() }); document.getElementById('chat-input').value = ""; }
-        function listenLeaderboard() { if(!db) return; const q = query(collection(db, "users"), orderBy("bounty", "desc"), limit(50)); onSnapshot(q, (snapshot) => { const tbody = document.getElementById('leaderboard-body'); tbody.innerHTML = ""; let rank = 1; snapshot.forEach((doc) => { const u = doc.data(); const isMe = currentUser && currentUser.name === u.name ? 'current-user-row' : ''; tbody.innerHTML += `<tr class="${isMe}"><td>${rank++}</td><td>${u.name}</td><td>${u.bounty.toLocaleString()} ฿</td><td>${u.fruit || '-'}</td></tr>`; }); }); }
-        
-        checkLogin(); initPoll();
-        listenLeaderboard(); listenChat(); listenGuilds(); listenPosts();
+        // Modal helpers
+        function openLoginModal() {
+            document.getElementById('loginModal').classList.remove('hidden');
+            document.getElementById('loginModal').classList.add('flex');
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.add('hidden');
+            document.getElementById('loginModal').classList.remove('flex');
+        }
     </script>
 </body>
 </html>
