@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <meta name="google-site-verification" content="BURAYA_KOD_GELECEK" />
     <meta name="description" content="One Piece Haber - Yeni Dünya, Grand Line'ın en güncel haber portalı. Manga, anime, SBS ve teoriler.">
     <meta name="keywords" content="One Piece, Manga, Anime, Luffy, Zoro, Nami, Grand Line, Yeni Dünya">
     <title>One Piece Haber | Yeni Dünya - Grand Line'ın En Büyük Haber Portalı</title>
@@ -16,10 +16,37 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <!-- Firebase SDK - MODULAR VERSION (YENİ) -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+        import { getFirestore, collection, doc, setDoc, getDoc, onSnapshot, query, orderBy, limit, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+        import { getAuth, signInAnonymously, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+        
+        // Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyAYQ1FVg9YwQTb8kuWIfg9KHiUIHBbkpqY",
+            authDomain: "one-piece-haber.firebaseapp.com",
+            projectId: "one-piece-haber",
+            storageBucket: "one-piece-haber.firebasestorage.app",
+            messagingSenderId: "292653018558",
+            appId: "1:292653018558:web:e275236747771db3329def",
+            measurementId: "G-G4NTRHD0YH"
+        };
+        
+        // Initialize
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        
+        // Global olarak erişilebilir yap
+        window.firebaseApp = app;
+        window.firebaseDb = db;
+        window.firebaseAuth = auth;
+        window.firebaseFuncs = {
+            collection, doc, setDoc, getDoc, onSnapshot, query, orderBy, limit, addDoc, serverTimestamp,
+            signInAnonymously, onAuthStateChanged, signOut
+        };
+    </script>
     
     <!-- Tone.js for Sound Effects -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
@@ -52,7 +79,6 @@
                         'shimmer': 'shimmer 2s linear infinite',
                         'slide-up': 'slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards',
                         'glow': 'glow 2s ease-in-out infinite alternate',
-                        'slide-case': 'slideCase 5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards',
                     },
                     keyframes: {
                         float: {
@@ -74,10 +100,6 @@
                         glow: {
                             '0%': { filter: 'brightness(1) drop-shadow(0 0 5px rgba(255,183,3,0.5))' },
                             '100%': { filter: 'brightness(1.2) drop-shadow(0 0 20px rgba(255,183,3,0.8))' },
-                        },
-                        slideCase: {
-                            '0%': { transform: 'translateX(0)' },
-                            '100%': { transform: 'translateX(-200%)' },
                         }
                     }
                 }
@@ -382,24 +404,6 @@
 </head>
 <body class="texture-parchment font-roboto text-gray-800 overflow-x-hidden">
 
-    <!-- Firebase Config -->
-    <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyAYQ1FVg9YwQTb8kuWIfg9KHiUIHBbkpqY",
-            authDomain: "one-piece-haber.firebaseapp.com",
-            projectId: "one-piece-haber",
-            storageBucket: "one-piece-haber.firebasestorage.app",
-            messagingSenderId: "292653018558",
-            appId: "1:292653018558:web:e275236747771db3329def",
-            measurementId: "G-G4NTRHD0YH"
-        };
-        
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-        const auth = firebase.auth();
-    </script>
-
     <!-- Music Player -->
     <div class="music-player glass-premium rounded-full p-3 border-2 border-treasure-gold shadow-lg flex items-center space-x-3">
         <button onclick="toggleMusic()" id="musicBtn" class="w-10 h-10 rounded-full bg-luffy-red text-white flex items-center justify-center hover:scale-110 transition-transform">
@@ -410,7 +414,6 @@
             <input type="range" id="volumeSlider" min="0" max="100" value="20" class="w-20 h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer" onchange="setVolume(this.value)">
         </div>
         <audio id="bgMusic" loop>
-            <source src="binks_sake.mp3" type="audio/mpeg">
             <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
         </audio>
     </div>
@@ -461,7 +464,7 @@
             <div class="relative z-10">
                 <div class="text-center mb-8">
                     <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-luffy-red to-luffy-dark flex items-center justify-center text-4xl border-4 border-treasure-gold shadow-2xl mb-4 relative overflow-hidden">
-                        <img id="profileAvatarImg" src="" class="w-full h-full object-cover hidden">
+                        <img id="profileAvatarImg" src="" class="w-full h-full object-cover hidden" onerror="this.style.display='none'; document.getElementById('profileAvatarFallback').style.display='flex';">
                         <span id="profileAvatarFallback" class="text-4xl">🏴‍☠️</span>
                     </div>
                     <h2 class="font-cinzel text-3xl font-bold gradient-text mb-1" id="profileName">KAPTAN</h2>
@@ -529,7 +532,7 @@
                     
                     <div id="hasAlliance" class="hidden text-center">
                         <div class="w-32 h-32 mx-auto rounded-lg bg-gradient-to-br from-luffy-red to-luffy-dark flex items-center justify-center text-6xl border-4 border-treasure-gold shadow-2xl mb-4 overflow-hidden">
-                            <img id="clanFlagImg" src="" class="w-full h-full object-cover hidden">
+                            <img id="clanFlagImg" src="" class="w-full h-full object-cover hidden" onerror="this.style.display='none'; document.getElementById('clanFlagFallback').style.display='flex';">
                             <span id="clanFlagFallback" class="hidden">⚔️</span>
                         </div>
                         <h3 class="font-cinzel text-2xl font-bold text-white mb-2" id="clanNameDisplay"></h3>
@@ -565,7 +568,7 @@
             <div class="flex items-center space-x-4">
                 <div id="userSection" class="hidden items-center space-x-4 glass-premium px-6 py-3 rounded-full border border-treasure-gold/50 shadow-gold cursor-pointer hover:scale-105 transition-transform" onclick="openProfileModal()">
                     <div class="w-12 h-12 rounded-full bg-gradient-to-br from-luffy-red to-luffy-dark flex items-center justify-center text-white font-bold border-2 border-treasure-gold shadow-lg overflow-hidden relative">
-                        <img id="navAvatar" src="" class="w-full h-full object-cover hidden">
+                        <img id="navAvatar" src="" class="w-full h-full object-cover hidden" onerror="this.style.display='none'">
                         <span id="userAvatar">🏴‍☠️</span>
                     </div>
                     <div class="flex flex-col">
@@ -980,23 +983,41 @@
         </div>
     </footer>
 
+    <!-- MAIN JAVASCRIPT -->
     <script>
-        // ==================== FIREBASE CONFIG & INIT ====================
-        const firebaseConfig = {
-            apiKey: "AIzaSyAYQ1FVg9YwQTb8kuWIfg9KHiUIHBbkpqY",
-            authDomain: "one-piece-haber.firebaseapp.com",
-            projectId: "one-piece-haber",
-            storageBucket: "one-piece-haber.firebasestorage.app",
-            messagingSenderId: "292653018558",
-            appId: "1:292653018558:web:e275236747771db3329def",
-            measurementId: "G-G4NTRHD0YH"
-        };
+        // Wait for Firebase to be ready
+        let db, auth, firebaseFuncs;
         
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-        const auth = firebase.auth();
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Wait for Firebase module to load
+            while (!window.firebaseDb) {
+                await new Promise(r => setTimeout(r, 100));
+            }
+            
+            db = window.firebaseDb;
+            auth = window.firebaseAuth;
+            firebaseFuncs = window.firebaseFuncs;
+            
+            // Initialize app
+            initCaseStrip();
+            startCountdowns();
+            
+            // Auth state listener
+            firebaseFuncs.onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    state.userId = user.uid;
+                    loadUserData(user.uid);
+                } else {
+                    // Sign in anonymously
+                    firebaseFuncs.signInAnonymously(auth).catch(console.error);
+                }
+            });
+            
+            // Setup real-time listeners
+            setupRealtimeListeners();
+        });
 
-        // ==================== EXTENDED QUESTION POOL (30 Questions) ====================
+        // ==================== DATA & STATE ====================
         const allQuestions = [
             {q:"Luffy'nin şeytan meyvesinin gerçek adı?", a:["Gomu Gomu","Hito Hito: Nika","Mera Mera","Yami Yami"], c:1},
             {q:"Zoro'nun ustası?", a:["Mihawk","Koshiro","Rayleigh","Oden"], c:1},
@@ -1030,7 +1051,6 @@
             {q:"Luffy'nin ilk yemekliği?", a:["Shanks","Zoro","Ace","Garp"], c:0}
         ];
 
-        // ==================== DEVIL FRUITS FOR CASE OPENING ====================
         const caseItems = [
             { name: "Gomu Gomu no Mi", icon: "🍌", color: "#d62828", value: 100, rarity: "common" },
             { name: "Bara Bara no Mi", icon: "🎪", color: "#ff6b35", value: 80, rarity: "common" },
@@ -1049,7 +1069,6 @@
             { name: "Hito Hito no Mi: Nika", icon: "☀️", color: "#ffd700", value: 500, rarity: "mythic" }
         ];
 
-        // ==================== STATE ====================
         let state = {
             user: null,
             userId: null,
@@ -1065,27 +1084,6 @@
 
         let idleInterval;
         let isMusicPlaying = false;
-
-        // ==================== INITIALIZATION ====================
-        document.addEventListener('DOMContentLoaded', () => {
-            initCaseStrip();
-            startCountdowns();
-            loadLeaderboard();
-            
-            // Check auth state
-            auth.onAuthStateChanged(user => {
-                if (user) {
-                    state.userId = user.uid;
-                    loadUserData(user.uid);
-                } else {
-                    // Anonymous auth for demo
-                    auth.signInAnonymously().catch(console.error);
-                }
-            });
-
-            // Real-time listeners
-            setupRealtimeListeners();
-        });
 
         // ==================== MUSIC PLAYER ====================
         function toggleMusic() {
@@ -1111,46 +1109,71 @@
 
         // ==================== FIREBASE FUNCTIONS ====================
         async function loadUserData(uid) {
-            const doc = await db.collection('users').doc(uid).get();
-            if (doc.exists) {
-                const data = doc.data();
-                state.user = data.name;
-                state.bounty = data.bounty || 100;
-                state.power = data.power || 0;
-                state.level = data.level || 1;
-                state.crew = data.crew || { zoro: 0, sanji: 0, jinbe: 0 };
-                state.profile = data.profile || { avatar: '', about: '', crewList: [], clan: null };
-                updateUI();
-                startIdleGame();
+            try {
+                const docRef = firebaseFuncs.doc(db, 'users', uid);
+                const docSnap = await firebaseFuncs.getDoc(docRef);
+                
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    state.user = data.name;
+                    state.bounty = data.bounty || 100;
+                    state.power = data.power || 0;
+                    state.level = data.level || 1;
+                    state.crew = data.crew || { zoro: 0, sanji: 0, jinbe: 0 };
+                    state.profile = data.profile || { avatar: '', about: '', crewList: [], clan: null };
+                    updateUI();
+                    startIdleGame();
+                }
+            } catch (e) {
+                console.error("Error loading user:", e);
             }
         }
 
         async function saveUserData() {
             if (!state.userId) return;
-            await db.collection('users').doc(state.userId).set({
-                name: state.user,
-                bounty: state.bounty,
-                power: state.power,
-                level: state.level,
-                crew: state.crew,
-                profile: state.profile,
-                lastActive: firebase.firestore.FieldValue.serverTimestamp()
-            }, { merge: true });
+            try {
+                await firebaseFuncs.setDoc(firebaseFuncs.doc(db, 'users', state.userId), {
+                    name: state.user,
+                    bounty: state.bounty,
+                    power: state.power,
+                    level: state.level,
+                    crew: state.crew,
+                    profile: state.profile,
+                    lastActive: firebaseFuncs.serverTimestamp()
+                }, { merge: true });
+            } catch (e) {
+                console.error("Error saving user:", e);
+            }
         }
 
         function setupRealtimeListeners() {
+            if (!db) return;
+            
             // Chat messages
-            db.collection('chat').orderBy('timestamp', 'desc').limit(50).onSnapshot(snapshot => {
+            const chatQuery = firebaseFuncs.query(
+                firebaseFuncs.collection(db, 'chat'),
+                firebaseFuncs.orderBy('timestamp', 'desc'),
+                firebaseFuncs.limit(50)
+            );
+            
+            firebaseFuncs.onSnapshot(chatQuery, (snapshot) => {
                 const container = document.getElementById('chatMessages');
                 container.innerHTML = '';
-                snapshot.docs.reverse().forEach(doc => {
+                const docs = snapshot.docs.reverse();
+                docs.forEach(doc => {
                     const msg = doc.data();
                     addChatMessageToDOM(msg.sender, msg.text, msg.sender === 'Sistem', msg.avatar);
                 });
             });
 
             // Theories
-            db.collection('theories').orderBy('timestamp', 'desc').limit(10).onSnapshot(snapshot => {
+            const theoryQuery = firebaseFuncs.query(
+                firebaseFuncs.collection(db, 'theories'),
+                firebaseFuncs.orderBy('timestamp', 'desc'),
+                firebaseFuncs.limit(10)
+            );
+            
+            firebaseFuncs.onSnapshot(theoryQuery, (snapshot) => {
                 const container = document.getElementById('theoryFeed');
                 container.innerHTML = '';
                 snapshot.docs.forEach(doc => {
@@ -1183,21 +1206,28 @@
             closeLoginModal();
             
             // Add welcome message
-            await db.collection('chat').add({
-                sender: 'Sistem',
-                text: `🏴‍☠️ Hoşgeldin Kaptan ${name}! Yeni Dünya maceran başlıyor!`,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                avatar: ''
-            });
+            try {
+                await firebaseFuncs.addDoc(firebaseFuncs.collection(db, 'chat'), {
+                    sender: 'Sistem',
+                    text: `🏴‍☠️ Hoşgeldin Kaptan ${name}! Yeni Dünya maceran başlıyor!`,
+                    timestamp: firebaseFuncs.serverTimestamp(),
+                    avatar: ''
+                });
+            } catch (e) {
+                console.error("Error adding welcome message:", e);
+            }
             
             playSound('coin');
             startIdleGame();
         }
 
-        function handleLogout() {
-            auth.signOut().then(() => {
+        async function handleLogout() {
+            try {
+                await firebaseFuncs.signOut(auth);
                 location.reload();
-            });
+            } catch (e) {
+                console.error("Logout error:", e);
+            }
         }
 
         function fileToBase64(file) {
@@ -1243,6 +1273,10 @@
                 document.getElementById('profileAvatarImg').src = state.profile.avatar;
                 document.getElementById('profileAvatarImg').classList.remove('hidden');
                 document.getElementById('profileAvatarFallback').classList.add('hidden');
+            } else {
+                document.getElementById('profileAvatarImg').classList.add('hidden');
+                document.getElementById('profileAvatarFallback').classList.remove('hidden');
+                document.getElementById('profileAvatarFallback').textContent = state.user.charAt(0).toUpperCase();
             }
             
             document.getElementById('aboutInput').value = state.profile.about || '';
@@ -1413,7 +1447,6 @@
             checkLevelUp();
             playSound('coin');
             
-            // Visual feedback
             const btn = document.getElementById('trainBtn');
             btn.style.transform = 'scale(0.95)';
             setTimeout(() => btn.style.transform = 'scale(1)', 100);
@@ -1433,7 +1466,6 @@
             const xpPercent = Math.min((state.xp / xpNeeded) * 100, 100);
             document.getElementById('xpBar').style.width = xpPercent + '%';
             
-            // Update costs
             document.getElementById('zoroCost').textContent = (100 * Math.pow(1.5, state.crew.zoro)).toFixed(0);
             document.getElementById('sanjiCost').textContent = (500 * Math.pow(1.5, state.crew.sanji)).toFixed(0);
             document.getElementById('jinbeCost').textContent = (2000 * Math.pow(1.5, state.crew.jinbe)).toFixed(0);
@@ -1474,7 +1506,6 @@
             state.quiz.current = 0;
             state.quiz.score = 0;
             
-            // Shuffle and pick 10 random questions
             const shuffled = [...allQuestions].sort(() => 0.5 - Math.random());
             state.quiz.questions = shuffled.slice(0, 10);
             
@@ -1552,10 +1583,9 @@
             addBounty(bonus);
         }
 
-        // ==================== CASE OPENING (CS2 STYLE) ====================
+        // ==================== CASE OPENING ====================
         function initCaseStrip() {
             const strip = document.getElementById('caseStrip');
-            // Generate many items for the strip
             let html = '';
             for (let i = 0; i < 50; i++) {
                 const item = caseItems[Math.floor(Math.random() * caseItems.length)];
@@ -1590,11 +1620,9 @@
             btn.disabled = true;
             result.textContent = '';
             
-            // Determine winning item
             const winningItem = caseItems[Math.floor(Math.random() * caseItems.length)];
-            
-            // Animation
             const randomOffset = Math.floor(Math.random() * 800) + 400;
+            
             strip.style.transition = 'transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)';
             strip.style.transform = `translateX(-${randomOffset}px)`;
             
@@ -1603,7 +1631,6 @@
                 addBounty(winningItem.value);
                 playSound('win');
                 
-                // Reset after delay
                 setTimeout(() => {
                     strip.style.transition = 'none';
                     strip.style.transform = 'translateX(0)';
@@ -1613,7 +1640,7 @@
             }, 5000);
         }
 
-        // ==================== CHAT (FIREBASE) ====================
+        // ==================== CHAT ====================
         async function sendChat() {
             if (!state.user) {
                 openLoginModal();
@@ -1624,15 +1651,19 @@
             const text = input.value.trim();
             if (!text) return;
             
-            await db.collection('chat').add({
-                sender: state.user,
-                text: text,
-                avatar: state.profile.avatar || '',
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            });
-            
-            input.value = '';
-            addBounty(5);
+            try {
+                await firebaseFuncs.addDoc(firebaseFuncs.collection(db, 'chat'), {
+                    sender: state.user,
+                    text: text,
+                    avatar: state.profile.avatar || '',
+                    timestamp: firebaseFuncs.serverTimestamp()
+                });
+                
+                input.value = '';
+                addBounty(5);
+            } catch (e) {
+                console.error("Error sending message:", e);
+            }
         }
 
         function addChatMessageToDOM(sender, text, isSystem, avatar) {
@@ -1680,15 +1711,19 @@
             const text = input.value.trim();
             if (!text) return;
             
-            await db.collection('theories').add({
-                author: state.user,
-                text: text,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            });
-            
-            input.value = '';
-            addBounty(20);
-            playSound('post');
+            try {
+                await firebaseFuncs.addDoc(firebaseFuncs.collection(db, 'theories'), {
+                    author: state.user,
+                    text: text,
+                    timestamp: firebaseFuncs.serverTimestamp()
+                });
+                
+                input.value = '';
+                addBounty(20);
+                playSound('post');
+            } catch (e) {
+                console.error("Error posting theory:", e);
+            }
         }
 
         function addTheoryToDOM(author, text, timestamp) {
@@ -1919,28 +1954,40 @@
         }
 
         async function loadLeaderboard() {
-            const snapshot = await db.collection('users').orderBy('bounty', 'desc').limit(5).get();
-            const list = document.getElementById('leaderboardList');
-            list.innerHTML = '';
+            if (!db) return;
             
-            snapshot.docs.forEach((doc, i) => {
-                const u = doc.data();
-                const isMe = state.user && u.name === state.user;
+            try {
+                const q = firebaseFuncs.query(
+                    firebaseFuncs.collection(db, 'users'),
+                    firebaseFuncs.orderBy('bounty', 'desc'),
+                    firebaseFuncs.limit(5)
+                );
                 
-                let medal = ['🥇', '🥈', '🥉', '4.', '5.'][i];
-                let colors = ['text-yellow-600', 'text-gray-500', 'text-orange-600', 'text-gray-400', 'text-gray-400'];
+                const snapshot = await firebaseFuncs.getDocs(q);
+                const list = document.getElementById('leaderboardList');
+                list.innerHTML = '';
                 
-                li = document.createElement('li');
-                li.className = 'flex justify-between items-center bg-white/60 p-4 rounded-xl border border-yellow-600/30 shadow-md';
-                li.innerHTML = `
-                    <div class="flex items-center space-x-3">
-                        <span class="text-2xl ${colors[i]}">${medal}</span>
-                        <span class="font-bold ${isMe ? 'text-luffy-red underline decoration-treasure-gold' : 'text-yellow-900'}">${u.name} ${isMe ? '(Sen)' : ''}</span>
-                    </div>
-                    <span class="font-cinzel font-bold text-luffy-red text-lg">${(u.bounty || 0).toLocaleString()}₿</span>
-                `;
-                list.appendChild(li);
-            });
+                snapshot.docs.forEach((doc, i) => {
+                    const u = doc.data();
+                    const isMe = state.user && u.name === state.user;
+                    
+                    let medal = ['🥇', '🥈', '🥉', '4.', '5.'][i];
+                    let colors = ['text-yellow-600', 'text-gray-500', 'text-orange-600', 'text-gray-400', 'text-gray-400'];
+                    
+                    const li = document.createElement('li');
+                    li.className = 'flex justify-between items-center bg-white/60 p-4 rounded-xl border border-yellow-600/30 shadow-md';
+                    li.innerHTML = `
+                        <div class="flex items-center space-x-3">
+                            <span class="text-2xl ${colors[i]}">${medal}</span>
+                            <span class="font-bold ${isMe ? 'text-luffy-red underline decoration-treasure-gold' : 'text-yellow-900'}">${u.name} ${isMe ? '(Sen)' : ''}</span>
+                        </div>
+                        <span class="font-cinzel font-bold text-luffy-red text-lg">${(u.bounty || 0).toLocaleString()}₿</span>
+                    `;
+                    list.appendChild(li);
+                });
+            } catch (e) {
+                console.error("Error loading leaderboard:", e);
+            }
         }
 
         function playSound(type) {
