@@ -643,59 +643,6 @@
         }
 
         /* Auth Styles */
-        .google-btn {
-            width: 100%;
-            padding: 15px;
-            background: #fff;
-            color: #000;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            transition: all 0.3s;
-            font-size: 1rem;
-        }
-
-        .google-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255,255,255,0.3);
-        }
-
-        .google-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .google-btn i {
-            color: #4285F4;
-            font-size: 1.2rem;
-        }
-
-        .divider {
-            text-align: center;
-            margin: 20px 0;
-            position: relative;
-            opacity: 0.7;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 45%;
-            height: 1px;
-            background: var(--glass-border);
-        }
-
-        .divider::before { left: 0; }
-        .divider::after { right: 0; }
-
         .auth-tabs {
             display: flex;
             gap: 10px;
@@ -1264,26 +1211,16 @@
             color: white;
         }
 
-        /* Loading Spinner */
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(212, 175, 55, 0.3);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
+        /* Error Message */
         .error-message {
             color: #ff6b6b;
             font-size: 0.9rem;
             margin-top: 10px;
             text-align: center;
+            padding: 10px;
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 0, 0, 0.3);
         }
     </style>
 </head>
@@ -1578,13 +1515,6 @@
                 <button class="modal-close" onclick="closeModal('authModal')"><i class="fas fa-times"></i></button>
             </div>
             <div class="modal-body">
-                <button class="google-btn" id="googleSignInBtn" onclick="signInWithGoogle()">
-                    <i class="fab fa-google"></i> Google ile Giriş Yap
-                </button>
-                <div id="googleError" class="error-message hidden"></div>
-                
-                <div class="divider">veya E-posta ile devam et</div>
-                
                 <div class="auth-tabs">
                     <button class="auth-tab active" onclick="switchAuthTab('login')">Giriş Yap</button>
                     <button class="auth-tab" onclick="switchAuthTab('register')">Kayıt Ol</button>
@@ -1592,8 +1522,8 @@
                 
                 <form id="loginForm" class="auth-form active" onsubmit="handleLogin(event)">
                     <div class="form-group">
-                        <label class="form-label">E-posta</label>
-                        <input type="email" class="form-input" id="loginEmail" required>
+                        <label class="form-label">Kullanıcı Adı</label>
+                        <input type="text" class="form-input" id="loginUsername" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Şifre</label>
@@ -1615,6 +1545,16 @@
                     <div class="form-group">
                         <label class="form-label">Şifre</label>
                         <input type="password" class="form-input" id="regPassword" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Profil Fotoğrafı (İsteğe Bağlı)</label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="regAvatar" accept="image/*" onchange="previewImage(this)">
+                            <label for="regAvatar" class="file-input-label">
+                                <i class="fas fa-camera"></i> Fotoğraf Seç
+                            </label>
+                        </div>
+                        <img id="avatarPreview" class="preview-image">
                     </div>
                     <div id="registerError" class="error-message hidden"></div>
                     <button type="submit" class="btn btn-primary" style="width: 100%;" id="registerBtn">Kayıt Ol</button>
@@ -1810,16 +1750,6 @@
             where,
             getDocs
         } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-        import { 
-            getAuth, 
-            signInWithPopup, 
-            GoogleAuthProvider, 
-            createUserWithEmailAndPassword, 
-            signInWithEmailAndPassword, 
-            signOut, 
-            onAuthStateChanged, 
-            updateProfile
-        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAYQ1FVg9YwQTb8kuWIfg9KHiUIHBbkpqY",
@@ -1833,19 +1763,11 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const auth = getAuth(app);
-        const googleProvider = new GoogleAuthProvider();
-
-        // Google Sign-in settings
-        googleProvider.setCustomParameters({
-            prompt: 'select_account'
-        });
 
         // Global State
         window.currentUser = null;
         window.db = db;
-        window.auth = auth;
-        window.googleProvider = googleProvider;
+        window.app = app;
 
         // Make Firebase functions available globally
         window.firebaseCollection = collection;
@@ -1864,51 +1786,21 @@
         window.firebaseRunTransaction = runTransaction;
         window.firebaseWhere = where;
         window.firebaseGetDocs = getDocs;
-        window.firebaseCreateUser = createUserWithEmailAndPassword;
-        window.firebaseSignIn = signInWithEmailAndPassword;
-        window.firebaseSignOut = signOut;
-        window.firebaseUpdateProfile = updateProfile;
-        window.firebaseSignInWithPopup = signInWithPopup;
 
-        // Auth State Listener
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                try {
-                    const userDoc = await getDoc(doc(db, 'users', user.uid));
+        // Check auth state on load
+        const initAuth = () => {
+            const userId = localStorage.getItem('onepiece_user_id');
+            if (userId) {
+                getDoc(doc(db, 'users', userId)).then(userDoc => {
                     if (userDoc.exists()) {
-                        window.currentUser = { id: user.uid, ...userDoc.data() };
-                    } else {
-                        // Create user document if doesn't exist
-                        const userData = {
-                            username: user.displayName || user.email.split('@')[0],
-                            email: user.email,
-                            avatar: user.photoURL || 'https://via.placeholder.com/150',
-                            bounty: 1000,
-                            bio: '',
-                            createdAt: new Date().toISOString(),
-                            friends: [],
-                            friendRequests: [],
-                            savedTheories: [],
-                            likedTheories: [],
-                            dislikedTheories: [],
-                            theories: 0,
-                            totalLikes: 0
-                        };
-                        await setDoc(doc(db, 'users', user.uid), userData);
-                        window.currentUser = { id: user.uid, ...userData };
+                        window.currentUser = { id: userId, ...userDoc.data() };
+                        updateUIForUser();
                     }
-                    updateUIForUser();
-                    closeModal('authModal');
-                } catch (error) {
-                    console.error('Auth state error:', error);
-                    showToast('Giriş hatası: ' + error.message);
-                }
-            } else {
-                window.currentUser = null;
+                });
             }
-        });
+        };
 
-        window.checkAuth = () => {};
+        window.initAuth = initAuth;
     </script>
 
     <script>
@@ -1958,20 +1850,21 @@
             loadAlliances();
             loadLeaderboard();
             startCountdowns();
+            
+            // Check existing auth
+            setTimeout(() => {
+                if (window.initAuth) window.initAuth();
+            }, 500);
         });
 
         // Countdown Functions
         function startCountdowns() {
-            // Manga 1175: 1 Mart 2026
             const mangaDate = new Date('2026-03-01T00:00:00').getTime();
-            // Anime 2. Sezon: 1 Nisan 2026 (tahmini)
             const animeDate = new Date('2026-04-01T00:00:00').getTime();
-            // Live Action 2. Sezon: 10 Mart 2026
             const liveActionDate = new Date('2026-03-10T00:00:00').getTime();
 
             setInterval(() => {
                 const now = new Date().getTime();
-                
                 updateCountdown('countdown1', mangaDate - now);
                 updateCountdown('countdown2', animeDate - now);
                 updateCountdown('countdown3', liveActionDate - now);
@@ -1983,21 +1876,17 @@
                 document.getElementById(elementId).textContent = "Yayınlandı!";
                 return;
             }
-            
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            document.getElementById(elementId).textContent = 
-                `${days}g ${hours}s ${minutes}d ${seconds}sn`;
+            document.getElementById(elementId).textContent = `${days}g ${hours}s ${minutes}d ${seconds}sn`;
         }
 
         // UI Functions
         function showSection(section) {
             document.querySelectorAll('.content-section').forEach(s => s.classList.add('hidden'));
             document.getElementById(section + 'Section').classList.remove('hidden');
-            
             if (section === 'chat') {
                 setTimeout(() => {
                     const container = document.getElementById('chatMessages');
@@ -2008,7 +1897,6 @@
 
         function updateUIForUser() {
             if (!window.currentUser) return;
-            
             document.getElementById('heroSection').style.display = 'none';
             document.getElementById('mainGrid').style.display = 'grid';
             document.getElementById('userSection').innerHTML = `
@@ -2016,7 +1904,6 @@
                 <img src="${window.currentUser.avatar || 'https://via.placeholder.com/40'}" class="user-avatar" onclick="openProfileModal('${window.currentUser.id}')">
                 <button class="btn btn-secondary" onclick="logout()">Çıkış</button>
             `;
-            
             loadUserFriends();
             loadFriendRequests();
         }
@@ -2024,8 +1911,6 @@
         // Auth Functions
         function openAuthModal() {
             document.getElementById('authModal').classList.add('active');
-            // Clear previous errors
-            document.getElementById('googleError').classList.add('hidden');
             document.getElementById('loginError').classList.add('hidden');
             document.getElementById('registerError').classList.add('hidden');
         }
@@ -2039,66 +1924,27 @@
             document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
             event.target.classList.add('active');
             document.getElementById(tab + 'Form').classList.add('active');
-            // Clear errors when switching tabs
             document.getElementById('loginError').classList.add('hidden');
             document.getElementById('registerError').classList.add('hidden');
         }
 
-        // FIXED Google Sign In
-        async function signInWithGoogle() {
-            const btn = document.getElementById('googleSignInBtn');
-            const errorDiv = document.getElementById('googleError');
-            
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Bağlanıyor...';
-            errorDiv.classList.add('hidden');
-            
-            try {
-                console.log('Starting Google sign in...');
-                const result = await window.firebaseSignInWithPopup(window.auth, window.googleProvider);
-                console.log('Google sign in successful:', result.user.email);
-                showToast('Google ile giriş başarılı!');
-                closeModal('authModal');
-            } catch (error) {
-                console.error('Google sign in error:', error);
-                let errorMessage = 'Giriş başarısız: ';
-                
-                switch(error.code) {
-                    case 'auth/popup-blocked':
-                        errorMessage += 'Popup engellendi. Lütfen popup izni verin.';
-                        break;
-                    case 'auth/popup-closed-by-user':
-                        errorMessage += 'Pencere kapatıldı. Tekrar deneyin.';
-                        break;
-                    case 'auth/cancelled-popup-request':
-                        errorMessage = ''; // Ignore this error
-                        return;
-                    case 'auth/account-exists-with-different-credential':
-                        errorMessage += 'Bu e-posta başka bir yöntemle kayıtlı.';
-                        break;
-                    case 'auth/network-request-failed':
-                        errorMessage += 'İnternet bağlantınızı kontrol edin.';
-                        break;
-                    default:
-                        errorMessage += error.message;
-                }
-                
-                if (errorMessage) {
-                    errorDiv.textContent = errorMessage;
-                    errorDiv.classList.remove('hidden');
-                }
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fab fa-google"></i> Google ile Giriş Yap';
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatarPreview').src = e.target.result;
+                    document.getElementById('avatarPreview').classList.add('active');
+                };
+                reader.readAsDataURL(input.files[0]);
             }
         }
 
-        // FIXED Email Login
+        // Login with username/email and password
         async function handleLogin(e) {
             e.preventDefault();
             const btn = document.getElementById('loginBtn');
             const errorDiv = document.getElementById('loginError');
-            const email = document.getElementById('loginEmail').value;
+            const usernameOrEmail = document.getElementById('loginUsername').value.trim();
             const password = document.getElementById('loginPassword').value;
             
             btn.disabled = true;
@@ -2106,41 +1952,42 @@
             errorDiv.classList.add('hidden');
             
             try {
-                console.log('Attempting login for:', email);
-                await window.firebaseSignIn(window.auth, email, password);
-                console.log('Login successful');
-                showToast('Giriş başarılı!');
-                closeModal('authModal');
-                // Clear form
-                document.getElementById('loginForm').reset();
-            } catch (error) {
-                console.error('Login error:', error);
-                let errorMessage = 'Giriş başarısız: ';
+                // Try to find user by username or email
+                const usersRef = window.firebaseCollection(window.db, 'users');
+                let q;
                 
-                switch(error.code) {
-                    case 'auth/user-not-found':
-                        errorMessage += 'Kullanıcı bulunamadı.';
-                        break;
-                    case 'auth/wrong-password':
-                        errorMessage += 'Şifre hatalı.';
-                        break;
-                    case 'auth/invalid-email':
-                        errorMessage += 'Geçersiz e-posta adresi.';
-                        break;
-                    case 'auth/user-disabled':
-                        errorMessage += 'Hesap devre dışı bırakılmış.';
-                        break;
-                    case 'auth/too-many-requests':
-                        errorMessage += 'Çok fazla deneme. Lütfen bekleyin.';
-                        break;
-                    case 'auth/network-request-failed':
-                        errorMessage += 'İnternet bağlantınızı kontrol edin.';
-                        break;
-                    default:
-                        errorMessage += error.message;
+                // Check if input looks like email
+                if (usernameOrEmail.includes('@')) {
+                    q = window.firebaseQuery(usersRef, window.firebaseWhere('email', '==', usernameOrEmail));
+                } else {
+                    q = window.firebaseQuery(usersRef, window.firebaseWhere('username', '==', usernameOrEmail));
                 }
                 
-                errorDiv.textContent = errorMessage;
+                const snapshot = await window.firebaseGetDocs(q);
+                
+                if (snapshot.empty) {
+                    throw new Error('Kullanıcı bulunamadı');
+                }
+                
+                const userDoc = snapshot.docs[0];
+                const userData = userDoc.data();
+                
+                // Check password
+                if (userData.password !== password) {
+                    throw new Error('Şifre hatalı');
+                }
+                
+                // Login successful
+                window.currentUser = { id: userDoc.id, ...userData };
+                localStorage.setItem('onepiece_user_id', userDoc.id);
+                
+                showToast('Giriş başarılı!');
+                closeModal('authModal');
+                document.getElementById('loginForm').reset();
+                updateUIForUser();
+                
+            } catch (error) {
+                errorDiv.textContent = error.message || 'Giriş başarısız';
                 errorDiv.classList.remove('hidden');
             } finally {
                 btn.disabled = false;
@@ -2148,43 +1995,62 @@
             }
         }
 
-        // FIXED Email Register
+        // Register new user
         async function handleRegister(e) {
             e.preventDefault();
             const btn = document.getElementById('registerBtn');
             const errorDiv = document.getElementById('registerError');
-            const username = document.getElementById('regUsername').value;
-            const email = document.getElementById('regEmail').value;
+            const username = document.getElementById('regUsername').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
             const password = document.getElementById('regPassword').value;
+            const avatarFile = document.getElementById('regAvatar').files[0];
             
             btn.disabled = true;
             btn.textContent = 'Kayıt yapılıyor...';
             errorDiv.classList.add('hidden');
             
             try {
-                console.log('Attempting registration for:', email);
+                // Validate inputs
+                if (username.length < 3) {
+                    throw new Error('Kullanıcı adı en az 3 karakter olmalı');
+                }
+                if (password.length < 6) {
+                    throw new Error('Şifre en az 6 karakter olmalı');
+                }
                 
                 // Check if username exists
                 const usersRef = window.firebaseCollection(window.db, 'users');
-                const q = window.firebaseQuery(usersRef, window.firebaseWhere('username', '==', username));
-                const snapshot = await window.firebaseGetDocs(q);
+                const usernameQuery = window.firebaseQuery(usersRef, window.firebaseWhere('username', '==', username));
+                const usernameSnapshot = await window.firebaseGetDocs(usernameQuery);
                 
-                if (!snapshot.empty) {
-                    throw new Error('Bu kullanıcı adı zaten alınmış.');
+                if (!usernameSnapshot.empty) {
+                    throw new Error('Bu kullanıcı adı zaten alınmış');
                 }
                 
-                const userCredential = await window.firebaseCreateUser(window.auth, email, password);
-                console.log('User created:', userCredential.user.uid);
+                // Check if email exists
+                const emailQuery = window.firebaseQuery(usersRef, window.firebaseWhere('email', '==', email));
+                const emailSnapshot = await window.firebaseGetDocs(emailQuery);
                 
-                await window.firebaseUpdateProfile(userCredential.user, {
-                    displayName: username,
-                    photoURL: 'https://via.placeholder.com/150'
-                });
+                if (!emailSnapshot.empty) {
+                    throw new Error('Bu e-posta adresi zaten kayıtlı');
+                }
                 
+                // Process avatar
+                let avatarBase64 = 'https://via.placeholder.com/150';
+                if (avatarFile) {
+                    avatarBase64 = await new Promise((resolve) => {
+                        const reader = new FileReader();
+                        reader.onload = (e) => resolve(e.target.result);
+                        reader.readAsDataURL(avatarFile);
+                    });
+                }
+                
+                // Create user document with auto-generated ID
                 const userData = {
                     username,
                     email,
-                    avatar: 'https://via.placeholder.com/150',
+                    password, // In production, this should be hashed!
+                    avatar: avatarBase64,
                     bounty: 1000,
                     bio: '',
                     createdAt: new Date().toISOString(),
@@ -2197,39 +2063,20 @@
                     totalLikes: 0
                 };
                 
-                await window.firebaseSetDoc(window.firebaseDoc(window.db, 'users', userCredential.user.uid), userData);
-                console.log('User document created');
+                const docRef = await window.firebaseAddDoc(usersRef, userData);
+                
+                // Auto login
+                window.currentUser = { id: docRef.id, ...userData };
+                localStorage.setItem('onepiece_user_id', docRef.id);
                 
                 showToast('Kayıt başarılı! 1000 Bounty kazandınız!');
                 closeModal('authModal');
                 document.getElementById('registerForm').reset();
+                document.getElementById('avatarPreview').classList.remove('active');
+                updateUIForUser();
                 
             } catch (error) {
-                console.error('Registration error:', error);
-                let errorMessage = 'Kayıt başarısız: ';
-                
-                if (error.message === 'Bu kullanıcı adı zaten alınmış.') {
-                    errorMessage += error.message;
-                } else {
-                    switch(error.code) {
-                        case 'auth/email-already-in-use':
-                            errorMessage += 'Bu e-posta adresi zaten kullanımda.';
-                            break;
-                        case 'auth/invalid-email':
-                            errorMessage += 'Geçersiz e-posta adresi.';
-                            break;
-                        case 'auth/weak-password':
-                            errorMessage += 'Şifre çok zayıf (en az 6 karakter).';
-                            break;
-                        case 'auth/network-request-failed':
-                            errorMessage += 'İnternet bağlantınızı kontrol edin.';
-                            break;
-                        default:
-                            errorMessage += error.message;
-                    }
-                }
-                
-                errorDiv.textContent = errorMessage;
+                errorDiv.textContent = error.message || 'Kayıt başarısız';
                 errorDiv.classList.remove('hidden');
             } finally {
                 btn.disabled = false;
@@ -2238,11 +2085,9 @@
         }
 
         function logout() {
-            window.firebaseSignOut(window.auth).then(() => {
-                location.reload();
-            }).catch((error) => {
-                showToast('Çıkış hatası: ' + error.message);
-            });
+            window.currentUser = null;
+            localStorage.removeItem('onepiece_user_id');
+            location.reload();
         }
 
         // Profile Functions
@@ -2305,7 +2150,6 @@
         function toggleEditProfile() {
             const form = document.getElementById('editProfileForm');
             form.classList.toggle('hidden');
-            
             if (!form.classList.contains('hidden')) {
                 document.getElementById('editBio').value = window.currentUser.bio || '';
             }
@@ -2336,14 +2180,9 @@
                         reader.readAsDataURL(avatarFile);
                     });
                     updates.avatar = avatarBase64;
-                    
-                    await window.firebaseUpdateProfile(window.auth.currentUser, {
-                        photoURL: avatarBase64
-                    });
                 }
                 
                 await window.firebaseUpdateDoc(window.firebaseDoc(window.db, 'users', window.currentUser.id), updates);
-                
                 window.currentUser = { ...window.currentUser, ...updates };
                 showToast('Profil güncellendi!');
                 toggleEditProfile();
@@ -2376,7 +2215,7 @@
         }
 
         async function sendFriendRequest() {
-            const username = document.getElementById('friendUsername').value;
+            const username = document.getElementById('friendUsername').value.trim();
             if (!username) return;
             
             if (username === window.currentUser.username) {
@@ -2418,6 +2257,7 @@
                 
                 showToast('Arkadaşlık isteği gönderildi!');
                 closeModal('friendModal');
+                document.getElementById('friendUsername').value = '';
             } catch (error) {
                 showToast('Hata: ' + error.message);
             }
@@ -2425,7 +2265,6 @@
 
         async function loadFriendRequests() {
             if (!window.currentUser) return;
-            
             const list = document.getElementById('friendRequestsList');
             const requests = window.currentUser.friendRequests || [];
             
@@ -2454,11 +2293,9 @@
                     friends: window.firebaseArrayUnion(userId),
                     friendRequests: window.currentUser.friendRequests.filter(r => r.from !== userId)
                 });
-                
                 await window.firebaseUpdateDoc(window.firebaseDoc(window.db, 'users', userId), {
                     friends: window.firebaseArrayUnion(window.currentUser.id)
                 });
-                
                 showToast('Arkadaşlık isteği kabul edildi!');
                 openProfileModal(window.currentUser.id);
                 loadUserFriends();
@@ -2481,7 +2318,6 @@
 
         async function loadUserFriends() {
             if (!window.currentUser || !window.currentUser.friends) return;
-            
             const list = document.getElementById('friendsList');
             if (window.currentUser.friends.length === 0) {
                 list.innerHTML = '<p style="opacity: 0.7; font-size: 0.9rem;">Henüz arkadaşınız yok.</p>';
@@ -2591,7 +2427,6 @@
             try {
                 const theoryRef = window.firebaseDoc(window.db, 'theories', theoryId);
                 const theoryDoc = await window.firebaseGetDoc(theoryRef);
-                
                 if (!theoryDoc.exists()) return;
                 
                 const data = theoryDoc.data();
@@ -2599,7 +2434,6 @@
                 const alreadyDisliked = data.dislikedBy?.includes(window.currentUser.id);
                 
                 if (like && alreadyLiked) {
-                    // Unlike
                     await window.firebaseUpdateDoc(theoryRef, {
                         likes: (data.likes || 0) - 1,
                         likedBy: window.firebaseArrayRemove(window.currentUser.id)
@@ -2608,7 +2442,6 @@
                         likedTheories: window.firebaseArrayRemove(theoryId)
                     });
                 } else if (like && !alreadyLiked) {
-                    // Like
                     let updates = {
                         likes: (data.likes || 0) + 1,
                         likedBy: window.firebaseArrayUnion(window.currentUser.id)
@@ -2647,7 +2480,6 @@
             try {
                 const theoryRef = window.firebaseDoc(window.db, 'theories', theoryId);
                 const theoryDoc = await window.firebaseGetDoc(theoryRef);
-                
                 if (!theoryDoc.exists()) return;
                 
                 const data = theoryDoc.data();
@@ -2655,7 +2487,6 @@
                 const alreadyLiked = data.likedBy?.includes(window.currentUser.id);
                 
                 if (dislike && alreadyDisliked) {
-                    // Remove dislike
                     await window.firebaseUpdateDoc(theoryRef, {
                         dislikes: (data.dislikes || 0) - 1,
                         dislikedBy: window.firebaseArrayRemove(window.currentUser.id)
@@ -2664,7 +2495,6 @@
                         dislikedTheories: window.firebaseArrayRemove(theoryId)
                     });
                 } else if (dislike && !alreadyDisliked) {
-                    // Dislike
                     let updates = {
                         dislikes: (data.dislikes || 0) + 1,
                         dislikedBy: window.firebaseArrayUnion(window.currentUser.id)
@@ -2944,8 +2774,6 @@
                 const allianceRef = window.firebaseDoc(window.db, 'alliances', allianceId);
                 const allianceDoc = await window.firebaseGetDoc(allianceRef);
                 const a = allianceDoc.data();
-                
-                const member = a.members.find(m => m.id === window.currentUser.id);
                 
                 await window.firebaseUpdateDoc(allianceRef, {
                     members: a.members.filter(m => m.id !== window.currentUser.id),
